@@ -75,8 +75,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View view, boolean b) {
                 int color = b ? Color.parseColor("#3498db"): Color.GRAY;
-                textInputLayoutPassword.setStartIconTintList(ColorStateList.valueOf(color));
-            }
+                textInputLayoutPassword.setStartIconTintList(ColorStateList.valueOf(color));}
         });
 
         // 로그인
@@ -106,6 +105,7 @@ public class LoginActivity extends AppCompatActivity {
                                         Intent intent = new Intent(LoginActivity.this, MyInformation.class);
                                         startActivity(intent);
                                         finish();
+                                        break;
                                 }
                             } else {
                                 showDialog(userRes.getError());

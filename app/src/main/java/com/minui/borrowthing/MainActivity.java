@@ -6,6 +6,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.app.ProgressDialog;
@@ -27,10 +29,16 @@ import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.minui.borrowthing.adapter.BorrowAdapter;
+import com.minui.borrowthing.adapter.CommunityAdapter;
 import com.minui.borrowthing.config.Config;
 import com.minui.borrowthing.config.LocationApi;
 import com.minui.borrowthing.config.NetworkClient;
+import com.minui.borrowthing.model.Borrow;
+import com.minui.borrowthing.model.Community;
 import com.minui.borrowthing.model.Result;
+
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;

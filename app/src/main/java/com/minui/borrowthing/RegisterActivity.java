@@ -9,6 +9,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +23,7 @@ import com.minui.borrowthing.config.NetworkClient;
 import com.minui.borrowthing.model.User;
 import com.minui.borrowthing.model.UserRes;
 
+import java.io.IOException;
 import java.util.regex.Pattern;
 
 import retrofit2.Call;
@@ -113,19 +115,34 @@ public class RegisterActivity extends AppCompatActivity {
                         dismissProgress();
                         if (response.isSuccessful()) {
                             UserRes userRes = response.body();
-                            if (userRes.getError() == null) {
-                                SharedPreferences sp = getApplication().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
-                                SharedPreferences.Editor editor = sp.edit();
-                                editor.putString("accessToken", userRes.getAccess_token());
-                                editor.apply();
-                                switch(getIntent().getStringExtra("activity")) {
-                                    case "information":
-                                        Intent intent = new Intent(RegisterActivity.this, MyInformation.class);
-                                        startActivity(intent);
-                                        finish();
+                            SharedPreferences sp = getApplication().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sp.edit();
+                            editor.putString("accessToken", userRes.getAccess_token());
+                            editor.apply();
+                            switch(getIntent().getStringExtra("activity")) {
+                                case "information":
+                                    Intent intent = new Intent(RegisterActivity.this, MyInformation.class);
+                                    startActivity(intent);
+                                    finish();
+                                    break;
+                            }
+                        } else {
+                            try {
+                                String body = response.errorBody().string();
+                                switch(body.split("users.")[1].split("_")[0]) {
+                                    case "email":
+                                        showDialog("중복된 이메일입니다.");
+                                        break;
+                                    case "phoneNumber":
+                                        showDialog("중복된 번호입니다.");
+                                        break;
+                                    case "nickname":
+                                        showDialog("중복된 닉네임입니다.");
+                                        break;
                                 }
-                            } else {
-                                showDialog(userRes.getError());
+                                Log.e("test", body.split("users.")[1].split("_")[0]);
+                            }   catch (IOException e) {
+                                e.printStackTrace();
                             }
                         }
                     }

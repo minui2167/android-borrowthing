@@ -3,12 +3,21 @@ package com.minui.borrowthing;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import com.minui.borrowthing.adapter.BorrowAdapter;
+import com.minui.borrowthing.adapter.CommunityAdapter;
+import com.minui.borrowthing.model.Borrow;
+import com.minui.borrowthing.model.Community;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,9 +35,10 @@ public class FirstFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    Button btn1;
-    Button btn2;
-    Button btn3;
+    // 리사이클러 뷰 관련 멤버변수 3개
+    RecyclerView recyclerView;
+    BorrowAdapter adapter;
+    ArrayList<Borrow> borrowList = new ArrayList<>();
 
     public FirstFragment() {
         // Required empty public constructor
@@ -66,6 +76,24 @@ public class FirstFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_first, container, false);
+
+        recyclerView = rootView.findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        Borrow borrow = new Borrow();
+        borrow.setTxtTitle("테스트");
+        borrow.setTxtPrice("1234");
+        borrow.setTxtTag("태그");
+        borrow.setTraded(0);
+        borrowList.clear();
+        borrowList.add(borrow);
+        borrowList.add(borrow);
+        borrowList.add(borrow);
+        borrowList.add(borrow);
+
+        adapter = new BorrowAdapter(getContext(), borrowList);
+        recyclerView.setAdapter(adapter);
 
         return rootView;
     }
