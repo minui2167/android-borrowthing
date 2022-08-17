@@ -67,6 +67,8 @@ public class MyInformation extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // todo 로그아웃 구성
+
+
             }
         });
 
