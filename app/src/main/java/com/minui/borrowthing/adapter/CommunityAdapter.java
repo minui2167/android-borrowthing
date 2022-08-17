@@ -8,7 +8,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.minui.borrowthing.R;
@@ -29,7 +28,7 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.community_low, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.community_row, parent, false);
         return new ViewHolder(view);
     }
 
