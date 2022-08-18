@@ -77,6 +77,7 @@ public class ThirdFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        communityList.clear();
         Community community = new Community();
         community.setTitle("테스트데이터123123412312312312312323213213");
         community.setContent("가나다라마바사아자차카타파하아나다우라자아자나아라나아자다아마라하하하하하하하하하하하하하하하하하하하하하");

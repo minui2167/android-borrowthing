@@ -6,12 +6,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.app.ProgressDialog;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,25 +17,17 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
-import com.minui.borrowthing.adapter.BorrowAdapter;
-import com.minui.borrowthing.adapter.CommunityAdapter;
 import com.minui.borrowthing.config.Config;
 import com.minui.borrowthing.config.LocationApi;
 import com.minui.borrowthing.config.NetworkClient;
-import com.minui.borrowthing.model.Borrow;
-import com.minui.borrowthing.model.Community;
 import com.minui.borrowthing.model.Result;
-
-import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -63,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
     // 변수
     public static Context context; // 액티비티 접근
     String accessToken; // 로그인 토큰
-    boolean login; // 로그인 했는지
     boolean hidden = false; // 액션바 메뉴 감출건지
     boolean alarm = false; // 알람 했는지 todo 서버에서 받기
     ActionBar ac; // 액션바
@@ -72,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
     String region; // 지역명
     double longitude; // 위도
     double latitude; // 경도
-    String activity;
 
     // 위치
     LocationManager locationManager;
@@ -86,13 +73,6 @@ public class MainActivity extends AppCompatActivity {
 
         // 객체 대입
         context = this;
-
-        // 로그인 확인
-        SharedPreferences sp = getApplication().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
-        accessToken = sp.getString("accessToken", "");
-        if (accessToken.isEmpty()) {
-            login = false;
-        }
 
         // 액션바 제목 백버튼 설정
         ac = getSupportActionBar();
@@ -149,14 +129,13 @@ public class MainActivity extends AppCompatActivity {
                     ac.setHomeAsUpIndicator(R.drawable.ic_back_30);
                     category = false;
                 } else if (itemId == R.id.forthFragment) {
-                    if (login) {
+                    if (isLogin()) {
                         fragment = forthFragment;
                         ac.setTitle("내 정보");
                         hidden = false;
                         ac.setHomeAsUpIndicator(R.drawable.ic_back_30);
                         category = false;
                     } else {
-                        activity = "information";
                         login();
                         return false;
                     }
@@ -248,7 +227,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // 프래그먼트 로드
-    private boolean loadFragment(Fragment fragment) {
+    public boolean loadFragment(Fragment fragment) {
         if(fragment != null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment, fragment).commit();
             return true;
@@ -273,7 +252,7 @@ public class MainActivity extends AppCompatActivity {
         int itemId = item.getItemId();
 
         if (itemId == R.id.menuChat) {
-              if (login) {
+              if (isLogin()) {
                   fragment = chatFragment;
                   loadFragment(fragment);
                   hidden = true;
@@ -281,7 +260,6 @@ public class MainActivity extends AppCompatActivity {
                   ac.setTitle("채팅");
                   category = false;
               } else {
-                  activity = "chat";
                   login();
                   return false;
               }
@@ -323,9 +301,17 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    boolean isLogin() {
+        SharedPreferences sp = getApplication().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+        accessToken = sp.getString("accessToken", "");
+        if (accessToken.isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+
     void login() {
         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-        intent.putExtra("activity", activity);
         startActivity(intent);
     }
 }

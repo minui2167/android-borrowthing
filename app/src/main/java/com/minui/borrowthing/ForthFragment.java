@@ -1,5 +1,11 @@
 package com.minui.borrowthing;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import static com.minui.borrowthing.MainActivity.context;
+
+import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,6 +13,17 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+
+import com.minui.borrowthing.api.UserApi;
+import com.minui.borrowthing.config.Config;
+import com.minui.borrowthing.config.NetworkClient;
+import com.minui.borrowthing.model.UserRes;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +40,16 @@ public class ForthFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    Button btnInformation;
+    Button btnInterestsList;
+    Button btnMyWrote;
+    Button btnMyLocation;
+    Button btnTransaction;
+    Button btnLogout;
+
+    // 네트워크 처리 보여주는 프로그램 다이얼로그
+    ProgressDialog dialog;
 
     public ForthFragment() {
         // Required empty public constructor
@@ -59,6 +86,95 @@ public class ForthFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_forth, container, false);
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_forth, container, false);
+
+        btnInformation = rootView.findViewById(R.id.btnInformation);
+        btnInterestsList = rootView.findViewById(R.id.btnInterestsList);
+        btnMyWrote = rootView.findViewById(R.id.btnMyWrote);
+        btnMyLocation = rootView.findViewById(R.id.btnMyLocation);
+        btnTransaction = rootView.findViewById(R.id.btnTransaction);
+        btnLogout = rootView.findViewById(R.id.btnLogout);
+
+        btnInformation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // todo 내정보 수정하는 화면 구성
+            }
+        });
+
+        btnInterestsList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // todo 내 관심 목록 불러오기
+            }
+        });
+
+        btnMyWrote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // todo 내가 쓴 글 목록 불러오기
+            }
+        });
+
+        btnMyLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // todo 내 현재 위치 설정
+            }
+        });
+
+        btnTransaction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // todo 거래내역 불러오기
+            }
+        });
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                showProgress("로그아웃 중입니다.");
+                Retrofit retrofit = NetworkClient.getRetrofitClient(Config.BASE_URL);
+                UserApi userApi = retrofit.create(UserApi.class);
+
+                SharedPreferences sp = getActivity().getApplication().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+                String accessToken = sp.getString("accessToken", "");
+
+                Call<UserRes> call = userApi.logout("Bearer " + accessToken);
+                call.enqueue(new Callback<UserRes>() {
+                    @Override
+                    public void onResponse(Call<UserRes> call, Response<UserRes> response) {
+                        dismissProgress();
+                        if(response.isSuccessful()) {
+                            SharedPreferences sp = getActivity().getApplication().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sp.edit();
+                            editor.putString("accessToken", "");
+                            editor.apply();
+                            ((MainActivity) context).loadFragment(((MainActivity) context).firstFragment);
+                            ((MainActivity) context).navigationView.setSelectedItemId(R.id.firstFragment);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<UserRes> call, Throwable t) {
+                        dismissProgress();
+                    }
+                });
+            }
+        });
+
+        return rootView;
+    }
+
+    void showProgress(String message) {
+        dialog = new ProgressDialog(getContext());
+        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        dialog.setMessage(message);
+        dialog.show();
+    }
+
+    void dismissProgress() {
+        dialog.dismiss();
     }
 }

@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class UserRes implements Serializable {
     private String result;
-    private String access_token;
+    private String accessToken;
     private String error;
 
     public String getResult() {
@@ -15,12 +15,12 @@ public class UserRes implements Serializable {
         this.result = result;
     }
 
-    public String getAccess_token() {
-        return access_token;
+    public String getAccessToken() {
+        return accessToken;
     }
 
     public void setAccess_token(String access_token) {
-        this.access_token = access_token;
+        this.accessToken = access_token;
     }
 
     public String getError() {

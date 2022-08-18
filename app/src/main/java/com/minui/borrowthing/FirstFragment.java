@@ -6,16 +6,12 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.minui.borrowthing.adapter.BorrowAdapter;
-import com.minui.borrowthing.adapter.CommunityAdapter;
-import com.minui.borrowthing.model.Borrow;
-import com.minui.borrowthing.model.Community;
+import com.minui.borrowthing.model.item;
 
 import java.util.ArrayList;
 
@@ -38,7 +34,7 @@ public class FirstFragment extends Fragment {
     // 리사이클러 뷰 관련 멤버변수 3개
     RecyclerView recyclerView;
     BorrowAdapter adapter;
-    ArrayList<Borrow> borrowList = new ArrayList<>();
+    ArrayList<item> itemList = new ArrayList<>();
 
     public FirstFragment() {
         // Required empty public constructor
@@ -81,18 +77,18 @@ public class FirstFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        Borrow borrow = new Borrow();
-        borrow.setTxtTitle("테스트");
-        borrow.setTxtPrice("1234");
-        borrow.setTxtTag("태그");
-        borrow.setTraded(0);
-        borrowList.clear();
-        borrowList.add(borrow);
-        borrowList.add(borrow);
-        borrowList.add(borrow);
-        borrowList.add(borrow);
+        item item = new item();
+        item.setTitle("테스트1234");
+        item.setContent("테스트1234");
+        item.setPrice(123);
+        item.setStatus(0);
+        itemList.clear();
+        itemList.add(item);
+        itemList.add(item);
+        itemList.add(item);
+        itemList.add(item);
 
-        adapter = new BorrowAdapter(getContext(), borrowList);
+        adapter = new BorrowAdapter(getContext(), itemList, null);
         recyclerView.setAdapter(adapter);
 
         return rootView;

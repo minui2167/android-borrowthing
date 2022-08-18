@@ -1,5 +1,7 @@
 package com.minui.borrowthing;
 
+import static com.minui.borrowthing.MainActivity.context;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
@@ -117,15 +119,9 @@ public class RegisterActivity extends AppCompatActivity {
                             UserRes userRes = response.body();
                             SharedPreferences sp = getApplication().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
                             SharedPreferences.Editor editor = sp.edit();
-                            editor.putString("accessToken", userRes.getAccess_token());
+                            editor.putString("accessToken", userRes.getAccessToken());
                             editor.apply();
-                            switch(getIntent().getStringExtra("activity")) {
-                                case "information":
-                                    Intent intent = new Intent(RegisterActivity.this, MyInformation.class);
-                                    startActivity(intent);
-                                    finish();
-                                    break;
-                            }
+                            finish();
                         } else {
                             try {
                                 String body = response.errorBody().string();

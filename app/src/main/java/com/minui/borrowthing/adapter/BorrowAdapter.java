@@ -9,22 +9,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.minui.borrowthing.R;
-import com.minui.borrowthing.model.Borrow;
+import com.minui.borrowthing.model.itemImage;
+import com.minui.borrowthing.model.item;
 
 import java.util.List;
 
 public class BorrowAdapter extends RecyclerView.Adapter<BorrowAdapter.ViewHolder> {
 
     Context context;
-    List<Borrow> borrowList;
+    List<item> itemList;
+    List<itemImage> itemImageList;
 
-    public BorrowAdapter(Context context, List<Borrow> borrowList) {
+    public BorrowAdapter(Context context, List<item> itemList, List<itemImage> itemImageList) {
         this.context = context;
-        this.borrowList = borrowList;
+        this.itemList = itemList;
+        this.itemImageList = itemImageList;
     }
 
     @NonNull
@@ -37,23 +39,23 @@ public class BorrowAdapter extends RecyclerView.Adapter<BorrowAdapter.ViewHolder
     @SuppressLint("WrongConstant")
     @Override
     public void onBindViewHolder(@NonNull BorrowAdapter.ViewHolder holder, int position) {
-        Borrow borrow = borrowList.get(position);
+        item item = itemList.get(position);
+        // itemImage itemImage = itemImageList.get(position);
 
         // todo 이미지 불러오기
         holder.imgBorrow.setImageResource(R.drawable.ic_photo);
-        holder.txtTitle.setText(borrow.getTxtTitle());
-        holder.txtPrice.setText(borrow.getTxtPrice());
-        holder.txtTag.setText(borrow.getTxtTag());
-        holder.txtTrade.setVisibility(borrow.getTraded());
+        holder.txtTitle.setText(item.getTitle());
+        holder.txtPrice.setText(item.getPrice() + "");
+        //holder.txtTag.setText(item.getTag);
+        holder.txtTrade.setVisibility(item.getStatus());
     }
 
     @Override
     public int getItemCount() {
-        return borrowList.size();
+        return itemList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        CardView cardView;
         ImageView imgBorrow;
         TextView txtTitle;
         TextView txtPrice;
@@ -62,19 +64,11 @@ public class BorrowAdapter extends RecyclerView.Adapter<BorrowAdapter.ViewHolder
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            cardView = itemView.findViewById(R.id.cardView);
             imgBorrow = itemView.findViewById(R.id.imgBorrow);
             txtTitle = itemView.findViewById(R.id.txtTitle);
             txtPrice = itemView.findViewById(R.id.txtPrice);
             txtTag = itemView.findViewById(R.id.txtTag);
             txtTrade = itemView.findViewById(R.id.txtTrade);
-
-            cardView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                }
-            });
         }
     }
 }
