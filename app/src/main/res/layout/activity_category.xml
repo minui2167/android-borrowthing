@@ -6,131 +6,182 @@
     android:layout_height="match_parent"
     tools:context=".CategoryActivity">
 
-    <com.google.android.material.chip.Chip
-        android:id="@+id/chip1"
-        android:layout_width="120dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginBottom="80dp"
-        android:checkable="true"
-        android:text="도서"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        app:checkedIconEnabled="false"
-        app:checkedIconTint="#FFFFFF"
-        app:checkedIconVisible="false"
-        app:chipBackgroundColor="@color/bg_chip_state_list"
-        app:chipCornerRadius="7sp"
-        app:chipIconVisible="false"
-        app:chipMinHeight="50sp"
-        app:layout_constraintBottom_toTopOf="@+id/chip3"
-        app:layout_constraintStart_toStartOf="parent"
-        app:rippleColor="@null" />
-
-    <com.google.android.material.chip.Chip
-        android:id="@+id/chip2"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="60dp"
-        android:layout_marginBottom="80dp"
-        android:checkable="true"
-        android:text="게임"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        app:checkedIconEnabled="false"
-        app:checkedIconTint="#FFFFFF"
-        app:checkedIconVisible="false"
-        app:chipBackgroundColor="@color/bg_chip_state_list"
-        app:chipCornerRadius="7sp"
-        app:chipIconVisible="false"
-        app:chipMinHeight="50sp"
-        app:layout_constraintBottom_toTopOf="@+id/chip4"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:rippleColor="@null" />
-
-    <com.google.android.material.chip.Chip
-        android:id="@+id/chip3"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="200dp"
-        android:checkable="true"
-        android:text="탈것"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        app:checkedIconEnabled="false"
-        app:checkedIconTint="#FFFFFF"
-        app:checkedIconVisible="false"
-        app:chipBackgroundColor="@color/bg_chip_state_list"
-        app:chipCornerRadius="7sp"
-        app:chipIconVisible="false"
-        app:chipMinHeight="50sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:rippleColor="@null" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <com.google.android.material.chip.Chip
-        android:id="@+id/chip4"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
-        android:layout_marginEnd="60dp"
-        android:checkable="true"
-        android:text="책"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        app:checkedIconEnabled="false"
-        app:checkedIconTint="#FFFFFF"
-        app:checkedIconVisible="false"
-        app:chipBackgroundColor="@color/bg_chip_state_list"
-        app:chipCornerRadius="7sp"
-        app:chipIconVisible="false"
-        app:chipMinHeight="50sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:rippleColor="@null" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-    <com.google.android.material.chip.Chip
-        android:id="@+id/chip5"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="80dp"
-        android:checkable="true"
-        android:text="공구"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        app:checkedIconEnabled="false"
-        app:checkedIconTint="#FFFFFF"
-        app:checkedIconVisible="false"
-        app:chipBackgroundColor="@color/bg_chip_state_list"
-        app:chipCornerRadius="7sp"
-        app:chipIconVisible="false"
-        app:chipMinHeight="50sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chip3"
-        app:rippleColor="@null" />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip1"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+                android:checkable="true"
+                android:drawableTop="@drawable/book"
+                android:text="도서"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                app:checkedIconEnabled="false"
+                app:checkedIconTint="#FFFFFF"
+                app:checkedIconVisible="false"
+                app:chipBackgroundColor="@color/ic_launcher_background"
+                app:chipCornerRadius="7sp"
+                app:chipIconVisible="false"
+                app:chipMinHeight="50sp"
+                app:rippleColor="@null" />
 
-    <com.google.android.material.chip.Chip
-        android:id="@+id/chip6"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="60dp"
-        android:checkable="true"
-        android:text="기타"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        app:checkedIconEnabled="false"
-        app:checkedIconTint="#FFFFFF"
-        app:checkedIconVisible="false"
-        app:chipBackgroundColor="@color/bg_chip_state_list"
-        app:chipCornerRadius="7sp"
-        app:chipIconVisible="false"
-        app:chipMinHeight="50sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chip4"
-        app:rippleColor="@null" />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip2"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+                android:checkable="true"
+                android:drawableTop="@drawable/ic_tv"
+                android:text="디지털기기"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                app:checkedIconEnabled="false"
+                app:checkedIconTint="#FFFFFF"
+                app:checkedIconVisible="false"
+                app:chipBackgroundColor="@color/ic_launcher_background"
+                app:chipCornerRadius="7sp"
+                app:chipIconVisible="false"
+                app:chipMinHeight="50sp"
+                app:rippleColor="@null" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip3"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:checkable="true"
+                    android:drawableTop="@drawable/blander"
+                    android:text="생활가전"
+                    android:textAlignment="center"
+                    android:textSize="24sp"
+                    app:checkedIconEnabled="false"
+                    app:checkedIconTint="#FFFFFF"
+                    app:checkedIconVisible="false"
+                    app:chipBackgroundColor="@color/ic_launcher_background"
+                    app:chipCornerRadius="7sp"
+                    app:chipIconVisible="false"
+                    app:chipMinHeight="50sp"
+                    app:rippleColor="@null" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip4"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:checkable="true"
+                    android:drawableTop="@drawable/sports"
+                    android:text="스포츠/레저"
+                    android:textAlignment="center"
+                    android:textSize="24sp"
+                    app:checkedIconEnabled="false"
+                    app:checkedIconTint="#FFFFFF"
+                    app:checkedIconVisible="false"
+                    app:chipBackgroundColor="@color/ic_launcher_background"
+                    app:chipCornerRadius="7sp"
+                    app:chipIconVisible="false"
+                    app:chipMinHeight="50sp"
+                    app:rippleColor="@null" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip5"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:checkable="true"
+                    android:drawableTop="@drawable/game"
+                    android:text="취미/게임"
+                    android:textAlignment="center"
+                    android:textSize="24sp"
+                    app:checkedIconEnabled="false"
+                    app:checkedIconTint="#FFFFFF"
+                    app:checkedIconVisible="false"
+                    app:chipBackgroundColor="@color/ic_launcher_background"
+                    app:chipCornerRadius="7sp"
+                    app:chipIconVisible="false"
+                    app:chipMinHeight="50sp"
+                    app:rippleColor="@null" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip6"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:checkable="true"
+                    android:drawableTop="@drawable/clothes"
+                    android:text="의류"
+                    android:textAlignment="center"
+                    android:textSize="24sp"
+                    app:checkedIconEnabled="false"
+                    app:checkedIconTint="#FFFFFF"
+                    app:checkedIconVisible="false"
+                    app:chipBackgroundColor="@color/ic_launcher_background"
+                    app:chipCornerRadius="7sp"
+                    app:chipIconVisible="false"
+                    app:chipMinHeight="50sp"
+                    app:rippleColor="@null" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
