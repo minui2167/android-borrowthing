@@ -23,7 +23,7 @@
             android:orientation="horizontal">
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/chip1"
+                android:id="@+id/chipBook"
                 android:layout_width="160dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -45,7 +45,7 @@
                 app:rippleColor="@null" />
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/chip2"
+                android:id="@+id/chipTv"
                 android:layout_width="160dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -79,7 +79,7 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/chip3"
+                    android:id="@+id/chipHouse"
                     android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -101,7 +101,7 @@
                     app:rippleColor="@null" />
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/chip4"
+                    android:id="@+id/chipSports"
                     android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -136,7 +136,7 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/chip5"
+                    android:id="@+id/chipGame"
                     android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -158,7 +158,7 @@
                     app:rippleColor="@null" />
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/chip6"
+                    android:id="@+id/chipClothes"
                     android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"

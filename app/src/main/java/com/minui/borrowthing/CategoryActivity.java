@@ -5,24 +5,21 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CompoundButton;
 
 import com.google.android.material.chip.Chip;
 
-import java.util.ArrayList;
-
 public class CategoryActivity extends AppCompatActivity {
 
     // ui
-    Chip chip1;
-    Chip chip2;
-    Chip chip3;
-    Chip chip4;
-    Chip chip5;
-    Chip chip6;
+    Chip chipBook;
+    Chip chipTv;
+    Chip chipHouse;
+    Chip chipSports;
+    Chip chipGame;
+    Chip chipClothes;
 
     Boolean[] chips = new Boolean[6];
 
@@ -36,43 +33,43 @@ public class CategoryActivity extends AppCompatActivity {
         ac.setTitle("카테고리");
         ac.setDisplayHomeAsUpEnabled(true);
 
-        chip1 = findViewById(R.id.chip1);
-        chip2 = findViewById(R.id.chip2);
-        chip3 = findViewById(R.id.chip3);
-        chip4 = findViewById(R.id.chip4);
-        chip5 = findViewById(R.id.chip5);
-        chip6 = findViewById(R.id.chip6);
-        chip1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        chipBook = findViewById(R.id.chipBook);
+        chipTv = findViewById(R.id.chipTv);
+        chipHouse = findViewById(R.id.chipHouse);
+        chipSports = findViewById(R.id.chipSports);
+        chipGame = findViewById(R.id.chipGame);
+        chipClothes = findViewById(R.id.chipClothes);
+        chipBook.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 chips[0] = b;
             }
         });
-        chip2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        chipTv.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 chips[1] = b;
             }
         });
-        chip3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        chipHouse.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 chips[2] = b;
             }
         });
-        chip4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        chipSports.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 chips[3] = b;
             }
         });
-        chip5.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        chipGame.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 chips[4] = b;
             }
         });
-        chip6.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        chipClothes.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 chips[5] = b;
