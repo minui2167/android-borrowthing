@@ -24,10 +24,16 @@ import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.minui.borrowthing.api.UserApi;
 import com.minui.borrowthing.config.Config;
 import com.minui.borrowthing.config.LocationApi;
 import com.minui.borrowthing.config.NetworkClient;
 import com.minui.borrowthing.model.Result;
+import com.minui.borrowthing.model.UserRes;
+import com.minui.borrowthing.model.UsersLike;
+import com.minui.borrowthing.model.UsersLikeItem;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -164,7 +170,9 @@ public class MainActivity extends AppCompatActivity {
                         if (response.isSuccessful()) {
                             result = response.body();
                             region = result.getResults()[0].getRegion().getArea3().getName();
-                            ac.setTitle(region);
+                            if (navigationView.getSelectedItemId() == R.id.firstFragment) {
+                                ac.setTitle(region);
+                            }
                             if (!asyncDialog.isShowing()) {
                                 return;
                             }
@@ -187,6 +195,7 @@ public class MainActivity extends AppCompatActivity {
             Log.i("test", "test2");
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, -1, 3, locationListener);
         }
+
     }
 
     void openMap() {
@@ -299,6 +308,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void setLike(int index) {
+        ((ThirdFragment) thirdFragment).setLike(index);
     }
 
     boolean isLogin() {

@@ -7,171 +7,65 @@
     tools:context=".ThirdFragment">
 
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <Button
-                android:id="@+id/btnPopularity"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="60dp"
-                android:layout_marginRight="60dp"
-                android:layout_weight="1"
-                android:text="인기"
-                app:icon="@drawable/ic_fire" />
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/btnLatest"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="60dp"
-                android:layout_weight="1"
-                android:text="최신"
-                app:icon="@drawable/ic_flash"
-                app:iconTint="#FFFFFF" />
+                <Button
+                    android:id="@+id/btnPopularity"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="60dp"
+                    android:layout_marginRight="60dp"
+                    android:layout_weight="1"
+                    android:text="인기"
+                    app:icon="@drawable/ic_fire" />
+
+                <Button
+                    android:id="@+id/btnLatest"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="60dp"
+                    android:layout_weight="1"
+                    android:text="최신"
+                    app:icon="@drawable/ic_flash"
+                    app:iconTint="#FFFFFF" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center_horizontal"
-        android:layout_marginBottom="30dp"
-        android:orientation="horizontal">
-
-        <androidx.cardview.widget.CardView
-            app:cardCornerRadius="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1">
-
-            <ImageView
-                android:id="@+id/imgLeft"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:background="#C8C8C8"
-                android:src="@drawable/ic_left" />
-
-        </androidx.cardview.widget.CardView>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn1"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:insetTop="0dp"
-            android:insetBottom="0dp"
-            android:text="1"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            app:backgroundTint="@color/main"
-            app:cornerRadius="10dp"
-            app:rippleColor="@null" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn2"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:insetTop="0dp"
-            android:insetBottom="0dp"
-            android:text="2"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            app:backgroundTint="#C8C8C8"
-            app:cornerRadius="10dp"
-            app:rippleColor="@null" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn3"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:insetTop="0dp"
-            android:insetBottom="0dp"
-            android:text="3"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            app:backgroundTint="#C8C8C8"
-            app:cornerRadius="10dp"
-            app:rippleColor="@null" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn4"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:insetTop="0dp"
-            android:insetBottom="0dp"
-            android:text="4"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            app:backgroundTint="#C8C8C8"
-            app:cornerRadius="10dp"
-            app:rippleColor="@null" />
-
-        <androidx.cardview.widget.CardView
-            app:cardCornerRadius="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1">
-
-            <ImageView
-                android:id="@+id/imgRight"
-                app:srcCompat="@drawable/ic_right"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:background="#C8C8C8"
-                android:src="@drawable/ic_right" />
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardView"
-            app:cardCornerRadius="10dp"
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1">
-
-            <ImageView
-                android:id="@+id/imgAdd"
-                app:srcCompat="@drawable/ic_add"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:background="@color/main"
-                android:src="@drawable/ic_add" />
-        </androidx.cardview.widget.CardView>
-
-
-    </LinearLayout>
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="30dp"
+            android:clickable="true"
+            android:src="@drawable/ic_add"
+            app:backgroundTint="@color/main"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
+            app:tint="@color/white"
+            app:maxImageSize="48dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

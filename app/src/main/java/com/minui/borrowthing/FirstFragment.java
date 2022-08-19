@@ -83,10 +83,9 @@ public class FirstFragment extends Fragment {
         item.setPrice(123);
         item.setStatus(0);
         itemList.clear();
-        itemList.add(item);
-        itemList.add(item);
-        itemList.add(item);
-        itemList.add(item);
+        for (int i = 0; i < 20; i++) {
+            itemList.add(item);
+        }
 
         adapter = new BorrowAdapter(getContext(), itemList);
         recyclerView.setAdapter(adapter);

@@ -75,7 +75,7 @@
                     android:layout_height="30dp"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/ic_thump" />
+                    app:srcCompat="@drawable/ic_thumb_outline" />
 
                 <TextView
                     android:id="@+id/txtLike"

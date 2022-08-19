@@ -1,5 +1,6 @@
 package com.minui.borrowthing.model;
 
+import java.util.Comparator;
 import java.util.List;
 
 public class Community {
@@ -12,6 +13,15 @@ public class Community {
     private int likesCount;
     private int commentCount;
     private List<imageUrl> imgUrl;
+    private int isLike;
+
+    public int getIsLike() {
+        return isLike;
+    }
+
+    public void setIsLike(int isLike) {
+        this.isLike = isLike;
+    }
 
     public int getId() {
         return id;
@@ -84,4 +94,18 @@ public class Community {
     public void setImgUrl(List<imageUrl> imgUrl) {
         this.imgUrl = imgUrl;
     }
+
+    Comparator<Community> likesComparator = new Comparator<Community>() {
+        @Override
+        public int compare(Community community1, Community community2) {
+            return community1.likesCount - community2.likesCount;
+        }
+    };
+
+    Comparator<Community> createdAtComparator = new Comparator<Community>() {
+        @Override
+        public int compare(Community community1, Community community2) {
+            return community1.createdAt.compareTo(community2.createdAt);
+        }
+    };
 }

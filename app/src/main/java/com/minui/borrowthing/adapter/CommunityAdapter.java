@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.LazyHeaders;
+import com.minui.borrowthing.MainActivity;
 import com.minui.borrowthing.R;
 import com.minui.borrowthing.config.Config;
 import com.minui.borrowthing.model.Community;
@@ -50,6 +51,11 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
 
         holder.txtContent.setText(community.getContent());
         holder.txtLikes.setText(community.getLikesCount() + "");
+        if (community.getIsLike() == 0) {
+            holder.imgThumb.setImageResource(R.drawable.ic_thumb_outline);
+        } else {
+            holder.imgThumb.setImageResource(R.drawable.ic_thumb);
+        }
     }
 
     @Override
@@ -60,6 +66,7 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView txtContent;
         ImageView imgCommunity;
+        ImageView imgThumb;
         TextView txtLikes;
         LinearLayout linearLayoutLike;
         LinearLayout linearLayoutComment;
@@ -69,6 +76,7 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
 
             txtContent = itemView.findViewById(R.id.txtContent);
             imgCommunity = itemView.findViewById(R.id.imgCommunity);
+            imgThumb = itemView.findViewById(R.id.imgThumb);
             txtLikes = itemView.findViewById(R.id.txtLikes);
             linearLayoutLike = itemView.findViewById(R.id.linearLayoutLike);
             linearLayoutComment = itemView.findViewById(R.id.linearLayoutComment);
@@ -76,7 +84,8 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
             linearLayoutLike.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    int index = getAdapterPosition();
+                    ((MainActivity) context).setLike(index);
                 }
             });
 
