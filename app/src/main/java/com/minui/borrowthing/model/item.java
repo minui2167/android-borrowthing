@@ -1,5 +1,7 @@
 package com.minui.borrowthing.model;
 
+import java.util.List;
+
 public class item {
     private int id;
     private int imageId;
@@ -12,6 +14,7 @@ public class item {
     private int status;
     private int imgCount;
     private String createdAt;
+    private List<imageUrl> imgUrl;
 
     public int getId() {
         return id;

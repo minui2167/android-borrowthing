@@ -7,10 +7,45 @@
     tools:context=".ThirdFragment">
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnPopularity"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="60dp"
+                android:layout_marginRight="60dp"
+                android:layout_weight="1"
+                android:text="인기"
+                app:icon="@drawable/ic_fire" />
+
+            <Button
+                android:id="@+id/btnLatest"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="60dp"
+                android:layout_weight="1"
+                android:text="최신"
+                app:icon="@drawable/ic_flash"
+                app:iconTint="#FFFFFF" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -29,7 +64,7 @@
             android:layout_weight="1">
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/imgLeft"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_weight="1"
@@ -39,9 +74,7 @@
         </androidx.cardview.widget.CardView>
 
         <com.google.android.material.button.MaterialButton
-            app:backgroundTint="@color/main"
-            app:cornerRadius="10dp"
-            app:rippleColor="@null"
+            android:id="@+id/btn1"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="5dp"
@@ -50,12 +83,13 @@
             android:insetBottom="0dp"
             android:text="1"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            app:backgroundTint="@color/main"
+            app:cornerRadius="10dp"
+            app:rippleColor="@null" />
 
         <com.google.android.material.button.MaterialButton
-            app:backgroundTint="#C8C8C8"
-            app:cornerRadius="10dp"
-            app:rippleColor="@null"
+            android:id="@+id/btn2"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="5dp"
@@ -64,12 +98,13 @@
             android:insetBottom="0dp"
             android:text="2"
             android:textColor="@color/black"
-            android:textSize="20sp" />
-
-        <com.google.android.material.button.MaterialButton
+            android:textSize="20sp"
             app:backgroundTint="#C8C8C8"
             app:cornerRadius="10dp"
-            app:rippleColor="@null"
+            app:rippleColor="@null" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn3"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="5dp"
@@ -78,12 +113,13 @@
             android:insetBottom="0dp"
             android:text="3"
             android:textColor="@color/black"
-            android:textSize="20sp" />
-
-        <com.google.android.material.button.MaterialButton
+            android:textSize="20sp"
             app:backgroundTint="#C8C8C8"
             app:cornerRadius="10dp"
-            app:rippleColor="@null"
+            app:rippleColor="@null" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn4"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="5dp"
@@ -92,7 +128,10 @@
             android:insetBottom="0dp"
             android:text="4"
             android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            app:backgroundTint="#C8C8C8"
+            app:cornerRadius="10dp"
+            app:rippleColor="@null" />
 
         <androidx.cardview.widget.CardView
             app:cardCornerRadius="10dp"
@@ -103,7 +142,7 @@
             android:layout_weight="1">
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/imgRight"
                 app:srcCompat="@drawable/ic_right"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -123,7 +162,7 @@
             android:layout_weight="1">
 
             <ImageView
-                android:id="@+id/imageView4"
+                android:id="@+id/imgAdd"
                 app:srcCompat="@drawable/ic_add"
                 android:layout_width="40dp"
                 android:layout_height="40dp"

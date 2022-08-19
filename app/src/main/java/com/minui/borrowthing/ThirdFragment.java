@@ -1,5 +1,6 @@
 package com.minui.borrowthing;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,11 +10,23 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 
 import com.minui.borrowthing.adapter.CommunityAdapter;
+import com.minui.borrowthing.api.CommunityApi;
+import com.minui.borrowthing.config.Config;
+import com.minui.borrowthing.config.NetworkClient;
 import com.minui.borrowthing.model.Community;
+import com.minui.borrowthing.model.CommunityResult;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,10 +44,25 @@ public class ThirdFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    // 리사이클러 뷰 관련 멤버변수 3개
+    // 리사이클러 뷰 관련 멤버변수
     RecyclerView recyclerView;
     CommunityAdapter adapter;
     ArrayList<Community> communityList = new ArrayList<>();
+    ArrayList<Community> communities = new ArrayList<>();
+
+    // 네트워크 처리 보여주는 프로그램 다이얼로그
+    ProgressDialog dialog;
+
+    // ui
+    Button btnPopularity;
+    Button btnLatest;
+    Button btn1;
+    Button btn2;
+    Button btn3;
+    Button btn4;
+    ImageView imgLeft;
+    ImageView imgRight;
+    ImageView imgAdd;
 
     public ThirdFragment() {
         // Required empty public constructor
@@ -77,17 +105,42 @@ public class ThirdFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        communityList.clear();
-        Community community = new Community();
-        community.setTitle("테스트데이터123123412312312312312323213213");
-        community.setContent("가나다라마바사아자차카타파하아나다우라자아자나아라나아자다아마라하하하하하하하하하하하하하하하하하하하하하");
-        for (int i = 0; i < 4; i ++) {
-            communityList.add(community);
-        }
+        Retrofit retrofit = NetworkClient.getRetrofitClient(Config.BASE_URL);
+        CommunityApi communityApi = retrofit.create(CommunityApi.class);
+        Call<CommunityResult> call = communityApi.getCommunityList(0, 21);
+        showProgress("게시물 가져오는중...");
+        call.enqueue(new Callback<CommunityResult>() {
+            @Override
+            public void onResponse(Call<CommunityResult> call, Response<CommunityResult> response) {
+                dismissProgress();
+                CommunityResult communityResult = response.body();
+                communityList.addAll(communityResult.getItems());
+                communities.clear();
+                for (int i = 0; i < 3; i++) {
+                    communities.add(communityList.get(i));
+                }
 
-        adapter = new CommunityAdapter(getContext(), communityList);
-        recyclerView.setAdapter(adapter);
+                adapter = new CommunityAdapter(getContext(), communities);
+                recyclerView.setAdapter(adapter);
+            }
+
+            @Override
+            public void onFailure(Call<CommunityResult> call, Throwable t) {
+                dismissProgress();
+            }
+        });
 
         return rootView;
+    }
+
+    void showProgress(String message) {
+        dialog = new ProgressDialog(getContext());
+        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        dialog.setMessage(message);
+        dialog.show();
+    }
+
+    void dismissProgress() {
+        dialog.dismiss();
     }
 }

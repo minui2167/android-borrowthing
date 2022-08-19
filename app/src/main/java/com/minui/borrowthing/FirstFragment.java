@@ -88,7 +88,7 @@ public class FirstFragment extends Fragment {
         itemList.add(item);
         itemList.add(item);
 
-        adapter = new BorrowAdapter(getContext(), itemList, null);
+        adapter = new BorrowAdapter(getContext(), itemList);
         recyclerView.setAdapter(adapter);
 
         return rootView;

@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.minui.borrowthing.R;
-import com.minui.borrowthing.model.itemImage;
 import com.minui.borrowthing.model.item;
 
 import java.util.List;
@@ -21,12 +20,10 @@ public class BorrowAdapter extends RecyclerView.Adapter<BorrowAdapter.ViewHolder
 
     Context context;
     List<item> itemList;
-    List<itemImage> itemImageList;
 
-    public BorrowAdapter(Context context, List<item> itemList, List<itemImage> itemImageList) {
+    public BorrowAdapter(Context context, List<item> itemList) {
         this.context = context;
         this.itemList = itemList;
-        this.itemImageList = itemImageList;
     }
 
     @NonNull
@@ -40,7 +37,6 @@ public class BorrowAdapter extends RecyclerView.Adapter<BorrowAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull BorrowAdapter.ViewHolder holder, int position) {
         item item = itemList.get(position);
-        // itemImage itemImage = itemImageList.get(position);
 
         // todo 이미지 불러오기
         holder.imgBorrow.setImageResource(R.drawable.ic_photo);
