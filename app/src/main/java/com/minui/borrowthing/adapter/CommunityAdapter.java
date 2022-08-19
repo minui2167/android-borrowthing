@@ -4,13 +4,18 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.model.GlideUrl;
+import com.bumptech.glide.load.model.LazyHeaders;
 import com.minui.borrowthing.R;
+import com.minui.borrowthing.config.Config;
 import com.minui.borrowthing.model.Community;
 
 import java.util.List;
@@ -27,19 +32,25 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CommunityAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.community_row, parent, false);
-        return new ViewHolder(view);
+        return new CommunityAdapter.ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Community community = communityList.get(position);
 
-        holder.txtTitle.setText(community.getTitle());
-        holder.txtContent.setText(community.getContent());
-    }
+        try {
+            GlideUrl url = new GlideUrl(Config.IMAGE_URL + community.getImgUrl().get(0).getImageUrl(), new LazyHeaders.Builder().addHeader("User-Agent", "Android").build());
+            Glide.with(context).load(url).into(holder.imgCommunity);
+        } catch (Exception e) {
+            holder.imgCommunity.setImageResource(R.drawable.ic_photo);
+        }
 
+        holder.txtContent.setText(community.getContent());
+        holder.txtLikes.setText(community.getLikesCount() + "");
+    }
 
     @Override
     public int getItemCount() {
@@ -47,18 +58,29 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView txtTitle;
         TextView txtContent;
-        LinearLayout linearLayout;
+        ImageView imgCommunity;
+        TextView txtLikes;
+        LinearLayout linearLayoutLike;
+        LinearLayout linearLayoutComment;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            txtTitle = itemView.findViewById(R.id.txtTitle);
             txtContent = itemView.findViewById(R.id.txtContent);
-            linearLayout = itemView.findViewById(R.id.linearLayout);
+            imgCommunity = itemView.findViewById(R.id.imgCommunity);
+            txtLikes = itemView.findViewById(R.id.txtLikes);
+            linearLayoutLike = itemView.findViewById(R.id.linearLayoutLike);
+            linearLayoutComment = itemView.findViewById(R.id.linearLayoutComment);
 
-            linearLayout.setOnClickListener(new View.OnClickListener() {
+            linearLayoutLike.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
+
+            linearLayoutComment.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 

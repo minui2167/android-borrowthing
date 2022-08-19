@@ -27,53 +27,37 @@
         <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/drawable/ic_key_30.xml" value="0.1" />
         <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/drawable/ic_left.xml" value="0.1" />
         <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/drawable/ic_list_30.xml" value="0.1" />
+        <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/drawable/ic_photo.xml" value="0.212" />
+        <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/drawable/ic_thump.xml" value="0.212" />
+        <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/drawable/shadow.xml" value="0.1355" />
+        <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/drawable/text_background.xml" value="0.194" />
         <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/activity_category.xml" value="0.33" />
+        <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/activity_intro.xml" value="0.33125" />
         <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/activity_my_information.xml" value="0.33" />
-        <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/activity_register.xml" value="0.5" />
+        <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/activity_register.xml" value="0.25" />
         <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/bg_chip_state_list.xml" value="0.2554347826086957" />
+        <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/borrow_row.xml" value="0.33" />
         <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/community_low.xml" value="0.33" />
+        <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/community_row.xml" value="0.5" />
         <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/fragment_chat.xml" value="0.4070642733063115" />
+        <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/fragment_fifth.xml" value="0.22192028985507245" />
         <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/fragment_first.xml" value="0.25" />
+        <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/fragment_forth.xml" value="0.33" />
         <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/fragment_search.xml" value="0.2554347826086957" />
         <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/fragment_second.xml" value="0.25" />
-        <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/fragment_third.xml" value="0.2554347826086957" />
+        <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/fragment_third.xml" value="0.33" />
         <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/menu/bottom_menu.xml" value="0.1875" />
         <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/menu/main.xml" value="0.33" />
         <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/xml/bg_chip_state_list.xml" value="0.2554347826086957" />
-        <entry key="..\:/Users/USER/Documents/GitHub/android-borrowthing/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.3245" />
-        <entry key="..\:/Users/USER/Documents/GitHub/android-borrowthing/app/src/main/res/drawable/borrow.xml" value="0.2985" />
-        <entry key="..\:/Users/USER/Documents/GitHub/android-borrowthing/app/src/main/res/drawable/bottom_icon_color.xml" value="0.2985" />
-        <entry key="..\:/Users/USER/Documents/GitHub/android-borrowthing/app/src/main/res/drawable/ic__chat_30.xml" value="0.2985" />
-        <entry key="..\:/Users/USER/Documents/GitHub/android-borrowthing/app/src/main/res/drawable/ic_add.xml" value="0.2985" />
-        <entry key="..\:/Users/USER/Documents/GitHub/android-borrowthing/app/src/main/res/drawable/ic_back_30.xml" value="0.2985" />
-        <entry key="..\:/Users/USER/Documents/GitHub/android-borrowthing/app/src/main/res/drawable/ic_bell.xml" value="0.2985" />
-        <entry key="..\:/Users/USER/Documents/GitHub/android-borrowthing/app/src/main/res/drawable/ic_bell_black.xml" value="0.2985" />
-        <entry key="..\:/Users/USER/Documents/GitHub/android-borrowthing/app/src/main/res/drawable/ic_chat.xml" value="0.2985" />
-        <entry key="..\:/Users/USER/Documents/GitHub/android-borrowthing/app/src/main/res/drawable/ic_community.xml" value="0.2985" />
-        <entry key="..\:/Users/USER/Documents/GitHub/android-borrowthing/app/src/main/res/drawable/ic_home.xml" value="0.2985" />
-        <entry key="..\:/Users/USER/Documents/GitHub/android-borrowthing/app/src/main/res/drawable/ic_identity_30.xml" value="0.3245" />
-        <entry key="..\:/Users/USER/Documents/GitHub/android-borrowthing/app/src/main/res/drawable/ic_info.xml" value="0.2985" />
-        <entry key="..\:/Users/USER/Documents/GitHub/android-borrowthing/app/src/main/res/drawable/ic_key_30.xml" value="0.3245" />
-        <entry key="..\:/Users/USER/Documents/GitHub/android-borrowthing/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2985" />
-        <entry key="..\:/Users/USER/Documents/GitHub/android-borrowthing/app/src/main/res/drawable/ic_left.xml" value="0.2985" />
-        <entry key="..\:/Users/USER/Documents/GitHub/android-borrowthing/app/src/main/res/drawable/ic_list_30.xml" value="0.3245" />
-        <entry key="..\:/Users/USER/Documents/GitHub/android-borrowthing/app/src/main/res/drawable/ic_photo.xml" value="0.3245" />
-        <entry key="..\:/Users/USER/Documents/GitHub/android-borrowthing/app/src/main/res/drawable/ic_place.xml" value="0.2985" />
-        <entry key="..\:/Users/USER/Documents/GitHub/android-borrowthing/app/src/main/res/drawable/ic_right.xml" value="0.3245" />
-        <entry key="..\:/Users/USER/Documents/GitHub/android-borrowthing/app/src/main/res/drawable/ic_search.xml" value="0.2985" />
-        <entry key="..\:/Users/USER/Documents/GitHub/android-borrowthing/app/src/main/res/drawable/ic_tv.xml" value="0.3245" />
         <entry key="..\:/Users/USER/Documents/GitHub/android-borrowthing/app/src/main/res/layout/activity_category.xml" value="0.33106884057971014" />
-        <entry key="..\:/Users/USER/Documents/GitHub/android-borrowthing/app/src/main/res/layout/activity_intro.xml" value="0.3619791666666667" />
         <entry key="..\:/Users/USER/Documents/GitHub/android-borrowthing/app/src/main/res/layout/activity_login.xml" value="0.33106884057971014" />
         <entry key="..\:/Users/USER/Documents/GitHub/android-borrowthing/app/src/main/res/layout/activity_main.xml" value="0.28802083333333334" />
         <entry key="..\:/Users/USER/Documents/GitHub/android-borrowthing/app/src/main/res/layout/activity_my_information.xml" value="0.28802083333333334" />
         <entry key="..\:/Users/USER/Documents/GitHub/android-borrowthing/app/src/main/res/layout/activity_register.xml" value="0.33106884057971014" />
         <entry key="..\:/Users/USER/Documents/GitHub/android-borrowthing/app/src/main/res/layout/activity_test.xml" value="0.28802083333333334" />
-        <entry key="..\:/Users/USER/Documents/GitHub/android-borrowthing/app/src/main/res/layout/borrow_row.xml" value="0.3619791666666667" />
         <entry key="..\:/Users/USER/Documents/GitHub/android-borrowthing/app/src/main/res/layout/community_low.xml" value="0.28802083333333334" />
-        <entry key="..\:/Users/USER/Documents/GitHub/android-borrowthing/app/src/main/res/layout/community_row.xml" value="0.3619791666666667" />
         <entry key="..\:/Users/USER/Documents/GitHub/android-borrowthing/app/src/main/res/layout/fragment_chat.xml" value="0.33106884057971014" />
         <entry key="..\:/Users/USER/Documents/GitHub/android-borrowthing/app/src/main/res/layout/fragment_fifth.xml" value="0.28802083333333334" />
         <entry key="..\:/Users/USER/Documents/GitHub/android-borrowthing/app/src/main/res/layout/fragment_first.xml" value="0.28802083333333334" />
@@ -81,8 +65,6 @@
         <entry key="..\:/Users/USER/Documents/GitHub/android-borrowthing/app/src/main/res/layout/fragment_search.xml" value="0.28802083333333334" />
         <entry key="..\:/Users/USER/Documents/GitHub/android-borrowthing/app/src/main/res/layout/fragment_second.xml" value="0.28802083333333334" />
         <entry key="..\:/Users/USER/Documents/GitHub/android-borrowthing/app/src/main/res/layout/fragment_third.xml" value="0.28802083333333334" />
-        <entry key="..\:/Users/USER/Documents/GitHub/android-borrowthing/app/src/main/res/menu/bottom_menu.xml" value="0.3619791666666667" />
-        <entry key="..\:/Users/USER/Documents/GitHub/android-borrowthing/app/src/main/res/menu/main.xml" value="0.3619791666666667" />
       </map>
     </option>
   </component>

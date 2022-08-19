@@ -2,10 +2,10 @@ package com.minui.borrowthing.model;
 
 import java.util.List;
 
-public class BorrowResult {
+public class CommunityResult {
     private String result;
     private int count;
-    private List<item> items;
+    private List<Community> items;
 
     public String getResult() {
         return result;
@@ -23,11 +23,11 @@ public class BorrowResult {
         this.count = count;
     }
 
-    public List<item> getItems() {
+    public List<Community> getItems() {
         return items;
     }
 
-    public void setItems(List<item> items) {
+    public void setItems(List<Community> items) {
         this.items = items;
     }
 }
