@@ -7,6 +7,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 
 public interface UserApi {
     @POST("/users/register")
@@ -17,4 +18,7 @@ public interface UserApi {
 
     @POST("/users/logout")
     Call<UserRes> logout(@Header("Authorization") String accessToken);
+
+    @PUT("/users/edit")
+    Call<UserRes> Revise(@Header("Authorization") String accessToken , @Body User user);
 }
