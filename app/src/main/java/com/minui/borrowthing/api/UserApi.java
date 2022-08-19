@@ -21,4 +21,5 @@ public interface UserApi {
 
     @PUT("/users/edit")
     Call<UserRes> Revise(@Header("Authorization") String accessToken , @Body User user);
+
 }

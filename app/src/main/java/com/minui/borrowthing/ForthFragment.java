@@ -5,6 +5,7 @@ import static android.content.Context.MODE_PRIVATE;
 import static com.minui.borrowthing.MainActivity.context;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -99,6 +100,9 @@ public class ForthFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // todo 내정보 수정하는 화면 구성
+                Intent intent = new Intent(getActivity(),MyReviseActivity.class);
+                startActivity(intent);
+
             }
         });
 

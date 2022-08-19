@@ -1,14 +1,33 @@
 package com.minui.borrowthing;
 
+import static com.minui.borrowthing.MainActivity.context;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.minui.borrowthing.api.UserApi;
+import com.minui.borrowthing.config.Config;
+import com.minui.borrowthing.config.NetworkClient;
+import com.minui.borrowthing.model.User;
+import com.minui.borrowthing.model.UserRes;
+
+import java.io.IOException;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class MyReviseActivity extends AppCompatActivity {
 
@@ -74,6 +93,34 @@ public class MyReviseActivity extends AppCompatActivity {
 
                 showProgress("회원정보 수정 중입니다...");
 
+                Retrofit retrofit = NetworkClient.getRetrofitClient(Config.BASE_URL);
+                UserApi userApi = retrofit.create(UserApi.class);
+                User user = new User( nickname , password ) ;
+
+                SharedPreferences sp = getApplication().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+                String accessToken = sp.getString("accessToken", "");
+
+                Call<UserRes> call = userApi.Revise("Bearer " + accessToken , user);
+                call.enqueue(new Callback<UserRes>() {
+                    @Override
+                    public void onResponse(Call<UserRes> call, Response<UserRes> response) {
+                        dismissProgress();
+                        if(response.isSuccessful()) {
+                            SharedPreferences sp = getApplication().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sp.edit();
+                            editor.putString("accessToken", "");
+                            editor.apply();
+                            ((MainActivity) context).loadFragment(((MainActivity) context).firstFragment);
+                            ((MainActivity) context).navigationView.setSelectedItemId(R.id.firstFragment);
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<UserRes> call, Throwable t)  {dismissProgress();}
+
+                });
+
 
 
 
@@ -88,5 +135,21 @@ public class MyReviseActivity extends AppCompatActivity {
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         dialog.setMessage(message);
         dialog.show();
+    }
+
+    void dismissProgress() {
+        dialog.dismiss();
+    }
+
+    // 액션바 메뉴와 백버튼 클릭시 이벤트
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int itemId = item.getItemId();
+
+        if (itemId == android.R.id.home) {
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
