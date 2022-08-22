@@ -26,7 +26,7 @@
             app:boxBackgroundColor="#AFAFAF"
             app:boxStrokeWidth="10px"
             app:boxStrokeWidthFocused="10px"
-            app:endIconDrawable="@drawable/ic__chat_30"
+            app:endIconDrawable="@drawable/ic_send"
             app:endIconMode="custom"
             tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteX="10dp">
