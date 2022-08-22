@@ -64,6 +64,7 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        LinearLayout linearLayout;
         TextView txtContent;
         ImageView imgCommunity;
         ImageView imgThumb;
@@ -74,12 +75,20 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            linearLayout = itemView.findViewById(R.id.linearLayout);
             txtContent = itemView.findViewById(R.id.txtContent);
             imgCommunity = itemView.findViewById(R.id.imgCommunity);
             imgThumb = itemView.findViewById(R.id.imgThumb);
             txtLikes = itemView.findViewById(R.id.txtLikes);
             linearLayoutLike = itemView.findViewById(R.id.linearLayoutLike);
             linearLayoutComment = itemView.findViewById(R.id.linearLayoutComment);
+
+            linearLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
 
             linearLayoutLike.setOnClickListener(new View.OnClickListener() {
                 @Override

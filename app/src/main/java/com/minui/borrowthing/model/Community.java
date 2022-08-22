@@ -7,7 +7,6 @@ public class Community {
     private int id;
     private int userId;
     private String content;
-    private int viewCount;
     private String createdAt;
     private int imgCount;
     private int likesCount;
@@ -45,14 +44,6 @@ public class Community {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public int getViewCount() {
-        return viewCount;
-    }
-
-    public void setViewCount(int viewCount) {
-        this.viewCount = viewCount;
     }
 
     public String getCreatedAt() {
@@ -94,18 +85,4 @@ public class Community {
     public void setImgUrl(List<imageUrl> imgUrl) {
         this.imgUrl = imgUrl;
     }
-
-    Comparator<Community> likesComparator = new Comparator<Community>() {
-        @Override
-        public int compare(Community community1, Community community2) {
-            return community1.likesCount - community2.likesCount;
-        }
-    };
-
-    Comparator<Community> createdAtComparator = new Comparator<Community>() {
-        @Override
-        public int compare(Community community1, Community community2) {
-            return community1.createdAt.compareTo(community2.createdAt);
-        }
-    };
 }

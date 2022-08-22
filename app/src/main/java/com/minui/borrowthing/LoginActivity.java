@@ -1,7 +1,5 @@
 package com.minui.borrowthing;
 
-import static com.minui.borrowthing.MainActivity.context;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
@@ -58,10 +56,11 @@ public class LoginActivity extends AppCompatActivity {
         // ui
         textInputLayoutId = findViewById(R.id.textInputLayoutId);
         textInputLayoutPassword = findViewById(R.id.textInputLayoutPassword);
-        userId = findViewById(R.id.userId);
+        userId = findViewById(R.id.txtTitle);
         userPassword = findViewById(R.id.userPassword);
         btnLogin = findViewById(R.id.btnLogin);
         btnRegister = findViewById(R.id.btnRegister);
+
 
         // 포커스되면 색바꾸기
         userId.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -127,6 +126,8 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
     }
 
     private void showDialog(String message) {

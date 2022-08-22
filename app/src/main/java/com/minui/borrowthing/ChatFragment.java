@@ -71,7 +71,7 @@ public class ChatFragment extends Fragment {
         // ui
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_chat, container, false);
         textInputLayout = rootView.findViewById(R.id.textInputLayout);
-        textInputEditText = rootView.findViewById(R.id.userId);
+        textInputEditText = rootView.findViewById(R.id.txtTitle);
 
         // 클릭하면 전송
         textInputLayout.setEndIconOnClickListener(new View.OnClickListener() {
