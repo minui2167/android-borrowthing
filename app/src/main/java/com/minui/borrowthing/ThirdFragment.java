@@ -6,6 +6,7 @@ import static com.minui.borrowthing.MainActivity.context;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -63,13 +64,16 @@ public class ThirdFragment extends Fragment {
 
     // 페이징에 필요한 변수
     int offset = 0;
-    int limit = 7;
+    int limit = 10;
     int count = 0;
 
     // ui
     Button btnPopularity;
     Button btnLatest;
     FloatingActionButton fab;
+
+    // 변수
+    String accessToken;
 
     public ThirdFragment() {
         // Required empty public constructor
@@ -131,7 +135,7 @@ public class ThirdFragment extends Fragment {
                 Collections.sort(communityList, new Comparator<Community>() {
                     @Override
                     public int compare(Community community1, Community community2) {
-                        return community1.getCreatedAt().compareTo(community2.getCreatedAt());
+                        return community2.getCreatedAt().compareTo(community1.getCreatedAt());
                     }
                 });
                 adapter.notifyDataSetChanged();
@@ -141,7 +145,16 @@ public class ThirdFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SharedPreferences sp = getActivity().getApplication().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+                accessToken = sp.getString("accessToken", "");
+                if (accessToken.isEmpty()) {
 
+                    Intent intent = new Intent(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                    return;
+                }
+                Intent intent = new Intent(getContext(), CommunityWriteActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -167,16 +180,20 @@ public class ThirdFragment extends Fragment {
             }
         });
 
-        getNetworkData();
-
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getNetworkData();
     }
 
     private void getNetworkData() {
         communityList.clear();
 
         offset = 0;
-        limit = 7;
+        limit = 10;
         count = 0;
 
         showProgress("게시물 가져오는중...");

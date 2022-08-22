@@ -1,14 +1,11 @@
 package com.minui.borrowthing;
 
-import static com.minui.borrowthing.MainActivity.context;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -56,7 +53,7 @@ public class RegisterActivity extends AppCompatActivity {
         ac.setHomeAsUpIndicator(R.drawable.ic_back_30);
         ac.setDisplayHomeAsUpEnabled(true);
 
-        userId = findViewById(R.id.userId);
+        userId = findViewById(R.id.txtTitle);
         userPassword = findViewById(R.id.userPassword);
         userName = findViewById(R.id.userName);
         userPhone = findViewById(R.id.userPhone);
