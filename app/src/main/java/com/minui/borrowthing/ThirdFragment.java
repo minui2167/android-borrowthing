@@ -122,6 +122,13 @@ public class ThirdFragment extends Fragment {
                 Collections.sort(communityList, new Comparator<Community>() {
                     @Override
                     public int compare(Community community1, Community community2) {
+                        if (community1.getLikesCount() == community2.getLikesCount())
+                        {
+                            if (community1.getCommentCount() == community2.getCommentCount()) {
+                                return community2.getCreatedAt().compareTo(community1.getCreatedAt());
+                            }
+                            return community2.getCommentCount() - community1.getCommentCount();
+                        }
                         return community2.getLikesCount() - community1.getLikesCount();
                     }
                 });
@@ -281,7 +288,7 @@ public class ThirdFragment extends Fragment {
                     dismissProgress();
                     if(response.isSuccessful()) {
                         communityList.get(index).setIsLike(1);
-                        communityList.get(index).setLikesCount(communityList.get(index).getLikesCount() + 1);
+                        communityList.get(index).setLikesCount(response.body().getLikesCount());
                         adapter.notifyDataSetChanged();
                     }
                 }
@@ -299,7 +306,7 @@ public class ThirdFragment extends Fragment {
                     dismissProgress();
                     if(response.isSuccessful()) {
                         communityList.get(index).setIsLike(0);
-                        communityList.get(index).setLikesCount(communityList.get(index).getLikesCount() - 1);
+                        communityList.get(index).setLikesCount(response.body().getLikesCount());
                         adapter.notifyDataSetChanged();
                     }
                 }

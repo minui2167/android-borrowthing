@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
     String region; // 지역명
     double longitude; // 위도
     double latitude; // 경도
+    String nickname;
 
     // 위치
     LocationManager locationManager;

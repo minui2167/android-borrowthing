@@ -58,12 +58,13 @@ public class CommunityWriteActivity extends AppCompatActivity {
     ArrayList<File> fileList = new ArrayList<>();
     ArrayList<MultipartBody.Part> multiPartBodyPartList = new ArrayList<>();
     int index = 0;
-
+    boolean revise = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_community_write);
+        revise = getIntent().getBooleanExtra("revise", false);
 
         // 액션바 제목 백버튼 설정
         ActionBar ac = getSupportActionBar();
@@ -169,7 +170,12 @@ public class CommunityWriteActivity extends AppCompatActivity {
             SharedPreferences sp = getApplication().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
             String accessToken = sp.getString("accessToken", "");
 
-            Call<UserRes> call = api.setCommunity("Bearer " + accessToken, multiPartBodyPartList, contentBody);
+            Call<UserRes> call;
+            if (revise) {
+                call = api.reviseCommunity("Bearer " + accessToken, getIntent().getIntExtra("postingId", 0), multiPartBodyPartList, contentBody);
+            } else {
+                call = api.setCommunity("Bearer " + accessToken, multiPartBodyPartList, contentBody);
+            }
             call.enqueue(new Callback<UserRes>() {
                 @Override
                 public void onResponse(Call<UserRes> call, Response<UserRes> response) {

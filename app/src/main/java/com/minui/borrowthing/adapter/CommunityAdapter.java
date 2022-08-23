@@ -1,6 +1,7 @@
 package com.minui.borrowthing.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.LazyHeaders;
+import com.minui.borrowthing.CommunityDetailActivity;
 import com.minui.borrowthing.MainActivity;
 import com.minui.borrowthing.R;
 import com.minui.borrowthing.config.Config;
@@ -70,7 +72,6 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
         ImageView imgThumb;
         TextView txtLikes;
         LinearLayout linearLayoutLike;
-        LinearLayout linearLayoutComment;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -81,12 +82,14 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
             imgThumb = itemView.findViewById(R.id.imgThumb);
             txtLikes = itemView.findViewById(R.id.txtLikes);
             linearLayoutLike = itemView.findViewById(R.id.linearLayoutLike);
-            linearLayoutComment = itemView.findViewById(R.id.linearLayoutComment);
 
             linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    Intent intent = new Intent(context, CommunityDetailActivity.class);
+                    int position = getAdapterPosition();
+                    intent.putExtra("community", communityList.get(position));
+                    context.startActivity(intent);
                 }
             });
 
@@ -98,12 +101,6 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
                 }
             });
 
-            linearLayoutComment.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                }
-            });
         }
     }
 }

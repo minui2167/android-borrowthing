@@ -1,6 +1,8 @@
 package com.minui.borrowthing.model;
 
-public class imageUrl {
+import java.io.Serializable;
+
+public class imageUrl implements Serializable {
     private String imageUrl;
 
     public String getImageUrl() {
