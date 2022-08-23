@@ -15,6 +15,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.minui.borrowthing.api.UserApi;
 import com.minui.borrowthing.config.Config;
@@ -48,6 +50,8 @@ public class ForthFragment extends Fragment {
     Button btnMyLocation;
     Button btnTransaction;
     Button btnLogout;
+    ImageView imgUser;
+    TextView textView;
 
     // 네트워크 처리 보여주는 프로그램 다이얼로그
     ProgressDialog dialog;
@@ -89,12 +93,31 @@ public class ForthFragment extends Fragment {
         // Inflate the layout for this fragment
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_forth, container, false);
 
+        imgUser = rootView.findViewById(R.id.imgUser);
+        textView = rootView.findViewById(R.id.textView);
         btnInformation = rootView.findViewById(R.id.btnInformation);
         btnInterestsList = rootView.findViewById(R.id.btnInterestsList);
         btnMyWrote = rootView.findViewById(R.id.btnMyWrote);
         btnMyLocation = rootView.findViewById(R.id.btnMyLocation);
         btnTransaction = rootView.findViewById(R.id.btnTransaction);
         btnLogout = rootView.findViewById(R.id.btnLogout);
+
+        imgUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // todo 자신 닉네임 불러오는 곳
+
+            }
+        });
+
+
 
         btnInformation.setOnClickListener(new View.OnClickListener() {
             @Override
