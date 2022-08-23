@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal"
-        android:weightSum="7">
+        android:weightSum="6">
 
         <TextView
             android:id="@+id/txtNickname"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:ellipsize="end"
             android:maxLines="2"
@@ -22,13 +25,29 @@
 
         <TextView
             android:id="@+id/txtComment"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
-            android:layout_weight="6"
+            android:layout_weight="5"
             android:ellipsize="end"
             android:maxLines="2"
             android:singleLine="false"
-            android:text="TextView" />
+            android:text="TextViewttttt" />
+
+        <ImageView
+            android:id="@+id/btnRevise"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ic_write" />
+
+        <ImageView
+            android:id="@+id/btnTrash"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ic_trash" />
     </LinearLayout>
 </LinearLayout>

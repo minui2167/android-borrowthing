@@ -1,5 +1,7 @@
 package com.minui.borrowthing;
 
+import static com.minui.borrowthing.MainActivity.context;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
@@ -96,6 +98,7 @@ public class LoginActivity extends AppCompatActivity {
                         dismissProgress();
                         if (response.isSuccessful()) {
                             UserRes userRes = response.body();
+                            ((MainActivity) context).nickname = userRes.getNickname();
                             if (userRes.getError() == null) {
                                 SharedPreferences sp = getApplication().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
                                 SharedPreferences.Editor editor = sp.edit();

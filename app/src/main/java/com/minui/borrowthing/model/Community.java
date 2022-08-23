@@ -1,9 +1,9 @@
 package com.minui.borrowthing.model;
 
-import java.util.Comparator;
+import java.io.Serializable;
 import java.util.List;
 
-public class Community {
+public class Community implements Serializable {
     private int id;
     private int userId;
     private String content;
@@ -13,6 +13,15 @@ public class Community {
     private int commentCount;
     private List<imageUrl> imgUrl;
     private int isLike;
+    private int isAuthor;
+
+    public int getIsAuthor() {
+        return isAuthor;
+    }
+
+    public void setIsAuthor(int isAuthor) {
+        this.isAuthor = isAuthor;
+    }
 
     public int getIsLike() {
         return isLike;
