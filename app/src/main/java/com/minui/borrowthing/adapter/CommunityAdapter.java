@@ -16,8 +16,10 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.LazyHeaders;
 import com.minui.borrowthing.CommunityDetailActivity;
+import com.minui.borrowthing.FirstFragment;
 import com.minui.borrowthing.MainActivity;
 import com.minui.borrowthing.R;
+import com.minui.borrowthing.ThirdFragment;
 import com.minui.borrowthing.config.Config;
 import com.minui.borrowthing.model.Community;
 
@@ -49,7 +51,7 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
             GlideUrl url = new GlideUrl(Config.IMAGE_URL + community.getImgUrl().get(0).getImageUrl(), new LazyHeaders.Builder().addHeader("User-Agent", "Android").build());
             Glide.with(context).load(url).into(holder.imgCommunity);
         } catch (Exception e) {
-            holder.imgCommunity.setImageResource(R.drawable.ic_photo);
+            holder.imgCommunity.setImageResource(R.drawable.nolmage);
         }
 
         holder.txtContent.setText(community.getContent());
@@ -100,10 +102,9 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
                 @Override
                 public void onClick(View view) {
                     int index = getAdapterPosition();
-                    ((MainActivity) context).setLike(index);
+                    ((ThirdFragment) ((MainActivity) context).thirdFragment).setLike(index);
                 }
             });
-
         }
     }
 }

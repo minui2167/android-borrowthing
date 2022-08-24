@@ -1,6 +1,8 @@
 package com.minui.borrowthing.model;
 
-public class tag {
+import java.io.Serializable;
+
+public class tag implements Serializable {
     private String tagName;
 
     public String getTagName() {

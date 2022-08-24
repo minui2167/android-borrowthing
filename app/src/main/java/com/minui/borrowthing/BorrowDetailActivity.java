@@ -25,55 +25,63 @@ import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.LazyHeaders;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
+import com.minui.borrowthing.adapter.BorrowCommentAdapter;
 import com.minui.borrowthing.adapter.CommunityCommentAdapter;
+import com.minui.borrowthing.api.BorrowApi;
 import com.minui.borrowthing.api.CommunityApi;
 import com.minui.borrowthing.config.Config;
 import com.minui.borrowthing.config.NetworkClient;
+import com.minui.borrowthing.model.BorrowComment;
+import com.minui.borrowthing.model.BorrowCommentResult;
 import com.minui.borrowthing.model.Comment;
 import com.minui.borrowthing.model.Community;
 import com.minui.borrowthing.model.CommunityComment;
 import com.minui.borrowthing.model.CommunityCommentResult;
 import com.minui.borrowthing.model.UserRes;
+import com.minui.borrowthing.model.item;
 
 import java.util.ArrayList;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class CommunityDetailActivity extends AppCompatActivity {
+public class BorrowDetailActivity extends AppCompatActivity {
 
-    ImageView imgCommunity;
+    ImageView imgBorrow;
     FloatingActionButton fabLeft;
     FloatingActionButton fabRight;
     TextInputEditText txtContent;
-    ImageView imgThumb;
-    TextView txtLikes;
-    TextInputEditText txtComment;
+    ImageView imgHeart;
+    TextView txtDetail;
+    TextView txtComment;
     Button btnRegister;
 
     // 변수
     int index = 0;
-    Community community;
+    item item;
     boolean isClicked = false;
+    int goodsId;
 
     // 네트워크 처리 보여주는 프로그램 다이얼로그
     ProgressDialog dialog;
 
     // 리사이클러 뷰 관련 멤버변수
     RecyclerView recyclerView;
-    CommunityCommentAdapter adapter;
-    ArrayList<CommunityComment> communityCommentList = new ArrayList<>();
+    BorrowCommentAdapter adapter;
+    ArrayList<BorrowComment> borrowCommentList = new ArrayList<>();
 
     // 페이징에 필요한 변수
     int offset = 0;
     int limit = 20;
     int count = 0;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_community_detail);
+        setContentView(R.layout.activity_borrow_detail);
 
         // 액션바 제목 백버튼 설정
         ActionBar ac = getSupportActionBar();
@@ -81,28 +89,29 @@ public class CommunityDetailActivity extends AppCompatActivity {
         ac.setHomeAsUpIndicator(R.drawable.ic_back_30);
         ac.setDisplayHomeAsUpEnabled(true);
 
-        imgCommunity = findViewById(R.id.imgCommunity);
+        imgBorrow = findViewById(R.id.imgBorrow);
         fabLeft = findViewById(R.id.fabLeft);
         fabRight = findViewById(R.id.fabRight);
         txtContent = findViewById(R.id.txtContent);
-        imgThumb = findViewById(R.id.imgThumb);
-        txtLikes = findViewById(R.id.txtLikes);
+        imgHeart = findViewById(R.id.imgHeart);
+        txtDetail = findViewById(R.id.txtDetail);
         txtComment = findViewById(R.id.txtComment);
         btnRegister = findViewById(R.id.btnRegister);
         fabLeft.setVisibility(View.GONE);
         fabRight.setVisibility(View.GONE);
 
-        community = (Community) getIntent().getSerializableExtra("community");
-        if (community.getImgUrl().size() > 1) {
+        item = (item) getIntent().getSerializableExtra("item");
+        if (item.getImgUrl().size() > 1) {
             fabLeft.setVisibility(View.VISIBLE);
             fabRight.setVisibility(View.VISIBLE);
         }
         try {
-            GlideUrl url = new GlideUrl(Config.IMAGE_URL + community.getImgUrl().get(0).getImageUrl(), new LazyHeaders.Builder().addHeader("User-Agent", "Android").build());
-            Glide.with(CommunityDetailActivity.this).load(url).into(imgCommunity);
+            GlideUrl url = new GlideUrl(Config.IMAGE_URL + item.getImgUrl().get(0).getImageUrl(), new LazyHeaders.Builder().addHeader("User-Agent", "Android").build());
+            Glide.with(BorrowDetailActivity.this).load(url).into(imgBorrow);
         } catch (Exception e) {
-            imgCommunity.setImageResource(R.drawable.ic_photo);
+            imgBorrow.setImageResource(R.drawable.ic_photo);
         }
+        goodsId = item.getId();
 
         fabLeft.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,7 +127,7 @@ public class CommunityDetailActivity extends AppCompatActivity {
         fabRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (community.getImgUrl().size() - 1 == index) {
+                if (item.getImgUrl().size() - 1 == index) {
                     return;
                 }
                 index++;
@@ -128,40 +137,38 @@ public class CommunityDetailActivity extends AppCompatActivity {
 
         txtContent.setClickable(false);
         txtContent.setFocusable(false);
-        txtContent.setText(community.getContent());
+        txtContent.setText(item.getContent());
 
-        if (community.getIsLike() == 0) {
-            imgThumb.setImageResource(R.drawable.ic_thumb_outline);
+        if (item.getIsWish() == 0) {
+            imgHeart.setImageResource(R.drawable.ic_heart);
         } else {
-            imgThumb.setImageResource(R.drawable.ic_thumb);
+            imgHeart.setImageResource(R.drawable.heart_red);
         }
 
-        txtLikes.setText(community.getLikesCount() + "");
+        txtDetail.setText(item.getPrice() + " " + item.getRentalPeriod());
 
-        imgThumb.setOnClickListener(new View.OnClickListener() {
+        imgHeart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (!((MainActivity) context).isLogin()) {
                     ((MainActivity) context).login();
                     return;
                 }
-                showProgress("추천 하는중...");
+                showProgress("관심상품 등록중...");
                 Retrofit retrofit = NetworkClient.getRetrofitClient(Config.BASE_URL);
-                CommunityApi communityApi = retrofit.create(CommunityApi.class);
+                BorrowApi borrowApi = retrofit.create(BorrowApi.class);
                 SharedPreferences sp = getApplication().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
                 String accessToken = sp.getString("accessToken", "");
 
-                if (community.getIsLike() == 0) {
-                    Call<UserRes> call = communityApi.setLike(community.getId(), "Bearer " + accessToken);
+                if (item.getIsWish() == 0) {
+                    Call<UserRes> call = borrowApi.setConcerned("Bearer " + accessToken, goodsId);
                     call.enqueue(new Callback<UserRes>() {
                         @Override
                         public void onResponse(Call<UserRes> call, Response<UserRes> response) {
                             dismissProgress();
                             if(response.isSuccessful()) {
-                                community.setIsLike(1);
-                                community.setLikesCount(response.body().getLikesCount());
-                                txtLikes.setText(community.getLikesCount() + "");
-                                imgThumb.setImageResource(R.drawable.ic_thumb);
+                                item.setIsWish(1);
+                                imgHeart.setImageResource(R.drawable.heart_red);
 
                             }
                         }
@@ -172,16 +179,14 @@ public class CommunityDetailActivity extends AppCompatActivity {
                         }
                     });
                 } else {
-                    Call<UserRes> call = communityApi.setLikeCancel(community.getId(), "Bearer " + accessToken);
+                    Call<UserRes> call = borrowApi.setConcernedCancel("Bearer " + accessToken,goodsId);
                     call.enqueue(new Callback<UserRes>() {
                         @Override
                         public void onResponse(Call<UserRes> call, Response<UserRes> response) {
                             dismissProgress();
                             if(response.isSuccessful()) {
-                                community.setIsLike(0);
-                                community.setLikesCount(response.body().getLikesCount());
-                                txtLikes.setText(community.getLikesCount() + "");
-                                imgThumb.setImageResource(R.drawable.ic_thumb_outline);
+                                item.setIsWish(0);
+                                imgHeart.setImageResource(R.drawable.ic_heart);
                             }
                         }
 
@@ -204,12 +209,12 @@ public class CommunityDetailActivity extends AppCompatActivity {
 
                 showProgress("댓글 다는중...");
                 Retrofit retrofit = NetworkClient.getRetrofitClient(Config.BASE_URL);
-                CommunityApi communityApi = retrofit.create(CommunityApi.class);
+                BorrowApi borrowApi = retrofit.create(BorrowApi.class);
                 SharedPreferences sp = getApplication().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
                 String accessToken = sp.getString("accessToken", "");
                 Comment comment = new Comment(txtComment.getText().toString().trim());
 
-                Call<UserRes> call = communityApi.setComment("Bearer " + accessToken, community.getId(), comment);
+                Call<UserRes> call = borrowApi.setComment("Bearer " + accessToken, goodsId, comment);
                 call.enqueue(new Callback<UserRes>() {
                     @Override
                     public void onResponse(Call<UserRes> call, Response<UserRes> response) {
@@ -229,7 +234,7 @@ public class CommunityDetailActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(CommunityDetailActivity.this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(BorrowDetailActivity.this));
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -253,7 +258,7 @@ public class CommunityDetailActivity extends AppCompatActivity {
     }
 
     private void getNetworkData() {
-        communityCommentList.clear();
+        borrowCommentList.clear();
 
         offset = 0;
         limit = 20;
@@ -263,30 +268,30 @@ public class CommunityDetailActivity extends AppCompatActivity {
         SharedPreferences sp = getApplication().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
         String accessToken = sp.getString("accessToken", "");
         Retrofit retrofit = NetworkClient.getRetrofitClient(Config.BASE_URL);
-        CommunityApi communityApi = retrofit.create(CommunityApi.class);
+        BorrowApi borrowApi = retrofit.create(BorrowApi.class);
 
-        Call<CommunityCommentResult> call;
+        Call<BorrowCommentResult> call;
         if (accessToken.isEmpty()) {
-            call = communityApi.getCommentList(community.getId(), offset, limit);
+            call = borrowApi.getCommentList(goodsId, offset, limit);
         } else {
-            call = communityApi.getCommentList("Bearer " + accessToken, community.getId(), offset, limit);
+            call = borrowApi.getCommentList("Bearer " + accessToken, goodsId, offset, limit);
         }
 
-        call.enqueue(new Callback<CommunityCommentResult>() {
+        call.enqueue(new Callback<BorrowCommentResult>() {
             @Override
-            public void onResponse(Call<CommunityCommentResult> call, Response<CommunityCommentResult> response) {
+            public void onResponse(Call<BorrowCommentResult> call, Response<BorrowCommentResult> response) {
                 dismissProgress();
-                CommunityCommentResult communityCommentResult = response.body();
-                count = communityCommentResult.getCount();
-                communityCommentList.addAll(communityCommentResult.getItems());
+                BorrowCommentResult borrowCommentResult = response.body();
+                count = borrowCommentResult.getCount();
+                borrowCommentList.addAll(borrowCommentResult.getItems());
                 offset = offset + count;
 
-                adapter = new CommunityCommentAdapter(CommunityDetailActivity.this, communityCommentList);
+                adapter = new BorrowCommentAdapter(BorrowDetailActivity.this, borrowCommentList);
                 recyclerView.setAdapter(adapter);
             }
 
             @Override
-            public void onFailure(Call<CommunityCommentResult> call, Throwable t) {
+            public void onFailure(Call<BorrowCommentResult> call, Throwable t) {
                 dismissProgress();
             }
         });
@@ -297,36 +302,36 @@ public class CommunityDetailActivity extends AppCompatActivity {
         SharedPreferences sp = getApplication().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
         String accessToken = sp.getString("accessToken", "");
         Retrofit retrofit = NetworkClient.getRetrofitClient(Config.BASE_URL);
-        CommunityApi communityApi = retrofit.create(CommunityApi.class);
+        BorrowApi borrowApi = retrofit.create(BorrowApi.class);
 
-        Call<CommunityCommentResult> call;
+        Call<BorrowCommentResult> call;
         if (accessToken.isEmpty()) {
-            call = communityApi.getCommentList(community.getId(), offset, limit);
+            call = borrowApi.getCommentList(goodsId, offset, limit);
         } else {
-            call = communityApi.getCommentList("Bearer " + accessToken, community.getId(), offset, limit);
+            call = borrowApi.getCommentList("Bearer " + accessToken, goodsId, offset, limit);
         }
 
-        call.enqueue(new Callback<CommunityCommentResult>() {
+        call.enqueue(new Callback<BorrowCommentResult>() {
             @Override
-            public void onResponse(Call<CommunityCommentResult> call, Response<CommunityCommentResult> response) {
+            public void onResponse(Call<BorrowCommentResult> call, Response<BorrowCommentResult> response) {
                 dismissProgress();
-                CommunityCommentResult communityCommentResult = response.body();
-                count = communityCommentResult.getCount();
-                communityCommentList.addAll(communityCommentResult.getItems());
+                BorrowCommentResult borrowCommentResult = response.body();
+                count = borrowCommentResult.getCount();
+                borrowCommentList.addAll(borrowCommentResult.getItems());
                 offset = offset + count;
 
                 adapter.notifyDataSetChanged();
             }
 
             @Override
-            public void onFailure(Call<CommunityCommentResult> call, Throwable t) {
+            public void onFailure(Call<BorrowCommentResult> call, Throwable t) {
                 dismissProgress();
             }
         });
     }
 
     void showProgress(String message) {
-        dialog = new ProgressDialog(CommunityDetailActivity.this);
+        dialog = new ProgressDialog(BorrowDetailActivity.this);
         dialog.setCancelable(false);
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         dialog.setMessage(message);
@@ -339,16 +344,16 @@ public class CommunityDetailActivity extends AppCompatActivity {
 
     private void setImgCommunity(int index) {
         try {
-            GlideUrl url = new GlideUrl(Config.IMAGE_URL + community.getImgUrl().get(index).getImageUrl(), new LazyHeaders.Builder().addHeader("User-Agent", "Android").build());
-            Glide.with(CommunityDetailActivity.this).load(url).into(imgCommunity);
+            GlideUrl url = new GlideUrl(Config.IMAGE_URL + item.getImgUrl().get(index).getImageUrl(), new LazyHeaders.Builder().addHeader("User-Agent", "Android").build());
+            Glide.with(BorrowDetailActivity.this).load(url).into(imgBorrow);
         } catch (Exception e) {
-            imgCommunity.setImageResource(R.drawable.ic_photo);
+            imgBorrow.setImageResource(R.drawable.ic_photo);
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (community.getIsAuthor() == 0) {
+        if (item.getIsAuthor() == 0) {
             return true;
         }
         getMenuInflater().inflate(R.menu.community_detail, menu);
@@ -370,17 +375,17 @@ public class CommunityDetailActivity extends AppCompatActivity {
             finish();
         } else if (itemId == R.id.menuRevise) {
             finish();
-            Intent intent = new Intent(CommunityDetailActivity.this, CommunityWriteActivity.class);
+            Intent intent = new Intent(BorrowDetailActivity.this, BorrowWriteActivity.class);
             intent.putExtra("revise", true);
-            intent.putExtra("postingId", community.getId());
+            intent.putExtra("goodsId", goodsId);
             startActivity(intent);
         } else if (itemId == R.id.menuDelete) {
             showProgress("삭제중...");
             Retrofit retrofit = NetworkClient.getRetrofitClient(Config.BASE_URL);
-            CommunityApi communityApi = retrofit.create(CommunityApi.class);
+            BorrowApi borrowApi = retrofit.create(BorrowApi.class);
             SharedPreferences sp = getApplication().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
             String accessToken = sp.getString("accessToken", "");
-            Call<UserRes> call = communityApi.deleteCommunity("Bearer " + accessToken, community.getId());
+            Call<UserRes> call = borrowApi.deleteBorrow("Bearer " + accessToken, goodsId);
             call.enqueue(new Callback<UserRes>() {
                 @Override
                 public void onResponse(Call<UserRes> call, Response<UserRes> response) {
@@ -406,9 +411,9 @@ public class CommunityDetailActivity extends AppCompatActivity {
         SharedPreferences sp = getApplication().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
         String accessToken = sp.getString("accessToken", "");
         Retrofit retrofit = NetworkClient.getRetrofitClient(Config.BASE_URL);
-        CommunityApi communityApi = retrofit.create(CommunityApi.class);
+        BorrowApi borrowApi = retrofit.create(BorrowApi.class);
 
-        Call<UserRes> call = communityApi.reviseComment("Bearer " + accessToken, community.getId(), communityCommentList.get(index).getId(), comment);
+        Call<UserRes> call = borrowApi.reviseComment("Bearer " + accessToken, goodsId, borrowCommentList.get(index).getId(), comment);
         call.enqueue(new Callback<UserRes>() {
             @Override
             public void onResponse(Call<UserRes> call, Response<UserRes> response) {
@@ -432,9 +437,9 @@ public class CommunityDetailActivity extends AppCompatActivity {
         SharedPreferences sp = getApplication().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
         String accessToken = sp.getString("accessToken", "");
         Retrofit retrofit = NetworkClient.getRetrofitClient(Config.BASE_URL);
-        CommunityApi communityApi = retrofit.create(CommunityApi.class);
+        BorrowApi borrowApi = retrofit.create(BorrowApi.class);
 
-        Call<UserRes> call = communityApi.deleteComment("Bearer " + accessToken, community.getId(), communityCommentList.get(index).getId());
+        Call<UserRes> call = borrowApi.deleteComment("Bearer " + accessToken, goodsId, borrowCommentList.get(index).getId());
         call.enqueue(new Callback<UserRes>() {
             @Override
             public void onResponse(Call<UserRes> call, Response<UserRes> response) {

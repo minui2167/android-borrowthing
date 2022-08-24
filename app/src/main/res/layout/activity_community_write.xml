@@ -41,9 +41,8 @@
                 android:id="@+id/txtContent"
                 android:layout_width="match_parent"
                 android:layout_height="170dp"
-
                 android:gravity="top"
-                android:inputType="textWebEmailAddress" />
+                android:inputType="textMultiLine"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 

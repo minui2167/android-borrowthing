@@ -1,10 +1,23 @@
 package com.minui.borrowthing.api;
 
+import com.minui.borrowthing.model.BorrowCommentResult;
 import com.minui.borrowthing.model.BorrowResult;
+import com.minui.borrowthing.model.Comment;
+import com.minui.borrowthing.model.UserRes;
 
+import java.util.List;
+
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Part;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface BorrowApi {
@@ -13,4 +26,34 @@ public interface BorrowApi {
 
     @GET("/goods")
     Call<BorrowResult> getGoods(@Query("offset") int offset, @Query("limit") int limit, @Header("Authorization") String accessToken);
+
+    @POST("/goods/{goodsId}/wish")
+    Call<UserRes> setConcerned(@Header("Authorization") String accessToken, @Path("goodsId") int goodsId);
+
+    @DELETE("/goods/{goodsId}/wish")
+    Call<UserRes> setConcernedCancel(@Header("Authorization") String accessToken, @Path("goodsId") int goodsId);
+
+    @GET("/goods/{goodsId}/comment")
+    Call<BorrowCommentResult> getCommentList(@Path("goodsId") int goodsId, @Query("offset") int offset, @Query("limit") int limit);
+
+    @GET("/goods/{goodsId}/comment/login")
+    Call<BorrowCommentResult> getCommentList(@Header("Authorization") String accessToken, @Path("goodsId") int goodsId, @Query("offset") int offset, @Query("limit") int limit);
+
+    @POST("/goods/{goodsId}/comment")
+    Call<UserRes> setComment(@Header("Authorization") String accessToken, @Path("goodsId") int goodsId, @Body Comment comment);
+
+    @PUT("/goods/{goodsId}/comment/{commentId}")
+    Call<UserRes> reviseComment(@Header("Authorization") String accessToken, @Path("goodsId") int goodsId, @Path("commentId") int commentId, @Body Comment comment);
+
+    @DELETE("/goods/{goodsId}/comment/{commentId}")
+    Call<UserRes> deleteComment(@Header("Authorization") String accessToken, @Path("goodsId") int goodsId, @Path("commentId") int commentId);
+
+    @POST("/goods")
+    Call<UserRes> setBorrow(@Header("Authorization") String accessToken, @Part("title") RequestBody title, @Part List<MultipartBody.Part> photo, @Part("content") RequestBody content, @Part("price") RequestBody price, @Part("rentalPeriod") RequestBody rentalPeriod, @Part("categoriId") RequestBody categoriId);
+
+    @PUT("/goods/{goodsId}")
+    Call<UserRes> reviseBorrow(@Header("Authorization") String accessToken, @Part("title") RequestBody title, @Part List<MultipartBody.Part> photo, @Part("content") RequestBody content, @Part("price") RequestBody price, @Part("rentalPeriod") RequestBody rentalPeriod, @Part("categoriId") RequestBody categoriId);
+
+    @PUT("/goods/{goodsId}")
+    Call<UserRes> deleteBorrow(@Header("Authorization") String accessToken, @Path("goodsId") int goodsId);
 }

@@ -152,12 +152,8 @@ public class ThirdFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferences sp = getActivity().getApplication().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
-                accessToken = sp.getString("accessToken", "");
-                if (accessToken.isEmpty()) {
-
-                    Intent intent = new Intent(getContext(), LoginActivity.class);
-                    startActivity(intent);
+                if (!((MainActivity) context).isLogin()) {
+                    ((MainActivity) context).login();
                     return;
                 }
                 Intent intent = new Intent(getContext(), CommunityWriteActivity.class);

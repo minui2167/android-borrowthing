@@ -1,8 +1,9 @@
 package com.minui.borrowthing.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class item {
+public class item implements Serializable {
     private int id;
     private int categoriId;
     private int sellerId;
@@ -20,6 +21,24 @@ public class item {
     private int imgCount;
     private List<imageUrl> imgUrl;
     private List<tag> tag;
+    private int isWish;
+    private int isAuthor;
+
+    public int getIsAuthor() {
+        return isAuthor;
+    }
+
+    public void setIsAuthor(int isAuthor) {
+        this.isAuthor = isAuthor;
+    }
+
+    public int getIsWish() {
+        return isWish;
+    }
+
+    public void setIsWish(int isWish) {
+        this.isWish = isWish;
+    }
 
     public int getId() {
         return id;

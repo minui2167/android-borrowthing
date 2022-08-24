@@ -1,12 +1,11 @@
 package com.minui.borrowthing.model;
 
-import java.io.Serializable;
 import java.util.List;
 
-public class BorrowResult implements Serializable {
+public class BorrowCommentResult {
     private String result;
     private int count;
-    private List<item> items;
+    private List<BorrowComment> items;
 
     public String getResult() {
         return result;
@@ -24,11 +23,11 @@ public class BorrowResult implements Serializable {
         this.count = count;
     }
 
-    public List<item> getItems() {
+    public List<BorrowComment> getItems() {
         return items;
     }
 
-    public void setItems(List<item> items) {
+    public void setItems(List<BorrowComment> items) {
         this.items = items;
     }
 }

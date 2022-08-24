@@ -44,9 +44,9 @@ public class MainActivity extends AppCompatActivity {
 
     // 프래그먼트
     BottomNavigationView navigationView;
-    Fragment firstFragment;
+    public Fragment firstFragment;
     Fragment secondFragment;
-    Fragment thirdFragment;
+    public Fragment thirdFragment;
     Fragment forthFragment;
     Fragment searchFragment;
     Fragment chatFragment;
@@ -150,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
                 return loadFragment(fragment);
             }
         });
+        navigationView.setSelectedItemId(R.id.firstFragment);
 
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         locationListener = new LocationListener() {
@@ -194,7 +195,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, -1, 3, locationListener);
         }
-
     }
 
     void openMap() {
@@ -306,10 +306,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public void setLike(int index) {
-        ((ThirdFragment) thirdFragment).setLike(index);
     }
 
     boolean isLogin() {
