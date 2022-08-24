@@ -12,6 +12,13 @@
         android:orientation="horizontal"
         android:weightSum="6">
 
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginRight="5dp"
+            app:srcCompat="@drawable/user_main" />
+
         <TextView
             android:id="@+id/txtNickname"
             android:layout_width="0dp"
@@ -20,7 +27,7 @@
             android:layout_weight="1"
             android:ellipsize="end"
             android:maxLines="2"
-            android:singleLine="false"
+            android:singleLine="true"
             android:text="TextView" />
 
         <TextView
@@ -32,7 +39,7 @@
             android:layout_weight="5"
             android:ellipsize="end"
             android:maxLines="2"
-            android:singleLine="false"
+            android:singleLine="true"
             android:text="TextViewttttt" />
 
         <ImageView

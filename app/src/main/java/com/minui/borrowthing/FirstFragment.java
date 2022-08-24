@@ -1,5 +1,9 @@
 package com.minui.borrowthing;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,9 +15,21 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.minui.borrowthing.adapter.BorrowAdapter;
+import com.minui.borrowthing.adapter.CommunityAdapter;
+import com.minui.borrowthing.api.BorrowApi;
+import com.minui.borrowthing.api.CommunityApi;
+import com.minui.borrowthing.config.Config;
+import com.minui.borrowthing.config.NetworkClient;
+import com.minui.borrowthing.model.BorrowResult;
+import com.minui.borrowthing.model.CommunityResult;
 import com.minui.borrowthing.model.item;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,6 +51,15 @@ public class FirstFragment extends Fragment {
     RecyclerView recyclerView;
     BorrowAdapter adapter;
     ArrayList<item> itemList = new ArrayList<>();
+
+    // 페이징에 필요한 변수
+    int offset = 0;
+    int limit = 20;
+    int count = 0;
+
+    // 네트워크 처리 보여주는 프로그램 다이얼로그
+    ProgressDialog dialog;
+
 
     public FirstFragment() {
         // Required empty public constructor
@@ -77,19 +102,61 @@ public class FirstFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        item item = new item();
-        item.setTitle("테스트1234");
-        item.setContent("테스트1234");
-        item.setPrice(123);
-        item.setStatus(0);
-        itemList.clear();
-        for (int i = 0; i < 20; i++) {
-            itemList.add(item);
-        }
-
-        adapter = new BorrowAdapter(getContext(), itemList);
-        recyclerView.setAdapter(adapter);
+        getNetworkData();
 
         return rootView;
+    }
+
+    private void getNetworkData() {
+        itemList.clear();
+
+        offset = 0;
+        limit = 20;
+        count = 0;
+
+        showProgress("게시물 가져오는중...");
+        SharedPreferences sp = getActivity().getApplication().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+        String accessToken = sp.getString("accessToken", "");
+        Retrofit retrofit = NetworkClient.getRetrofitClient(Config.BASE_URL);
+        BorrowApi borrowApi = retrofit.create(BorrowApi.class);
+
+        Call<BorrowResult> call;
+//        if (accessToken.isEmpty()) {
+//            call = borrowApi.getGoods(offset, limit);
+//        } else {
+//            call = borrowApi.getGoods(offset, limit, "Bearer " + accessToken);
+//        }
+        call = borrowApi.getGoods(offset, limit);
+
+        call.enqueue(new Callback<BorrowResult>() {
+            @Override
+            public void onResponse(Call<BorrowResult> call, Response<BorrowResult> response) {
+                dismissProgress();
+                BorrowResult borrowResult = response.body();
+                count = borrowResult.getCount();
+                itemList.addAll(borrowResult.getItems());
+                offset = offset + count;
+
+                adapter = new BorrowAdapter(getContext(), itemList);
+                recyclerView.setAdapter(adapter);
+            }
+
+            @Override
+            public void onFailure(Call<BorrowResult> call, Throwable t) {
+                dismissProgress();
+            }
+        });
+    }
+
+    void showProgress(String message) {
+        dialog = new ProgressDialog(getContext());
+        dialog.setCancelable(false);
+        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        dialog.setMessage(message);
+        dialog.show();
+    }
+
+    void dismissProgress() {
+        dialog.dismiss();
     }
 }

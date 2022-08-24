@@ -179,6 +179,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     void showProgress(String message) {
         dialog = new ProgressDialog(this);
+        dialog.setCancelable(false);
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         dialog.setMessage(message);
         dialog.show();

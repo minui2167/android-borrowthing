@@ -25,7 +25,6 @@ import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.LazyHeaders;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
-import com.minui.borrowthing.adapter.CommunityAdapter;
 import com.minui.borrowthing.adapter.CommunityCommentAdapter;
 import com.minui.borrowthing.api.CommunityApi;
 import com.minui.borrowthing.config.Config;
@@ -34,15 +33,9 @@ import com.minui.borrowthing.model.Comment;
 import com.minui.borrowthing.model.Community;
 import com.minui.borrowthing.model.CommunityComment;
 import com.minui.borrowthing.model.CommunityCommentResult;
-import com.minui.borrowthing.model.CommunityResult;
-import com.minui.borrowthing.model.User;
 import com.minui.borrowthing.model.UserRes;
 
 import java.util.ArrayList;
-
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -62,6 +55,7 @@ public class CommunityDetailActivity extends AppCompatActivity {
     // 변수
     int index = 0;
     Community community;
+    boolean isClicked = false;
 
     // 네트워크 처리 보여주는 프로그램 다이얼로그
     ProgressDialog dialog;
@@ -327,6 +321,7 @@ public class CommunityDetailActivity extends AppCompatActivity {
 
     void showProgress(String message) {
         dialog = new ProgressDialog(CommunityDetailActivity.this);
+        dialog.setCancelable(false);
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         dialog.setMessage(message);
         dialog.show();
@@ -358,6 +353,12 @@ public class CommunityDetailActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
+
+        if (isClicked == false) {
+            isClicked = true;
+        } else {
+            return true;
+        }
 
         if (itemId == android.R.id.home) {
             finish();

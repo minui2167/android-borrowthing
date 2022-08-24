@@ -14,6 +14,15 @@ public class Community implements Serializable {
     private List<imageUrl> imgUrl;
     private int isLike;
     private int isAuthor;
+    private String nickname;
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
 
     public int getIsAuthor() {
         return isAuthor;

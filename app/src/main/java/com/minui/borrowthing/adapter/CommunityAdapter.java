@@ -44,6 +44,7 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Community community = communityList.get(position);
 
+        holder.txtNickname.setText(community.getNickname());
         try {
             GlideUrl url = new GlideUrl(Config.IMAGE_URL + community.getImgUrl().get(0).getImageUrl(), new LazyHeaders.Builder().addHeader("User-Agent", "Android").build());
             Glide.with(context).load(url).into(holder.imgCommunity);
@@ -67,6 +68,7 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         LinearLayout linearLayout;
+        TextView txtNickname;
         TextView txtContent;
         ImageView imgCommunity;
         ImageView imgThumb;
@@ -77,6 +79,7 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
             super(itemView);
 
             linearLayout = itemView.findViewById(R.id.linearLayout);
+            txtNickname = itemView.findViewById(R.id.txtNickname);
             txtContent = itemView.findViewById(R.id.txtContent);
             imgCommunity = itemView.findViewById(R.id.imgCommunity);
             imgThumb = itemView.findViewById(R.id.imgThumb);

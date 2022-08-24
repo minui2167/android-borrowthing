@@ -321,6 +321,7 @@ public class ThirdFragment extends Fragment {
 
     void showProgress(String message) {
         dialog = new ProgressDialog(getContext());
+        dialog.setCancelable(false);
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         dialog.setMessage(message);
         dialog.show();

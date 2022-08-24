@@ -13,6 +13,7 @@ import androidx.core.app.ActivityCompat;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.ClipData;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -59,6 +60,10 @@ public class CommunityWriteActivity extends AppCompatActivity {
     ArrayList<MultipartBody.Part> multiPartBodyPartList = new ArrayList<>();
     int index = 0;
     boolean revise = false;
+    boolean isClicked = false;
+
+    // 네트워크 처리 보여주는 프로그램 다이얼로그
+    ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,9 +158,16 @@ public class CommunityWriteActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
 
+        if (isClicked == false) {
+            isClicked = true;
+        } else {
+            return true;
+        }
+
         if (itemId == android.R.id.home) {
             finish();
         } else if(itemId == R.id.menuCheck) {
+            showProgress("작성중 입니다...");
             Retrofit retrofit = NetworkClient.getRetrofitClient(Config.BASE_URL);
             CommunityApi api = retrofit.create(CommunityApi.class);
 
@@ -176,15 +188,17 @@ public class CommunityWriteActivity extends AppCompatActivity {
             } else {
                 call = api.setCommunity("Bearer " + accessToken, multiPartBodyPartList, contentBody);
             }
+
             call.enqueue(new Callback<UserRes>() {
                 @Override
                 public void onResponse(Call<UserRes> call, Response<UserRes> response) {
+                    dismissProgress();
                     finish();
                 }
 
                 @Override
                 public void onFailure(Call<UserRes> call, Throwable t) {
-
+                    dismissProgress();
                 }
             });
         }
@@ -246,5 +260,17 @@ public class CommunityWriteActivity extends AppCompatActivity {
                         }
                     }).create().show();
         }
+    }
+
+    void showProgress(String message) {
+        dialog = new ProgressDialog(CommunityWriteActivity.this);
+        dialog.setCancelable(false);
+        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        dialog.setMessage(message);
+        dialog.show();
+    }
+
+    void dismissProgress() {
+        dialog.dismiss();
     }
 }
