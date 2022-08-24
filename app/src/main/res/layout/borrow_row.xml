@@ -17,7 +17,7 @@
             android:id="@+id/imgBorrow"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            tools:srcCompat="@drawable/ic_photo" />
+            tools:srcCompat="@drawable/nolmage" />
 
         <LinearLayout
             android:layout_width="0dp"

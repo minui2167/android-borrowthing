@@ -32,7 +32,8 @@
                     android:layout_weight="1"
                     android:backgroundTint="#03A9F4"
                     android:drawableLeft="@drawable/ic_fire"
-                    android:text="인기" />
+                    android:text="인기"
+                    android:textColor="#000000" />
 
                 <Button
                     android:id="@+id/btnLatest"
@@ -42,6 +43,7 @@
                     android:layout_weight="1"
                     android:backgroundTint="#03A9F4"
                     android:text="최신"
+                    android:textColor="#000000"
                     app:icon="@drawable/ic_flash"
                     app:iconTint="#FFEB3B" />
             </LinearLayout>
