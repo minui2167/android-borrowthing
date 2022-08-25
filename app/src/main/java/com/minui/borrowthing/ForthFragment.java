@@ -133,6 +133,8 @@ public class ForthFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // todo 내 관심 목록 불러오기
+                Intent intent = new Intent(getContext(),InterestListActivity.class);
+                startActivity(intent);
             }
         });
 
