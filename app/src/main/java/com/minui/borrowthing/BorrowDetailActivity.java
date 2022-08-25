@@ -145,7 +145,7 @@ public class BorrowDetailActivity extends AppCompatActivity {
             imgHeart.setImageResource(R.drawable.heart_red);
         }
 
-        txtDetail.setText(item.getPrice() + " " + item.getRentalPeriod());
+        txtDetail.setText("가격: " + item.getPrice() + "  기간: " + item.getRentalPeriod());
 
         imgHeart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -353,6 +353,7 @@ public class BorrowDetailActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        Log.i("test", item.getIsAuthor() + "");
         if (item.getIsAuthor() == 0) {
             return true;
         }
@@ -398,6 +399,7 @@ public class BorrowDetailActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<UserRes> call, Throwable t) {
                     dismissProgress();
+                    isClicked = false;
                 }
             });
         }
@@ -419,7 +421,6 @@ public class BorrowDetailActivity extends AppCompatActivity {
             public void onResponse(Call<UserRes> call, Response<UserRes> response) {
                 dismissProgress();
                 if (response.isSuccessful()) {
-                    Log.i("test", "test");
                     getNetworkData();
                 }
             }

@@ -106,6 +106,7 @@ public class LoginActivity extends AppCompatActivity {
                             SharedPreferences.Editor editor = sp.edit();
                             editor.putString("accessToken", userRes.getAccessToken());
                             editor.apply();
+                            ((MainActivity) context).setMyLocation();
                             finish();
                         } else {
                             try {

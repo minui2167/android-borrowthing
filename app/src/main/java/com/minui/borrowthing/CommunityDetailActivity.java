@@ -393,6 +393,7 @@ public class CommunityDetailActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<UserRes> call, Throwable t) {
                     dismissProgress();
+                    isClicked = false;
                 }
             });
         }
@@ -447,6 +448,7 @@ public class CommunityDetailActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<UserRes> call, Throwable t) {
                 dismissProgress();
+                isClicked = false;
             }
         });
     }

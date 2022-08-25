@@ -155,7 +155,6 @@ public class MainActivity extends AppCompatActivity {
                 return loadFragment(fragment);
             }
         });
-        navigationView.setSelectedItemId(R.id.firstFragment);
 
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         locationListener = new LocationListener() {
@@ -175,13 +174,14 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<Result> call, Response<Result> response) {
                         if (response.isSuccessful()) {
-                            dismissProgress();
+                            try {
+                                dismissProgress();
+                            } catch (Exception e) {
+
+                            }
                             result = response.body();
                             myLocation = new MyLocation(result.getResults()[0].getRegion().getArea1().getName(), result.getResults()[0].getRegion().getArea2().getName(),result.getResults()[0].getRegion().getArea3().getName());
-                            Retrofit retrofit = NetworkClient.getRetrofitClient(Config.BASE_URL);
-                            UserApi userApi = retrofit.create(UserApi.class);
-
-                            //Call<UserRes> call = userApi.setLocation()
+                            setMyLocation();
 
                             if (navigationView.getSelectedItemId() == R.id.firstFragment) {
                                 ac.setTitle(result.getResults()[0].getRegion().getArea3().getName());
@@ -206,6 +206,32 @@ public class MainActivity extends AppCompatActivity {
         } else {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, -1, 3, locationListener);
         }
+
+        navigationView.setSelectedItemId(R.id.firstFragment);
+    }
+
+    public void setMyLocation() {
+        if (myLocation == null) {
+            return;
+        }
+        Retrofit retrofit = NetworkClient.getRetrofitClient(Config.BASE_URL);
+        UserApi userApi = retrofit.create(UserApi.class);
+        SharedPreferences sp = getApplication().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+        String accessToken = sp.getString("accessToken", "");
+        Call<UserRes> call = userApi.setLocation("Bearer " + accessToken, myLocation);
+        call.enqueue(new Callback<UserRes>() {
+            @Override
+            public void onResponse(Call<UserRes> call, Response<UserRes> response) {
+                if(response.isSuccessful()) {
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserRes> call, Throwable t) {
+
+            }
+        });
     }
 
     void openMap() {

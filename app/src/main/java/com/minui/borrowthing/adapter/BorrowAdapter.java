@@ -2,6 +2,7 @@ package com.minui.borrowthing.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -109,6 +110,7 @@ public class BorrowAdapter extends RecyclerView.Adapter<BorrowAdapter.ViewHolder
                 @Override
                 public void onClick(View view) {
                     int index = getAdapterPosition();
+                    Log.i("test", itemList.get(index) + "");
                     Intent intent = new Intent(context, BorrowDetailActivity.class);
                     intent.putExtra("item", itemList.get(index));
                     context.startActivity(intent);

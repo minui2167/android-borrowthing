@@ -10,10 +10,12 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +32,8 @@ import com.minui.borrowthing.model.CommunityResult;
 import com.minui.borrowthing.model.UserRes;
 import com.minui.borrowthing.model.item;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -141,10 +145,13 @@ public class FirstFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
-        getNetworkData();
-
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getNetworkData();
     }
 
     private void getNetworkData() {
@@ -237,8 +244,18 @@ public class FirstFragment extends Fragment {
                 @Override
                 public void onResponse(Call<UserRes> call, Response<UserRes> response) {
                     dismissProgress();
-                    itemList.get(index).setIsWish(1);
-                    adapter.notifyDataSetChanged();
+                    if (response.isSuccessful()) {
+                        itemList.get(index).setIsWish(1);
+                        adapter.notifyDataSetChanged();
+                    } else {
+                        String body = "";
+                        try {
+                            body = response.errorBody().string();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        showDialog(body);
+                    }
                 }
 
                 @Override
@@ -262,6 +279,13 @@ public class FirstFragment extends Fragment {
                 }
             });
         }
+    }
+
+    private void showDialog(String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle(message);
+        builder.setPositiveButton("확인", null);
+        builder.show();
     }
 
     void showProgress(String message) {

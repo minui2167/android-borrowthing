@@ -201,6 +201,7 @@ public class CommunityWriteActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<UserRes> call, Throwable t) {
                     dismissProgress();
+                    isClicked = false;
                 }
             });
         }

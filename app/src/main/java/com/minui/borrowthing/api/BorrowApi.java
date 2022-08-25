@@ -14,6 +14,7 @@ import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -25,7 +26,7 @@ public interface BorrowApi {
     @GET("/goods")
     Call<BorrowResult> getGoods(@Query("offset") int offset, @Query("limit") int limit);
 
-    @GET("/goods")
+    @GET("/goods/login")
     Call<BorrowResult> getGoods(@Query("offset") int offset, @Query("limit") int limit, @Header("Authorization") String accessToken);
 
     @POST("/goods/{goodsId}/wish")
@@ -55,8 +56,8 @@ public interface BorrowApi {
 
     @Multipart
     @PUT("/goods/{goodsId}")
-    Call<UserRes> reviseBorrow(@Header("Authorization") String accessToken, @Part("title") RequestBody title, @Part List<MultipartBody.Part> photo, @Part("content") RequestBody content, @Part("price") RequestBody price, @Part("rentalPeriod") RequestBody rentalPeriod, @Part("categoriId") RequestBody categoriId);
+    Call<UserRes> reviseBorrow(@Header("Authorization") String accessToken, @Path("goodsId") int goodsId, @Part("title") RequestBody title, @Part List<MultipartBody.Part> photo, @Part("content") RequestBody content, @Part("price") RequestBody price, @Part("rentalPeriod") RequestBody rentalPeriod, @Part("categoriId") RequestBody categoriId);
 
-    @PUT("/goods/{goodsId}")
+    @DELETE("/goods/{goodsId}")
     Call<UserRes> deleteBorrow(@Header("Authorization") String accessToken, @Path("goodsId") int goodsId);
 }

@@ -26,6 +26,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -46,6 +47,7 @@ import com.minui.borrowthing.config.NetworkClient;
 import com.minui.borrowthing.model.UserRes;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -167,7 +169,7 @@ public class BorrowWriteActivity extends AppCompatActivity {
                     @Override
                     public void onPositiveButtonClick(Pair<Long, Long> selection) {
                         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-                        date = df.format(selection.first) + ":" +df.format(selection.second);
+                        date = df.format(selection.first) + "," +df.format(selection.second);
                         txtPeriod.setText(date);
                     }
                 });
@@ -210,13 +212,13 @@ public class BorrowWriteActivity extends AppCompatActivity {
                 break;
         }
 
-        String content = txtCategory.getText().toString().trim();
+        String content = txtContent.getText().toString().trim();
         if (content.isEmpty()) {
             Toast.makeText(BorrowWriteActivity.this, "내용을 입력하세요.", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        String price = txtCategory.getText().toString().trim();
+        String price = txtPrice.getText().toString().trim();
         if (price.isEmpty()) {
             Toast.makeText(BorrowWriteActivity.this, "가격을 입력하세요.", Toast.LENGTH_SHORT).show();
             return;
@@ -253,7 +255,7 @@ public class BorrowWriteActivity extends AppCompatActivity {
 
         Call<UserRes> call;
         if (revise) {
-            call = borrowApi.reviseBorrow("Bearer " + accessToken, titleBody, multiPartBodyPartList, contentBody, priceBody, dateBody, categoryBody);
+            call = borrowApi.reviseBorrow("Bearer " + accessToken, getIntent().getIntExtra("goodsId", 0),titleBody, multiPartBodyPartList, contentBody, priceBody, dateBody, categoryBody);
         } else {
             call = borrowApi.setBorrow("Bearer " + accessToken, titleBody, multiPartBodyPartList, contentBody, priceBody, dateBody, categoryBody);
         }
@@ -262,12 +264,24 @@ public class BorrowWriteActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<UserRes> call, Response<UserRes> response) {
                 dismissProgress();
-                finish();
+                if (response.isSuccessful()) {
+                    finish();
+                } else {
+                    String body = "";
+                    try {
+                        body = response.errorBody().string();
+                        Log.i("test", body);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    showDialog(body);
+                }
             }
 
             @Override
             public void onFailure(Call<UserRes> call, Throwable t) {
                 dismissProgress();
+                isClicked = false;
             }
         });
     }
@@ -380,6 +394,13 @@ public class BorrowWriteActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showDialog(String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(BorrowWriteActivity.this);
+        builder.setTitle(message);
+        builder.setPositiveButton("확인", null);
+        builder.show();
     }
 
     void showProgress(String message) {

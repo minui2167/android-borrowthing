@@ -25,6 +25,6 @@ public interface UserApi {
     @PUT("/users/edit")
     Call<UserRes> Revise(@Header("Authorization") String accessToken , @Body User user);
 
-    @PUT("/users/location")
+    @POST("/users/location")
     Call<UserRes> setLocation(@Header("Authorization") String accessToken, @Body MyLocation myLocation);
 }
