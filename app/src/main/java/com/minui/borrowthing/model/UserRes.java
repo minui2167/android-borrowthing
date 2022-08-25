@@ -5,7 +5,6 @@ import java.io.Serializable;
 public class UserRes implements Serializable {
     private String result;
     private String accessToken;
-    private String error;
     private String nickname;
     private int likesCount;
 
@@ -39,13 +38,5 @@ public class UserRes implements Serializable {
 
     public String getAccessToken() {
         return accessToken;
-    }
-
-    public String getError() {
-        return error;
-    }
-
-    public void setError(String error) {
-        this.error = error;
     }
 }

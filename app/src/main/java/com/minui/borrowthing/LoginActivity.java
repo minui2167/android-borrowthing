@@ -13,6 +13,7 @@ import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,6 +26,8 @@ import com.minui.borrowthing.config.Config;
 import com.minui.borrowthing.config.NetworkClient;
 import com.minui.borrowthing.model.UserRes;
 import com.minui.borrowthing.model.User;
+
+import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -99,14 +102,17 @@ public class LoginActivity extends AppCompatActivity {
                         if (response.isSuccessful()) {
                             UserRes userRes = response.body();
                             ((MainActivity) context).nickname = userRes.getNickname();
-                            if (userRes.getError() == null) {
-                                SharedPreferences sp = getApplication().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
-                                SharedPreferences.Editor editor = sp.edit();
-                                editor.putString("accessToken", userRes.getAccessToken());
-                                editor.apply();
-                                finish();
-                            } else {
-                                showDialog(userRes.getError());
+                            SharedPreferences sp = getApplication().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sp.edit();
+                            editor.putString("accessToken", userRes.getAccessToken());
+                            editor.apply();
+                            finish();
+                        } else {
+                            try {
+                                String body = response.errorBody().string();
+                                showDialog(body);
+                            }   catch (IOException e) {
+                                e.printStackTrace();
                             }
                         }
                     }

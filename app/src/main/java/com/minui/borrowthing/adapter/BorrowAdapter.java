@@ -57,7 +57,11 @@ public class BorrowAdapter extends RecyclerView.Adapter<BorrowAdapter.ViewHolder
         for (int i = 0;i < item.getTag().size();i++) {
             tagList += item.getTag().get(i).getTagName() + ", ";
         }
-        tagList = tagList.substring(0, tagList.length() - 2);
+        try {
+            tagList = tagList.substring(0, tagList.length() - 2);
+        } catch (Exception e) {
+
+        }
         holder.txtTag.setText(tagList);
 
         if (item.getStatus() == 1) {

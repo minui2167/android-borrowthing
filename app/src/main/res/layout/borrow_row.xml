@@ -78,9 +78,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="8dp"
                 android:background="@drawable/text_background"
-                android:text="거래중"
+                android:text="거래완료"
                 android:textColor="#FFFFFF" />
 
             <View

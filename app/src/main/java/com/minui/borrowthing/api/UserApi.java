@@ -1,5 +1,6 @@
 package com.minui.borrowthing.api;
 
+import com.minui.borrowthing.model.MyLocation;
 import com.minui.borrowthing.model.UserRes;
 import com.minui.borrowthing.model.User;
 import com.minui.borrowthing.model.UsersLike;
@@ -24,4 +25,6 @@ public interface UserApi {
     @PUT("/users/edit")
     Call<UserRes> Revise(@Header("Authorization") String accessToken , @Body User user);
 
+    @PUT("/users/location")
+    Call<UserRes> setLocation(@Header("Authorization") String accessToken, @Body MyLocation myLocation);
 }

@@ -175,8 +175,8 @@ public class CommunityWriteActivity extends AppCompatActivity {
                 RequestBody fileBody = RequestBody.create(fileList.get(i), MediaType.parse("image/*"));
                 MultipartBody.Part photo = MultipartBody.Part.createFormData("photo", "photo", fileBody);
                 multiPartBodyPartList.add(photo);
-
             }
+
             RequestBody contentBody = RequestBody.create(txtContent.getText().toString().trim(), MediaType.parse("text/plain"));
 
             SharedPreferences sp = getApplication().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
@@ -193,7 +193,9 @@ public class CommunityWriteActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<UserRes> call, Response<UserRes> response) {
                     dismissProgress();
-                    finish();
+                    if (response.isSuccessful()) {
+                        finish();
+                    }
                 }
 
                 @Override

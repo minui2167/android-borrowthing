@@ -14,6 +14,7 @@ import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Part;
@@ -48,9 +49,11 @@ public interface BorrowApi {
     @DELETE("/goods/{goodsId}/comment/{commentId}")
     Call<UserRes> deleteComment(@Header("Authorization") String accessToken, @Path("goodsId") int goodsId, @Path("commentId") int commentId);
 
+    @Multipart
     @POST("/goods")
     Call<UserRes> setBorrow(@Header("Authorization") String accessToken, @Part("title") RequestBody title, @Part List<MultipartBody.Part> photo, @Part("content") RequestBody content, @Part("price") RequestBody price, @Part("rentalPeriod") RequestBody rentalPeriod, @Part("categoriId") RequestBody categoriId);
 
+    @Multipart
     @PUT("/goods/{goodsId}")
     Call<UserRes> reviseBorrow(@Header("Authorization") String accessToken, @Part("title") RequestBody title, @Part List<MultipartBody.Part> photo, @Part("content") RequestBody content, @Part("price") RequestBody price, @Part("rentalPeriod") RequestBody rentalPeriod, @Part("categoriId") RequestBody categoriId);
 

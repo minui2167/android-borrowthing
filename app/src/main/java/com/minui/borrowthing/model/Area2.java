@@ -1,6 +1,6 @@
 package com.minui.borrowthing.model;
 
-public class Area3 {
+public class Area2 {
     private String name;
 
     public String getName() {

@@ -28,6 +28,7 @@ import com.minui.borrowthing.api.UserApi;
 import com.minui.borrowthing.config.Config;
 import com.minui.borrowthing.config.LocationApi;
 import com.minui.borrowthing.config.NetworkClient;
+import com.minui.borrowthing.model.MyLocation;
 import com.minui.borrowthing.model.Result;
 import com.minui.borrowthing.model.UserRes;
 import com.minui.borrowthing.model.UsersLike;
@@ -64,14 +65,18 @@ public class MainActivity extends AppCompatActivity {
     boolean category = true; // 홈버튼이 카테고리인지 백버튼인지
     Result result = new Result(); // 지역받기
     String region; // 지역명
-    double longitude; // 위도
-    double latitude; // 경도
+    Double longitude; // 위도
+    Double latitude; // 경도
     String nickname;
+    MyLocation myLocation;
 
     // 위치
     LocationManager locationManager;
     LocationListener locationListener;
     ProgressDialog asyncDialog;
+
+    // 네트워크 처리 보여주는 프로그램 다이얼로그
+    ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
                     ac.setHomeAsUpIndicator(R.drawable.ic_list_30);
                     category = true;
                 } else if (itemId == R.id.secondFragment) {
-                    if(region == null) {
+                    if(longitude == null) {
                         asyncDialog.show();
                         return false;
                     }
@@ -170,10 +175,16 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<Result> call, Response<Result> response) {
                         if (response.isSuccessful()) {
+                            dismissProgress();
                             result = response.body();
-                            region = result.getResults()[0].getRegion().getArea3().getName();
+                            myLocation = new MyLocation(result.getResults()[0].getRegion().getArea1().getName(), result.getResults()[0].getRegion().getArea2().getName(),result.getResults()[0].getRegion().getArea3().getName());
+                            Retrofit retrofit = NetworkClient.getRetrofitClient(Config.BASE_URL);
+                            UserApi userApi = retrofit.create(UserApi.class);
+
+                            //Call<UserRes> call = userApi.setLocation()
+
                             if (navigationView.getSelectedItemId() == R.id.firstFragment) {
-                                ac.setTitle(region);
+                                ac.setTitle(result.getResults()[0].getRegion().getArea3().getName());
                             }
                             if (!asyncDialog.isShowing()) {
                                 return;
@@ -229,6 +240,7 @@ public class MainActivity extends AppCompatActivity {
                     }).create().show();
         } else {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, -1, 3, locationListener);
+            showProgress("위치를 설정중입니다.");
         }
         return;
     }
@@ -320,5 +332,17 @@ public class MainActivity extends AppCompatActivity {
     void login() {
         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(intent);
+    }
+
+    void showProgress(String message) {
+        dialog = new ProgressDialog(MainActivity.this);
+        dialog.setCancelable(false);
+        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        dialog.setMessage(message);
+        dialog.show();
+    }
+
+    void dismissProgress() {
+        dialog.dismiss();
     }
 }

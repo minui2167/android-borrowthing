@@ -1,7 +1,7 @@
 package com.minui.borrowthing.model;
 
 public class Location {
-    public Area region;
+    private Area region;
 
     public Area getRegion() {
         return region;
