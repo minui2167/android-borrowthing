@@ -27,6 +27,9 @@ import com.minui.borrowthing.config.NetworkClient;
 import com.minui.borrowthing.model.UserRes;
 import com.minui.borrowthing.model.User;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 
 import retrofit2.Call;
@@ -110,9 +113,9 @@ public class LoginActivity extends AppCompatActivity {
                             finish();
                         } else {
                             try {
-                                String body = response.errorBody().string();
-                                showDialog(body);
-                            }   catch (IOException e) {
+                                JSONObject jsonobject = new JSONObject( response.errorBody().string());
+                                showDialog(jsonobject.getString("error"));
+                            } catch (IOException | JSONException e) {
                                 e.printStackTrace();
                             }
                         }

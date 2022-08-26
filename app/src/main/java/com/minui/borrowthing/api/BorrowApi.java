@@ -60,4 +60,7 @@ public interface BorrowApi {
 
     @DELETE("/goods/{goodsId}")
     Call<UserRes> deleteBorrow(@Header("Authorization") String accessToken, @Path("goodsId") int goodsId);
+
+    @GET("/goods/recommend")
+    Call<BorrowResult> getRecommend(@Header("Authorization") String accessToken, @Query("offset") int offset, @Query("limit") int limit);
 }

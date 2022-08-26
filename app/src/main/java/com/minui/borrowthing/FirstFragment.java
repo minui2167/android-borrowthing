@@ -19,9 +19,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.minui.borrowthing.adapter.BorrowAdapter;
+import com.minui.borrowthing.adapter.BorrowRecommendAdapter;
 import com.minui.borrowthing.adapter.CommunityAdapter;
 import com.minui.borrowthing.api.BorrowApi;
 import com.minui.borrowthing.api.CommunityApi;
@@ -31,6 +33,9 @@ import com.minui.borrowthing.model.BorrowResult;
 import com.minui.borrowthing.model.CommunityResult;
 import com.minui.borrowthing.model.UserRes;
 import com.minui.borrowthing.model.item;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -57,21 +62,29 @@ public class FirstFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    // 리사이클러 뷰 관련 멤버변수 3개
+    // 리사이클러 뷰 관련 멤버변수
     RecyclerView recyclerView;
     BorrowAdapter adapter;
     ArrayList<item> itemList = new ArrayList<>();
+    RecyclerView recyclerViewRecommend;
+    BorrowRecommendAdapter adapterRecommend;
+    ArrayList<item> itemRecommendList = new ArrayList<>();
 
     // 페이징에 필요한 변수
     int offset = 0;
     int limit = 20;
     int count = 0;
+    int offsetRecommend = 0;
+    int limitRecommend = 20;
+    int countRecommend = 0;
 
     // 네트워크 처리 보여주는 프로그램 다이얼로그
     ProgressDialog dialog;
+    ProgressDialog dialogRecommend;
 
     // ui
     FloatingActionButton fab;
+    TextView txtNickname;
 
 
     public FirstFragment() {
@@ -112,6 +125,7 @@ public class FirstFragment extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_first, container, false);
 
         fab = rootView.findViewById(R.id.fab);
+        txtNickname = rootView.findViewById(R.id.txtNickname);
         recyclerView = rootView.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -151,7 +165,53 @@ public class FirstFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        txtNickname.setVisibility(View.GONE);
         getNetworkData();
+        getRecommendData();
+    }
+
+    private void getRecommendData() {
+        SharedPreferences sp = getActivity().getApplication().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+        String accessToken = sp.getString("accessToken", "");
+        if (accessToken.isEmpty()) {
+            return;
+        }
+
+        itemRecommendList.clear();
+
+        offsetRecommend = 0;
+        limitRecommend = 0;
+        countRecommend = 0;
+
+        showRecommendProgress("게시물 가져오는중...");
+        Retrofit retrofit = NetworkClient.getRetrofitClient(Config.BASE_URL);
+        BorrowApi borrowApi = retrofit.create(BorrowApi.class);
+        Call<BorrowResult> call = borrowApi.getRecommend("Bearer " + accessToken, offsetRecommend, limitRecommend);
+
+        call.enqueue(new Callback<BorrowResult>() {
+            @Override
+            public void onResponse(Call<BorrowResult> call, Response<BorrowResult> response) {
+                dismissRecommendProgress();
+                if (response.isSuccessful()) {
+                    BorrowResult borrowResult = response.body();
+                    countRecommend = borrowResult.getCount();
+                    itemRecommendList.addAll(borrowResult.getItems());
+                    offsetRecommend = offsetRecommend + countRecommend;
+
+                    adapterRecommend = new BorrowRecommendAdapter(getContext(), itemRecommendList);
+                    recyclerViewRecommend.setAdapter(adapterRecommend);
+                    txtNickname.setVisibility(View.VISIBLE);
+                    txtNickname.setText(((MainActivity) context).nickname + "님의 추천 상품");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BorrowResult> call, Throwable t) {
+                dismissRecommendProgress();
+            }
+        });
+
+
     }
 
     private void getNetworkData() {
@@ -178,13 +238,15 @@ public class FirstFragment extends Fragment {
             @Override
             public void onResponse(Call<BorrowResult> call, Response<BorrowResult> response) {
                 dismissProgress();
-                BorrowResult borrowResult = response.body();
-                count = borrowResult.getCount();
-                itemList.addAll(borrowResult.getItems());
-                offset = offset + count;
+                if (response.isSuccessful()) {
+                    BorrowResult borrowResult = response.body();
+                    count = borrowResult.getCount();
+                    itemList.addAll(borrowResult.getItems());
+                    offset = offset + count;
 
-                adapter = new BorrowAdapter(getContext(), itemList);
-                recyclerView.setAdapter(adapter);
+                    adapter = new BorrowAdapter(getContext(), itemList);
+                    recyclerView.setAdapter(adapter);
+                }
             }
 
             @Override
@@ -212,12 +274,14 @@ public class FirstFragment extends Fragment {
             @Override
             public void onResponse(Call<BorrowResult> call, Response<BorrowResult> response) {
                 dismissProgress();
-                BorrowResult borrowResult = response.body();
-                count = borrowResult.getCount();
-                itemList.addAll(borrowResult.getItems());
-                offset = offset + count;
+                if (response.isSuccessful()) {
+                    BorrowResult borrowResult = response.body();
+                    count = borrowResult.getCount();
+                    itemList.addAll(borrowResult.getItems());
+                    offset = offset + count;
 
-                adapter.notifyDataSetChanged();
+                    adapter.notifyDataSetChanged();
+                }
             }
 
             @Override
@@ -248,13 +312,12 @@ public class FirstFragment extends Fragment {
                         itemList.get(index).setIsWish(1);
                         adapter.notifyDataSetChanged();
                     } else {
-                        String body = "";
                         try {
-                            body = response.errorBody().string();
-                        } catch (IOException e) {
+                            JSONObject jsonobject = new JSONObject( response.errorBody().string());
+                            showDialog(jsonobject.getString("error"));
+                        } catch (IOException | JSONException e) {
                             e.printStackTrace();
                         }
-                        showDialog(body);
                     }
                 }
 
@@ -269,8 +332,10 @@ public class FirstFragment extends Fragment {
                 @Override
                 public void onResponse(Call<UserRes> call, Response<UserRes> response) {
                     dismissProgress();
-                    itemList.get(index).setIsWish(0);
-                    adapter.notifyDataSetChanged();
+                    if (response.isSuccessful()) {
+                        itemList.get(index).setIsWish(0);
+                        adapter.notifyDataSetChanged();
+                    }
                 }
 
                 @Override
@@ -298,5 +363,17 @@ public class FirstFragment extends Fragment {
 
     void dismissProgress() {
         dialog.dismiss();
+    }
+
+    void showRecommendProgress(String message) {
+        dialogRecommend = new ProgressDialog(getContext());
+        dialogRecommend.setCancelable(false);
+        dialogRecommend.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        dialogRecommend.setMessage(message);
+        dialogRecommend.show();
+    }
+
+    void dismissRecommendProgress() {
+        dialogRecommend.dismiss();
     }
 }

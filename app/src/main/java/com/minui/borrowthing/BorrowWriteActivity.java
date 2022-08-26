@@ -46,6 +46,9 @@ import com.minui.borrowthing.config.Config;
 import com.minui.borrowthing.config.NetworkClient;
 import com.minui.borrowthing.model.UserRes;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -267,14 +270,12 @@ public class BorrowWriteActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     finish();
                 } else {
-                    String body = "";
                     try {
-                        body = response.errorBody().string();
-                        Log.i("test", body);
-                    } catch (IOException e) {
+                        JSONObject jsonobject = new JSONObject( response.errorBody().string());
+                        showDialog(jsonobject.getString("error"));
+                    } catch (IOException | JSONException e) {
                         e.printStackTrace();
                     }
-                    showDialog(body);
                 }
             }
 
