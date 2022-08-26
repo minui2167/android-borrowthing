@@ -156,6 +156,8 @@ public class ForthFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // todo 거래내역 불러오기
+                Intent intent = new Intent(getActivity(), TransactionHistoryActivity.class);
+                startActivity(intent);
             }
         });
 

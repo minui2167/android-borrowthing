@@ -199,9 +199,9 @@ public class FirstFragment extends Fragment {
                     offsetRecommend = offsetRecommend + countRecommend;
 
                     adapterRecommend = new BorrowRecommendAdapter(getContext(), itemRecommendList);
-                    recyclerViewRecommend.setAdapter(adapterRecommend);
-                    txtNickname.setVisibility(View.VISIBLE);
-                    txtNickname.setText(((MainActivity) context).nickname + "님의 추천 상품");
+//                    recyclerViewRecommend.setAdapter(adapterRecommend);
+//                    txtNickname.setVisibility(View.VISIBLE);
+//                    txtNickname.setText(((MainActivity) context).nickname + "님의 추천 상품");
                 }
             }
 
