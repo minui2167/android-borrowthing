@@ -2,11 +2,14 @@ package com.minui.borrowthing.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,8 +18,10 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.LazyHeaders;
 import com.minui.borrowthing.BorrowDetailActivity;
+import com.minui.borrowthing.EvaluationActivity;
 import com.minui.borrowthing.FirstFragment;
 import com.minui.borrowthing.MainActivity;
+import com.minui.borrowthing.PurchaseHistoryActivity;
 import com.minui.borrowthing.R;
 import com.minui.borrowthing.config.Config;
 import com.minui.borrowthing.model.item;
@@ -27,16 +32,20 @@ public class BorrowAdapter extends RecyclerView.Adapter<BorrowAdapter.ViewHolder
 
     Context context;
     List<item> itemList;
+    String calledContext;
 
-    public BorrowAdapter(Context context, List<item> itemList) {
+    public BorrowAdapter(Context context, List<item> itemList, String calledContext) {
         this.context = context;
         this.itemList = itemList;
+        this.calledContext = calledContext;
     }
 
     @NonNull
     @Override
     public BorrowAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.borrow_row, parent, false);
+//        if (calledContext.equals("purchaseHistoryStatus2NotRating"))
+//            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.borrow_not_rating_row, parent, false);
         return new BorrowAdapter.ViewHolder(view);
     }
 
@@ -105,13 +114,22 @@ public class BorrowAdapter extends RecyclerView.Adapter<BorrowAdapter.ViewHolder
             txtTrade = itemView.findViewById(R.id.txtTrade);
             imgConcerned = itemView.findViewById(R.id.imgConcerned);
 
+
             linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    int index = getAdapterPosition();
-                    Intent intent = new Intent(context, BorrowDetailActivity.class);
-                    intent.putExtra("item", itemList.get(index));
-                    context.startActivity(intent);
+                    if(calledContext.equals("firstFragment")) {
+                        int index = getAdapterPosition();
+                        Intent intent = new Intent(context, BorrowDetailActivity.class);
+                        intent.putExtra("item", itemList.get(index));
+                        context.startActivity(intent);
+                    }
+                    if(calledContext.equals("purchaseHistoryStatus2NotRating")){
+                        int index = getAdapterPosition();
+                        Intent intent = new Intent(context, EvaluationActivity.class);
+                        intent.putExtra("item", itemList.get(index));
+                        context.startActivity(intent);
+                    }
                 }
             });
 
@@ -119,9 +137,12 @@ public class BorrowAdapter extends RecyclerView.Adapter<BorrowAdapter.ViewHolder
                 @Override
                 public void onClick(View view) {
                     int index = getAdapterPosition();
-                    ((FirstFragment) ((MainActivity) context).firstFragment).setConcerned(index);
+                    if(calledContext.equals("firstFragment"))
+                        ((FirstFragment) ((MainActivity) context).firstFragment).setConcerned(index);
                 }
             });
+
+
         }
     }
 }

@@ -244,7 +244,7 @@ public class FirstFragment extends Fragment {
                     itemList.addAll(borrowResult.getItems());
                     offset = offset + count;
 
-                    adapter = new BorrowAdapter(getContext(), itemList);
+                    adapter = new BorrowAdapter(getContext(), itemList, "firstFragment");
                     recyclerView.setAdapter(adapter);
                 }
             }

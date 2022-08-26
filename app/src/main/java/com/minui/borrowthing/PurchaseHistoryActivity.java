@@ -18,6 +18,7 @@ import com.minui.borrowthing.api.BorrowApi;
 import com.minui.borrowthing.config.Config;
 import com.minui.borrowthing.config.NetworkClient;
 import com.minui.borrowthing.model.BorrowResult;
+import com.minui.borrowthing.model.Rating;
 import com.minui.borrowthing.model.item;
 
 import java.util.ArrayList;
@@ -48,6 +49,8 @@ public class PurchaseHistoryActivity extends AppCompatActivity {
     int status = 0;
 
     int isRating = 0;
+    String calledContext = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,8 +67,9 @@ public class PurchaseHistoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 status = 1;
-                isRating = 0;
-                getNetworkData(status);
+                isRating = 1;
+                calledContext = "purchaseHistoryStatus1";
+                getNetworkData();
             }
         });
 
@@ -74,8 +78,9 @@ public class PurchaseHistoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 status = 2;
-                isRating = 0;
-                getNetworkData(status);
+                isRating = 1;
+                calledContext = "purchaseHistoryStatus2";
+                getNetworkData();
             }
         });
 
@@ -84,8 +89,9 @@ public class PurchaseHistoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 status = 2;
-                isRating = 1;
-
+                isRating = 0;
+                calledContext = "purchaseHistoryStatus2NotRating";
+                getNetworkData();
             }
         });
         recyclerView.setHasFixedSize(true);
@@ -113,7 +119,7 @@ public class PurchaseHistoryActivity extends AppCompatActivity {
 
     }
 
-    private void getNetworkData(int status) {
+    private void getNetworkData() {
         itemList.clear();
 
         offset = 0;
@@ -128,9 +134,10 @@ public class PurchaseHistoryActivity extends AppCompatActivity {
         BorrowApi borrowApi = retrofit.create(BorrowApi.class);
 
         Call<BorrowResult> call;
-
-        call = borrowApi.getPurchaseHistory("Bearer " + accessToken, offset, limit, status);
-
+        if(isRating == 1)
+            call = borrowApi.getPurchaseHistory("Bearer " + accessToken, offset, limit, status);
+        else
+            call = borrowApi.getNotRatingPurchaseHistory("Bearer " + accessToken, offset, limit);
         call.enqueue(new Callback<BorrowResult>() {
             @Override
             public void onResponse(Call<BorrowResult> call, Response<BorrowResult> response) {
@@ -142,7 +149,7 @@ public class PurchaseHistoryActivity extends AppCompatActivity {
                     Log.i("item size", ""+itemList.size());
                     offset = offset + count;
 
-                    adapter = new BorrowAdapter(getApplication(), itemList);
+                    adapter = new BorrowAdapter(getApplication(), itemList, calledContext);
                     recyclerView.setAdapter(adapter);
                 }
             }
@@ -203,4 +210,6 @@ public class PurchaseHistoryActivity extends AppCompatActivity {
         dialog.setMessage(message);
         dialog.show();
     }
+
+
 }
