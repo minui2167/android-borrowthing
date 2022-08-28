@@ -57,7 +57,7 @@ public class BorrowDetailActivity extends AppCompatActivity {
     TextView txtDetail;
     TextView txtComment;
     Button btnRegister;
-
+    Button btnDeal;
     // 변수
     int index = 0;
     item item;
@@ -96,9 +96,12 @@ public class BorrowDetailActivity extends AppCompatActivity {
         imgHeart = findViewById(R.id.imgHeart);
         txtDetail = findViewById(R.id.txtDetail);
         txtComment = findViewById(R.id.txtComment);
+        btnDeal = findViewById(R.id.btnDeal);
         btnRegister = findViewById(R.id.btnRegister);
         fabLeft.setVisibility(View.GONE);
         fabRight.setVisibility(View.GONE);
+        btnDeal.setVisibility(View.VISIBLE);
+
 
         item = (item) getIntent().getSerializableExtra("item");
         if (item.getImgUrl().size() > 1) {
@@ -111,6 +114,10 @@ public class BorrowDetailActivity extends AppCompatActivity {
         } catch (Exception e) {
             imgBorrow.setImageResource(R.drawable.ic_photo);
         }
+
+        if (item.getIsAuthor() == 1)
+            btnDeal.setVisibility(View.GONE);
+
         goodsId = item.getId();
 
         fabLeft.setOnClickListener(new View.OnClickListener() {
