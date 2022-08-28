@@ -235,9 +235,9 @@ public class FirstFragment extends Fragment {
 
         Call<BorrowResult> call;
         if (accessToken.isEmpty()) {
-            call = borrowApi.getGoods(offset, limit);
+            call = borrowApi.getGoods(offset, limit, 0);
         } else {
-            call = borrowApi.getGoods(offset, limit, "Bearer " + accessToken);
+            call = borrowApi.getGoods(offset, limit, 0, "Bearer " + accessToken);
         }
 
         call.enqueue(new Callback<BorrowResult>() {
@@ -271,9 +271,9 @@ public class FirstFragment extends Fragment {
 
         Call<BorrowResult> call;
         if (accessToken.isEmpty()) {
-            call = borrowApi.getGoods(offset, limit);
+            call = borrowApi.getGoods(offset, limit, 0);
         } else {
-            call = borrowApi.getGoods(offset, limit, "Bearer " + accessToken);
+            call = borrowApi.getGoods(offset, limit, 0, "Bearer " + accessToken);
         }
 
         call.enqueue(new Callback<BorrowResult>() {

@@ -24,10 +24,10 @@ import retrofit2.http.Query;
 
 public interface BorrowApi {
     @GET("/goods")
-    Call<BorrowResult> getGoods(@Query("offset") int offset, @Query("limit") int limit);
+    Call<BorrowResult> getGoods(@Query("offset") int offset, @Query("limit") int limit, @Query("category") int category);
 
     @GET("/goods/login")
-    Call<BorrowResult> getGoods(@Query("offset") int offset, @Query("limit") int limit, @Header("Authorization") String accessToken);
+    Call<BorrowResult> getGoods(@Query("offset") int offset, @Query("limit") int limit, @Query("category") int category, @Header("Authorization") String accessToken);
 
     @POST("/goods/{goodsId}/wish")
     Call<UserRes> setConcerned(@Header("Authorization") String accessToken, @Path("goodsId") int goodsId);

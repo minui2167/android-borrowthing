@@ -75,6 +75,7 @@ public class CategoryActivity extends AppCompatActivity {
                 chips[5] = b;
             }
         });
+
     }
 
     // 액션바 메뉴 보여주기
