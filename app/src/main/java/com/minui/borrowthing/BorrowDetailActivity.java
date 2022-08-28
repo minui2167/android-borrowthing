@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.model.GlideUrl;
@@ -33,6 +34,7 @@ import com.minui.borrowthing.config.Config;
 import com.minui.borrowthing.config.NetworkClient;
 import com.minui.borrowthing.model.BorrowComment;
 import com.minui.borrowthing.model.BorrowCommentResult;
+import com.minui.borrowthing.model.BorrowResult;
 import com.minui.borrowthing.model.Comment;
 import com.minui.borrowthing.model.Community;
 import com.minui.borrowthing.model.CommunityComment;
@@ -115,7 +117,7 @@ public class BorrowDetailActivity extends AppCompatActivity {
             imgBorrow.setImageResource(R.drawable.ic_photo);
         }
 
-        if (item.getIsAuthor() == 1)
+        if (item.getIsAuthor() == 1 || item.getStatus() != 0)
             btnDeal.setVisibility(View.GONE);
 
         goodsId = item.getId();
@@ -233,6 +235,35 @@ public class BorrowDetailActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<UserRes> call, Throwable t) {
+                        dismissProgress();
+                    }
+                });
+            }
+        });
+
+        btnDeal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showProgress("댓글 다는중...");
+                Retrofit retrofit = NetworkClient.getRetrofitClient(Config.BASE_URL);
+                BorrowApi borrowApi = retrofit.create(BorrowApi.class);
+                SharedPreferences sp = getApplication().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+                String accessToken = sp.getString("accessToken", "");
+                Comment comment = new Comment(txtComment.getText().toString().trim());
+
+                Call<BorrowResult> call = borrowApi.setTransactionRequest("Bearer " + accessToken, goodsId);
+                call.enqueue(new Callback<BorrowResult>() {
+                    @Override
+                    public void onResponse(Call<BorrowResult> call, Response<BorrowResult> response) {
+                        dismissProgress();
+                        if (response.isSuccessful()) {
+                            Toast.makeText(getApplication(), "거래 신청 됐습니다.", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<BorrowResult> call, Throwable t) {
                         dismissProgress();
                     }
                 });

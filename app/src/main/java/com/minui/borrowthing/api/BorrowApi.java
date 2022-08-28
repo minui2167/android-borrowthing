@@ -75,4 +75,7 @@ public interface BorrowApi {
 
     @PUT("/goods/{goodsId}/deal")
     Call<BorrowResult> setTransactionCompletion(@Header("Authorization") String accessToken, @Path("goodsId") int goodsId);
+
+    @POST("/goods/{goodsId}/deal")
+    Call<BorrowResult> setTransactionRequest(@Header("Authorization") String accessToken, @Path("goodsId") int goodsId);
 }
