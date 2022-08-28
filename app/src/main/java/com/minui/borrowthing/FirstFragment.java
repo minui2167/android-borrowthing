@@ -132,7 +132,7 @@ public class FirstFragment extends Fragment {
 
         recyclerViewRecommend = rootView.findViewById(R.id.recyclerViewRecommend);
         recyclerViewRecommend.setHasFixedSize(true);
-        recyclerViewRecommend.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerViewRecommend.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
