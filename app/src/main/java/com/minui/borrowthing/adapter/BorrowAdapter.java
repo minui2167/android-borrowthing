@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.LazyHeaders;
 import com.minui.borrowthing.BorrowDetailActivity;
+import com.minui.borrowthing.BorrowDetailStatusIngActivity;
 import com.minui.borrowthing.EvaluationActivity;
 import com.minui.borrowthing.FirstFragment;
 import com.minui.borrowthing.MainActivity;
@@ -128,11 +129,16 @@ public class BorrowAdapter extends RecyclerView.Adapter<BorrowAdapter.ViewHolder
                         int index = getAdapterPosition();
                         Intent intent = new Intent(context, EvaluationActivity.class);
                         intent.putExtra("item", itemList.get(index));
-                        Log.i("goods", itemList.get(index).getImgUrl().get(0).getImageUrl());
-                        Log.i("goods", itemList.get(index).getId()+"");
+                        context.startActivity(intent);
+                    }
+                    else if(calledContext.equals("purchaseHistoryStatus1")){
+                        int index = getAdapterPosition();
+                        Intent intent = new Intent(context, BorrowDetailStatusIngActivity.class);
+                        intent.putExtra("item", itemList.get(index));
                         context.startActivity(intent);
                     }
                 }
+
             });
 
             imgConcerned.setOnClickListener(new View.OnClickListener() {

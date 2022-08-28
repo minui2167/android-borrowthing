@@ -72,4 +72,7 @@ public interface BorrowApi {
 
     @POST("/evaluation/{goodsId}")
     Call<BorrowResult> setRating(@Header("Authorization") String accessToken, @Path("goodsId") int goodsId, @Body Score score);
+
+    @PUT("/goods/{goodsId}/deal")
+    Call<BorrowResult> setTransactionCompletion(@Header("Authorization") String accessToken, @Path("goodsId") int goodsId);
 }
