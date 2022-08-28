@@ -3,6 +3,7 @@ package com.minui.borrowthing;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,9 +20,12 @@ import com.bumptech.glide.load.model.LazyHeaders;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.minui.borrowthing.api.BorrowApi;
+import com.minui.borrowthing.api.ChatApi;
 import com.minui.borrowthing.config.Config;
 import com.minui.borrowthing.config.NetworkClient;
 import com.minui.borrowthing.model.BorrowResult;
+import com.minui.borrowthing.model.ChatRoom;
+import com.minui.borrowthing.model.ChatRoomRes;
 import com.minui.borrowthing.model.item;
 
 import retrofit2.Call;
@@ -37,7 +41,7 @@ public class BorrowDetailStatusIngActivity extends AppCompatActivity {
     RatingBar ratingBar;
     Button btnCompleted;
     TextView txtDetail;
-
+    Button btnChat;
     int index = 0;
     boolean isClicked = false;
     com.minui.borrowthing.model.item item;
@@ -46,6 +50,7 @@ public class BorrowDetailStatusIngActivity extends AppCompatActivity {
     // 네트워크 처리 보여주는 프로그램 다이얼로그
     ProgressDialog dialog;
 
+    String type = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +63,7 @@ public class BorrowDetailStatusIngActivity extends AppCompatActivity {
         ratingBar = findViewById(R.id.ratingBar);
         txtDetail = findViewById(R.id.txtDetail);
         btnCompleted = findViewById(R.id.btnCompleted);
+        btnChat = findViewById(R.id.btnChat);
         fabLeft.setVisibility(View.GONE);
         fabRight.setVisibility(View.GONE);
 
@@ -136,6 +142,48 @@ public class BorrowDetailStatusIngActivity extends AppCompatActivity {
                         dismissProgress();
                     }
                 });
+            }
+        });
+
+        btnChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences sp = getApplication().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+                String accessToken = sp.getString("accessToken", "");
+                Retrofit retrofit = NetworkClient.getRetrofitClient(Config.BASE_URL);
+                ChatApi chatApi = retrofit.create(ChatApi.class);
+                if (item.getIsAuthor() == 1) {
+                    type = "seller";
+                }else{
+                    type = "buyer";
+                }
+
+                Call<ChatRoomRes> call;
+                call = chatApi.setChatRoom("Bearer " + accessToken, goodsId, type);
+                showProgress("채팅방 입장 중...");
+                call.enqueue(new Callback<ChatRoomRes>() {
+                    @Override
+                    public void onResponse(Call<ChatRoomRes> call, Response<ChatRoomRes> response) {
+                        dismissProgress();
+                        if (response.isSuccessful()) {
+                            ChatRoomRes chatRoomRes = response.body();
+                            Log.i("test", chatRoomRes.getResult()+"");
+                            ChatRoom chatRoom = chatRoomRes.getItems().get(0);
+                            Intent intent = new Intent(BorrowDetailStatusIngActivity.this, ChatActivity.class);
+
+                            intent.putExtra("chatRoom", chatRoom);
+
+                            startActivity(intent);
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ChatRoomRes> call, Throwable t) {
+                        dismissProgress();
+                    }
+                });
+
             }
         });
     }

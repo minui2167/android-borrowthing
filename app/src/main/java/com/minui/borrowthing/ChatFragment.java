@@ -1,18 +1,39 @@
 package com.minui.borrowthing;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.minui.borrowthing.adapter.ChatRoomAdapter;
+import com.minui.borrowthing.api.ChatApi;
+import com.minui.borrowthing.config.Config;
+import com.minui.borrowthing.config.NetworkClient;
+import com.minui.borrowthing.model.ChatRoom;
+import com.minui.borrowthing.model.ChatRoomRes;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,8 +52,13 @@ public class ChatFragment extends Fragment {
     private String mParam2;
 
     // ui
-    TextInputLayout textInputLayout;
-    TextInputEditText textInputEditText;
+    RecyclerView recyclerView;
+
+    List<ChatRoom> chatRoomList = new ArrayList<>();
+    ChatRoomAdapter chatRoomAdapter;
+
+    // 네트워크 처리 보여주는 프로그램 다이얼로그
+    ProgressDialog dialog;
 
     public ChatFragment() {
         // Required empty public constructor
@@ -70,25 +96,80 @@ public class ChatFragment extends Fragment {
                              Bundle savedInstanceState) {
         // ui
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_chat, container, false);
-        textInputLayout = rootView.findViewById(R.id.textInputLayout);
-        textInputEditText = rootView.findViewById(R.id.txtTitle);
+        recyclerView = rootView.findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        // 클릭하면 전송
-        textInputLayout.setEndIconOnClickListener(new View.OnClickListener() {
+        chatRoomList.clear();
+        showProgress("게시물 가져오는중...");
+        SharedPreferences sp = getActivity().getApplication().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+        String accessToken = sp.getString("accessToken", "");
+        Retrofit retrofit = NetworkClient.getRetrofitClient(Config.BASE_URL);
+
+        ChatApi api = retrofit.create(ChatApi.class);
+
+        Call<ChatRoomRes> call = api.getChatRoomList("Bearer " + accessToken);
+        // 실제 api 호출
+        call.enqueue(new Callback<ChatRoomRes>() {
             @Override
-            public void onClick(View view) {
-                Log.i("test", textInputEditText.getText().toString() );
+            public void onResponse(Call<ChatRoomRes> call, Response<ChatRoomRes> response) {
+//                progressBar.setVisibility(View.INVISIBLE);
+                // 200 OK
+                if(response.isSuccessful()){
+                    dismissProgress();
+                    // 정상으로 데이터 받아왔으니, 리사이클러뷰에 표시
+                    ChatRoomRes chatRoomRes = response.body();
+
+                    chatRoomList.addAll(chatRoomRes.getItems());
+                    Log.i("myChatRoom", "id :" + chatRoomRes.getResult());
+                    chatRoomAdapter = new ChatRoomAdapter(getContext(), chatRoomList);
+                    recyclerView.setAdapter(chatRoomAdapter);
+
+                } else{
+                    Toast.makeText(getContext(), "에러발생 : " + response.code(),
+                            Toast.LENGTH_SHORT).show();
+                    dismissProgress();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ChatRoomRes> call, Throwable t) {
+                // 네트워크 자체 문제로 실패
+                Toast.makeText(getContext(), "네트워크에 문제가 있습니다.", Toast.LENGTH_SHORT).show();
+                dismissProgress();
+//                progressBar.setVisibility(View.INVISIBLE);
             }
         });
-
-        // 포커스되면 색 바꾸기
-        textInputEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                int color = b ? Color.parseColor("#3498db"): Color.GRAY;
-                textInputLayout.setEndIconTintList(ColorStateList.valueOf(color));
-            }
-        });
+//        textInputEditText = rootView.findViewById(R.id.txtTitle);
+//
+//        // 클릭하면 전송
+//        textInputLayout.setEndIconOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Log.i("test", textInputEditText.getText().toString() );
+//            }
+//        });
+//
+//        // 포커스되면 색 바꾸기
+//        textInputEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View view, boolean b) {
+//                int color = b ? Color.parseColor("#3498db"): Color.GRAY;
+//                textInputLayout.setEndIconTintList(ColorStateList.valueOf(color));
+//            }
+//        });
         return rootView;
+    }
+
+    void showProgress(String message) {
+        dialog = new ProgressDialog(getContext());
+        dialog.setCancelable(false);
+        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        dialog.setMessage(message);
+        dialog.show();
+    }
+
+    void dismissProgress() {
+        dialog.dismiss();
     }
 }
