@@ -101,7 +101,7 @@ public class ChatFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         chatRoomList.clear();
-        showProgress("게시물 가져오는중...");
+        showProgress("채팅방 가져오는중...");
         SharedPreferences sp = getActivity().getApplication().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
         String accessToken = sp.getString("accessToken", "");
         Retrofit retrofit = NetworkClient.getRetrofitClient(Config.BASE_URL);

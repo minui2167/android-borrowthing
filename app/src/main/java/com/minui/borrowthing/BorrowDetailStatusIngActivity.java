@@ -109,7 +109,8 @@ public class BorrowDetailStatusIngActivity extends AppCompatActivity {
         txtContent.setText(item.getContent());
 
         txtDetail.setText("가격: " + item.getPrice() + "  기간: " + item.getRentalPeriod().replace(",", " ~ "));
-
+        if (item.getIsAuthor() == 1)
+            btnCompleted.setVisibility(View.GONE);
         // 거래완료하기
         btnCompleted.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,6 +153,7 @@ public class BorrowDetailStatusIngActivity extends AppCompatActivity {
                 String accessToken = sp.getString("accessToken", "");
                 Retrofit retrofit = NetworkClient.getRetrofitClient(Config.BASE_URL);
                 ChatApi chatApi = retrofit.create(ChatApi.class);
+                Log.i("gggg", item.getIsAuthor()+"");
                 if (item.getIsAuthor() == 1) {
                     type = "seller";
                 }else{

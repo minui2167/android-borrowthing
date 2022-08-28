@@ -57,8 +57,8 @@ public class PurchaseHistoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_purchase_history);
 
         btnIng = findViewById(R.id.btnIng);
-        btnEnd = findViewById(R.id.btnEnd);
-        btnRating = findViewById(R.id.btnRating);
+        btnEnd = findViewById(R.id.btnWait);
+        btnRating = findViewById(R.id.btnEnd);
         recyclerView = findViewById(R.id.recyclerView);
 
 

@@ -131,9 +131,15 @@ public class BorrowAdapter extends RecyclerView.Adapter<BorrowAdapter.ViewHolder
                         intent.putExtra("item", itemList.get(index));
                         context.startActivity(intent);
                     }
-                    else if(calledContext.equals("purchaseHistoryStatus1")){
+                    else if(calledContext.equals("purchaseHistoryStatus1") || calledContext.equals("salesHistoryStatus1")){
                         int index = getAdapterPosition();
                         Intent intent = new Intent(context, BorrowDetailStatusIngActivity.class);
+                        intent.putExtra("item", itemList.get(index));
+                        context.startActivity(intent);
+                    }
+                    else if(calledContext.equals("salesHistoryStatus0")){
+                        int index = getAdapterPosition();
+                        Intent intent = new Intent(context, BorrowDetailActivity.class);
                         intent.putExtra("item", itemList.get(index));
                         context.startActivity(intent);
                     }

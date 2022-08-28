@@ -64,6 +64,9 @@ public interface BorrowApi {
     @GET("/goods/recommend")
     Call<BorrowResult> getRecommend(@Header("Authorization") String accessToken, @Query("offset") int offset, @Query("limit") int limit);
 
+    @GET("/users/sale")
+    Call<BorrowResult> getSalesHistory(@Header("Authorization") String accessToken, @Query("offset") int offset, @Query("limit") int limit, @Query("status") int status);
+
     @GET("/users/buy")
     Call<BorrowResult> getPurchaseHistory(@Header("Authorization") String accessToken, @Query("offset") int offset, @Query("limit") int limit, @Query("status") int status);
 

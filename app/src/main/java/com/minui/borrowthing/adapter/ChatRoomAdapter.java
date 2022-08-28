@@ -41,10 +41,13 @@ public class ChatRoomAdapter extends RecyclerView.Adapter<ChatRoomAdapter.ViewHo
         ChatRoom chatRoom = chatRoomList.get(position);
 
         holder.txtTitle.setText(chatRoom.getTitle());
-        holder.txtNick.setText(chatRoom.getBuyerNickname());
+        Log.i("sellerNickname", chatRoom.getSellerNickname());
+        Log.i("buyerNickname", chatRoom.getBuyerNickname());
         if(chatRoom.getBuyerId() == chatRoom.getMyId()){
             Log.i("gg", "done");
             holder.txtNick.setText(chatRoom.getSellerNickname());
+        } else {
+            holder.txtNick.setText(chatRoom.getBuyerNickname());
         }
 
 

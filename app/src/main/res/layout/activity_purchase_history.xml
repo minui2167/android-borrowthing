@@ -31,7 +31,7 @@
                 app:cornerRadius="20dp" />
 
             <Button
-                android:id="@+id/btnEnd"
+                android:id="@+id/btnWait"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
@@ -40,7 +40,7 @@
                 app:cornerRadius="20dp" />
 
             <Button
-                android:id="@+id/btnRating"
+                android:id="@+id/btnEnd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
