@@ -108,6 +108,7 @@ public class LoginActivity extends AppCompatActivity {
                             SharedPreferences sp = getApplication().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
                             SharedPreferences.Editor editor = sp.edit();
                             editor.putString("accessToken", userRes.getAccessToken());
+                            editor.putInt("ratingCount", userRes.getRatingCount());
                             editor.apply();
                             ((MainActivity) context).setMyLocation();
                             finish();

@@ -130,6 +130,10 @@ public class FirstFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        recyclerViewRecommend = rootView.findViewById(R.id.recyclerViewRecommend);
+        recyclerViewRecommend.setHasFixedSize(true);
+        recyclerViewRecommend.setLayoutManager(new LinearLayoutManager(getContext()));
+
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
@@ -167,7 +171,10 @@ public class FirstFragment extends Fragment {
         super.onResume();
         txtNickname.setVisibility(View.GONE);
         getNetworkData();
-        getRecommendData();
+        SharedPreferences sp = getActivity().getApplication().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+        int ratingCount = sp.getInt("ratingCount", 0);
+        if (ratingCount > 2)
+            getRecommendData();
     }
 
     private void getRecommendData() {
@@ -180,7 +187,7 @@ public class FirstFragment extends Fragment {
         itemRecommendList.clear();
 
         offsetRecommend = 0;
-        limitRecommend = 0;
+        limitRecommend = 10;
         countRecommend = 0;
 
         showRecommendProgress("게시물 가져오는중...");
@@ -197,11 +204,10 @@ public class FirstFragment extends Fragment {
                     countRecommend = borrowResult.getCount();
                     itemRecommendList.addAll(borrowResult.getItems());
                     offsetRecommend = offsetRecommend + countRecommend;
-
                     adapterRecommend = new BorrowRecommendAdapter(getContext(), itemRecommendList);
-//                    recyclerViewRecommend.setAdapter(adapterRecommend);
-//                    txtNickname.setVisibility(View.VISIBLE);
-//                    txtNickname.setText(((MainActivity) context).nickname + "님의 추천 상품");
+                    recyclerViewRecommend.setAdapter(adapterRecommend);
+                    txtNickname.setVisibility(View.VISIBLE);
+                    txtNickname.setText(((MainActivity) context).nickname + "님의 추천 상품");
                 }
             }
 

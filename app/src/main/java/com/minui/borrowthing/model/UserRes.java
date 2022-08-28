@@ -7,6 +7,7 @@ public class UserRes implements Serializable {
     private String accessToken;
     private String nickname;
     private int likesCount;
+    private int ratingCount;
 
     public int getLikesCount() {
         return likesCount;
@@ -38,5 +39,13 @@ public class UserRes implements Serializable {
 
     public String getAccessToken() {
         return accessToken;
+    }
+
+    public int getRatingCount() {
+        return ratingCount;
+    }
+
+    public void setRatingCount(int ratingCount) {
+        this.ratingCount = ratingCount;
     }
 }

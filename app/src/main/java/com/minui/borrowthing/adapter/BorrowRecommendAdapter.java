@@ -52,7 +52,7 @@ public class BorrowRecommendAdapter extends RecyclerView.Adapter<BorrowRecommend
             holder.imgRecommend.setImageResource(R.drawable.nolmage);
         }
        holder.txtTitle.setText(item.getTitle());
-       holder.txtPrice.setText(item.getPrice());
+       holder.txtPrice.setText(item.getPrice()+"");
     }
 
 
@@ -75,15 +75,15 @@ public class BorrowRecommendAdapter extends RecyclerView.Adapter<BorrowRecommend
             txtPrice = itemView.findViewById(R.id.txtPrice);
             linearLayout = itemView.findViewById(R.id.linearLayout);
 
-            linearLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int index = getAdapterPosition();
-                    Intent intent = new Intent(context, BorrowDetailActivity.class);
-                    intent.putExtra("item", itemList.get(index));
-                    context.startActivity(intent);
-                }
-            });
+//            linearLayout.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    int index = getAdapterPosition();
+//                    Intent intent = new Intent(context, BorrowDetailActivity.class);
+//                    intent.putExtra("item", itemList.get(index));
+//                    context.startActivity(intent);
+//                }
+//            });
         }
     }
 }
