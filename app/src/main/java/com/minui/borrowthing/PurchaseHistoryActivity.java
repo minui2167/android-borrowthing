@@ -18,7 +18,6 @@ import com.minui.borrowthing.api.BorrowApi;
 import com.minui.borrowthing.config.Config;
 import com.minui.borrowthing.config.NetworkClient;
 import com.minui.borrowthing.model.BorrowResult;
-import com.minui.borrowthing.model.Rating;
 import com.minui.borrowthing.model.item;
 
 import java.util.ArrayList;
@@ -50,6 +49,7 @@ public class PurchaseHistoryActivity extends AppCompatActivity {
 
     int isRating = 0;
     String calledContext = "";
+    boolean isgetNetworkData = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,6 +119,13 @@ public class PurchaseHistoryActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(isgetNetworkData)
+            getNetworkData();
+    }
+
     private void getNetworkData() {
         itemList.clear();
 
@@ -143,6 +150,7 @@ public class PurchaseHistoryActivity extends AppCompatActivity {
             public void onResponse(Call<BorrowResult> call, Response<BorrowResult> response) {
                 dismissProgress();
                 if (response.isSuccessful()) {
+                    isgetNetworkData = true;
                     BorrowResult borrowResult = response.body();
                     count = borrowResult.getCount();
                     itemList.addAll(borrowResult.getItems());

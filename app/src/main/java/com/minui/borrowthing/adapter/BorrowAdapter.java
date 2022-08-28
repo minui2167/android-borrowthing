@@ -124,10 +124,12 @@ public class BorrowAdapter extends RecyclerView.Adapter<BorrowAdapter.ViewHolder
                         intent.putExtra("item", itemList.get(index));
                         context.startActivity(intent);
                     }
-                    if(calledContext.equals("purchaseHistoryStatus2NotRating")){
+                    else if(calledContext.equals("purchaseHistoryStatus2NotRating")){
                         int index = getAdapterPosition();
                         Intent intent = new Intent(context, EvaluationActivity.class);
                         intent.putExtra("item", itemList.get(index));
+                        Log.i("goods", itemList.get(index).getImgUrl().get(0).getImageUrl());
+                        Log.i("goods", itemList.get(index).getId()+"");
                         context.startActivity(intent);
                     }
                 }

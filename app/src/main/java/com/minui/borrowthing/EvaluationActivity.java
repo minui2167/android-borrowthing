@@ -5,11 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -21,7 +21,7 @@ import com.minui.borrowthing.api.BorrowApi;
 import com.minui.borrowthing.config.Config;
 import com.minui.borrowthing.config.NetworkClient;
 import com.minui.borrowthing.model.BorrowResult;
-import com.minui.borrowthing.model.Rating;
+import com.minui.borrowthing.model.Score;
 import com.minui.borrowthing.model.item;
 
 import retrofit2.Call;
@@ -68,6 +68,7 @@ public class EvaluationActivity extends AppCompatActivity {
         try {
             GlideUrl url = new GlideUrl(Config.IMAGE_URL + item.getImgUrl().get(0).getImageUrl(), new LazyHeaders.Builder().addHeader("User-Agent", "Android").build());
             Glide.with(EvaluationActivity.this).load(url).into(imgBorrow);
+            Log.i("imageUrl : ", item.getImgUrl().get(0).getImageUrl()+"");
         } catch (Exception e) {
             imgBorrow.setImageResource(R.drawable.ic_photo);
         }
@@ -99,42 +100,46 @@ public class EvaluationActivity extends AppCompatActivity {
         txtContent.setFocusable(false);
         txtContent.setText(item.getContent());
 
-//        btnRegister.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                int rating = (int)ratingBar.getRating();
-//                if (rating == 0){
-//                    Toast.makeText(getApplicationContext(), "평점을 입력해주세요.", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//
-//                SharedPreferences sp = getApplication().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
-//                String accessToken = sp.getString("accessToken", "");
-//                Retrofit retrofit = NetworkClient.getRetrofitClient(Config.BASE_URL);
-//                BorrowApi borrowApi = retrofit.create(BorrowApi.class);
-//
-//                Call<BorrowResult> call;
-//                call = borrowApi.setRating("Bearer " + accessToken, goodsId, rating);
-//
-//                call.enqueue(new Callback<BorrowResult>() {
-//                    @Override
-//                    public void onResponse(Call<BorrowResult> call, Response<BorrowResult> response) {
-//                        dismissProgress();
-//                        if (response.isSuccessful()) {
-//                            BorrowResult borrowResult = response.body();
-//                            count = borrowResult.getCount();
-//
-//                            adapter.notifyDataSetChanged();
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<BorrowResult> call, Throwable t) {
-//                        dismissProgress();
-//                    }
-//                });
-//            }
-//        });
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if ((int)ratingBar.getRating() == 0){
+                    Toast.makeText(getApplicationContext(), "평점을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Score score = new Score((int)ratingBar.getRating());
+
+                SharedPreferences sp = getApplication().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+                String accessToken = sp.getString("accessToken", "");
+                Retrofit retrofit = NetworkClient.getRetrofitClient(Config.BASE_URL);
+                BorrowApi borrowApi = retrofit.create(BorrowApi.class);
+
+                Call<BorrowResult> call;
+                call = borrowApi.setRating("Bearer " + accessToken, goodsId, score);
+                showProgress("평점을 등록하는 중...");
+                call.enqueue(new Callback<BorrowResult>() {
+                    @Override
+                    public void onResponse(Call<BorrowResult> call, Response<BorrowResult> response) {
+                        dismissProgress();
+                        if (response.isSuccessful()) {
+                            BorrowResult borrowResult = response.body();
+
+                            if(borrowResult.getResult().toString().equals("success")) {
+                                Toast.makeText(getApplication(), "평점 등록이 완료됐습니다.", Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<BorrowResult> call, Throwable t) {
+                        dismissProgress();
+                    }
+                });
+            }
+        });
 
     }
     private void setImgCommunity(int index) {
@@ -144,5 +149,16 @@ public class EvaluationActivity extends AppCompatActivity {
         } catch (Exception e) {
             imgBorrow.setImageResource(R.drawable.ic_photo);
         }
+    }
+    void showProgress(String message) {
+        dialog = new ProgressDialog(EvaluationActivity.this);
+        dialog.setCancelable(false);
+        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        dialog.setMessage(message);
+        dialog.show();
+    }
+
+    void dismissProgress() {
+        dialog.dismiss();
     }
 }

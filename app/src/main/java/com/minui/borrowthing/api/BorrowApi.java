@@ -3,7 +3,7 @@ package com.minui.borrowthing.api;
 import com.minui.borrowthing.model.BorrowCommentResult;
 import com.minui.borrowthing.model.BorrowResult;
 import com.minui.borrowthing.model.Comment;
-import com.minui.borrowthing.model.Rating;
+import com.minui.borrowthing.model.Score;
 import com.minui.borrowthing.model.UserRes;
 
 import java.util.List;
@@ -70,6 +70,6 @@ public interface BorrowApi {
     @GET("/users/buy/notrating")
     Call<BorrowResult> getNotRatingPurchaseHistory(@Header("Authorization") String accessToken, @Query("offset") int offset, @Query("limit") int limit);
 
-    @GET("/evaluation/{goodsId}")
-    Call<BorrowResult> setRating(@Header("Authorization") String accessToken, @Path("goodsId") int goodsId, @Body Rating rating);
+    @POST("/evaluation/{goodsId}")
+    Call<BorrowResult> setRating(@Header("Authorization") String accessToken, @Path("goodsId") int goodsId, @Body Score score);
 }
