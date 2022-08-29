@@ -42,6 +42,7 @@
         <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/activity_borrow_detail.xml" value="0.33" />
         <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/activity_borrow_write.xml" value="0.33" />
         <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/activity_category.xml" value="0.33" />
+        <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/activity_chat.xml" value="0.2572463768115942" />
         <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/activity_community_detail.xml" value="0.33" />
         <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/activity_community_write.xml" value="0.22" />
         <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/activity_interest_list.xml" value="0.2484375" />
@@ -58,6 +59,7 @@
         <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/borrow_ing_row.xml" value="0.2921195652173913" />
         <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/borrow_not_rating_row.xml" value="0.2921195652173913" />
         <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/borrow_row.xml" value="0.5" />
+        <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/chat_room_row.xml" value="0.2572463768115942" />
         <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/comment_row.xml" value="0.33" />
         <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/community_low.xml" value="0.33" />
         <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/community_row.xml" value="0.5" />
