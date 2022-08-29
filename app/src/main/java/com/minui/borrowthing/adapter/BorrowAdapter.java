@@ -63,7 +63,7 @@ public class BorrowAdapter extends RecyclerView.Adapter<BorrowAdapter.ViewHolder
             holder.imgBorrow.setImageResource(R.drawable.nolmage);
         }
         holder.txtTitle.setText(item.getTitle());
-        holder.txtPrice.setText(item.getPrice() + "");
+        holder.txtPrice.setText(item.getPrice() + "원");
 
         String tagList = "";
         for (int i = 0;i < item.getTag().size();i++) {
@@ -75,7 +75,8 @@ public class BorrowAdapter extends RecyclerView.Adapter<BorrowAdapter.ViewHolder
 
         }
         holder.txtTag.setText(tagList);
-
+        holder.txtEmdName.setText(item.getEmdName());
+        holder.txtnickName.setText(item.getNickname());
         if (item.getStatus() == 1) {
             holder.txtTrade.setVisibility(View.VISIBLE);
             holder.txtTrade.setText("거래중");
@@ -103,6 +104,8 @@ public class BorrowAdapter extends RecyclerView.Adapter<BorrowAdapter.ViewHolder
         ImageView imgBorrow;
         TextView txtTitle;
         TextView txtPrice;
+        TextView txtEmdName;
+        TextView txtnickName;
         TextView txtTag;
         TextView txtTrade;
         ImageView imgConcerned;
@@ -113,7 +116,9 @@ public class BorrowAdapter extends RecyclerView.Adapter<BorrowAdapter.ViewHolder
             imgBorrow = itemView.findViewById(R.id.imgBorrow);
             txtTitle = itemView.findViewById(R.id.txtTitle);
             txtPrice = itemView.findViewById(R.id.txtPrice);
+            txtnickName = itemView.findViewById(R.id.txtNickname);
             txtTag = itemView.findViewById(R.id.txtTag);
+            txtEmdName = itemView.findViewById(R.id.txtEmdName);
             txtTrade = itemView.findViewById(R.id.txtTrade);
             imgConcerned = itemView.findViewById(R.id.imgConcerned);
 
