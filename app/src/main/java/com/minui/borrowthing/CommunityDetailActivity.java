@@ -101,7 +101,7 @@ public class CommunityDetailActivity extends AppCompatActivity {
             GlideUrl url = new GlideUrl(Config.IMAGE_URL + community.getImgUrl().get(0).getImageUrl(), new LazyHeaders.Builder().addHeader("User-Agent", "Android").build());
             Glide.with(CommunityDetailActivity.this).load(url).into(imgCommunity);
         } catch (Exception e) {
-            imgCommunity.setImageResource(R.drawable.ic_photo);
+            imgCommunity.setImageResource(R.drawable.nolmage);
         }
 
         fabLeft.setOnClickListener(new View.OnClickListener() {
