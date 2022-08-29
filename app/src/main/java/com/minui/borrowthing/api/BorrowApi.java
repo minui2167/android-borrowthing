@@ -81,4 +81,7 @@ public interface BorrowApi {
 
     @POST("/goods/{goodsId}/deal")
     Call<BorrowResult> setTransactionRequest(@Header("Authorization") String accessToken, @Path("goodsId") int goodsId);
+
+    @GET("/users/wishlist")
+    Call<BorrowResult> getWishList(@Header("Authorization") String accessToken, @Query("offset") int offset, @Query("limit") int limit);
 }

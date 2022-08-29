@@ -10,6 +10,8 @@ import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.minui.borrowthing.adapter.BorrowAdapter;
 import com.minui.borrowthing.api.BorrowApi;
@@ -25,12 +27,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class InterestListActivity extends AppCompatActivity {
-
+public class BorrowByCategoryActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     BorrowAdapter adapter;
     ArrayList<item> itemList = new ArrayList<>();
-
 
     // 페이징에 필요한 변수
     int offset = 0;
@@ -40,19 +40,35 @@ public class InterestListActivity extends AppCompatActivity {
     // 네트워크 처리 보여주는 프로그램 다이얼로그
     ProgressDialog dialog;
 
-
+    // 카테고리 ID
+    int category;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_interest_list);
+        setContentView(R.layout.activity_borrow_by_category);
+
+        category = getIntent().getIntExtra("category", 0);
+        String categoryName = "";
+        if (category == 1)
+            categoryName = "도서";
+        else if (category == 2)
+            categoryName = "디지털 기기";
+        else if (category == 3)
+            categoryName = "생활 가전";
+        else if (category == 4)
+            categoryName = "스포츠/레저";
+        else if (category == 5)
+            categoryName = "취미/게임";
+        else if (category == 6)
+            categoryName = "의류";
         // 액션바 제목 백버튼 설정
         ActionBar ac = getSupportActionBar();
-        ac.setTitle("관심상품");
+        ac.setTitle(categoryName);
         ac.setDisplayHomeAsUpEnabled(true);
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(InterestListActivity.this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(BorrowByCategoryActivity.this));
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -71,7 +87,6 @@ public class InterestListActivity extends AppCompatActivity {
                 }
             }
         });
-
 
     }
 
@@ -96,9 +111,11 @@ public class InterestListActivity extends AppCompatActivity {
         BorrowApi borrowApi = retrofit.create(BorrowApi.class);
 
         Call<BorrowResult> call;
-
-        call = borrowApi.getWishList("Bearer " + accessToken, offset, limit);
-
+        if (accessToken.isEmpty()) {
+            call = borrowApi.getGoods(offset, limit, category);
+        } else {
+            call = borrowApi.getGoods(offset, limit, category, "Bearer " + accessToken);
+        }
         Log.i("test", "111");
         call.enqueue(new Callback<BorrowResult>() {
             @Override
@@ -110,7 +127,7 @@ public class InterestListActivity extends AppCompatActivity {
                     itemList.addAll(borrowResult.getItems());
                     offset = offset + count;
 
-                    adapter = new BorrowAdapter(InterestListActivity.this, itemList, "firstFragment");
+                    adapter = new BorrowAdapter(BorrowByCategoryActivity.this, itemList, "firstFragment");
                     recyclerView.setAdapter(adapter);
                 }
             }
@@ -121,7 +138,6 @@ public class InterestListActivity extends AppCompatActivity {
             }
         });
     }
-
     private void addNetworkData() {
         showProgress("게시물 가져오는중...");
         SharedPreferences sp = getApplication().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
@@ -130,7 +146,11 @@ public class InterestListActivity extends AppCompatActivity {
         BorrowApi borrowApi = retrofit.create(BorrowApi.class);
 
         Call<BorrowResult> call;
-        call = borrowApi.getWishList("Bearer " + accessToken, offset, limit);
+        if (accessToken.isEmpty()) {
+            call = borrowApi.getGoods(offset, limit, category);
+        } else {
+            call = borrowApi.getGoods(offset, limit, category, "Bearer " + accessToken);
+        }
 
         call.enqueue(new Callback<BorrowResult>() {
             @Override
@@ -154,7 +174,7 @@ public class InterestListActivity extends AppCompatActivity {
     }
 
     void showProgress(String message) {
-        dialog = new ProgressDialog(InterestListActivity.this);
+        dialog = new ProgressDialog(BorrowByCategoryActivity.this);
         dialog.setCancelable(false);
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         dialog.setMessage(message);
