@@ -30,7 +30,7 @@
                     android:layout_marginLeft="50dp"
                     android:layout_marginRight="50dp"
                     android:layout_weight="1"
-                    android:backgroundTint="#FF9800"
+                    android:backgroundTint="#e7e7e7"
                     android:drawableLeft="@drawable/ic_fire"
                     android:text="인기"
                     android:textColor="#000000" />
@@ -41,11 +41,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="50dp"
                     android:layout_weight="1"
-                    android:backgroundTint="#FF9800"
+                    android:backgroundTint="#e7e7e7"
                     android:text="최신"
                     android:textColor="#000000"
                     app:icon="@drawable/ic_flash"
-                    app:iconTint="#FFEB3B" />
+                    app:iconTint="#F5DE28" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
