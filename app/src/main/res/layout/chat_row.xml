@@ -35,14 +35,13 @@
                 android:id="@+id/TextView_msg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/textView_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView"
-                android:textSize="12sp" />
+                android:textSize="10sp" />
 
         </LinearLayout>
 
