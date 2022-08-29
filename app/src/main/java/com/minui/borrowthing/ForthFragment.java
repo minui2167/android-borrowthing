@@ -182,6 +182,8 @@ public class ForthFragment extends Fragment {
                             SharedPreferences sp = getActivity().getApplication().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
                             SharedPreferences.Editor editor = sp.edit();
                             editor.putString("accessToken", "");
+                            editor.putString("nickName", "");
+                            editor.putInt("ratingCount", 0);
                             editor.apply();
                             ((MainActivity) context).loadFragment(((MainActivity) context).firstFragment);
                             ((MainActivity) context).navigationView.setSelectedItemId(R.id.firstFragment);

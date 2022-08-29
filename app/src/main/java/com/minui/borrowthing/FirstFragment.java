@@ -207,7 +207,9 @@ public class FirstFragment extends Fragment {
                     adapterRecommend = new BorrowRecommendAdapter(getContext(), itemRecommendList);
                     recyclerViewRecommend.setAdapter(adapterRecommend);
                     txtNickname.setVisibility(View.VISIBLE);
-                    txtNickname.setText(((MainActivity) context).nickname + "님의 추천 상품");
+                    SharedPreferences sp = getActivity().getApplication().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+                    String nickName = sp.getString("nickName", "");
+                    txtNickname.setText(nickName + "님의 추천 상품");
                 }
             }
 
