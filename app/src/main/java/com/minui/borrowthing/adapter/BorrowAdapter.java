@@ -1,5 +1,7 @@
 package com.minui.borrowthing.adapter;
 
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -123,25 +125,26 @@ public class BorrowAdapter extends RecyclerView.Adapter<BorrowAdapter.ViewHolder
                         int index = getAdapterPosition();
                         Intent intent = new Intent(context, BorrowDetailActivity.class);
                         intent.putExtra("item", itemList.get(index));
-                        context.startActivity(intent);
+                        context.startActivity(intent.addFlags(FLAG_ACTIVITY_NEW_TASK));
                     }
                     else if(calledContext.equals("purchaseHistoryStatus2NotRating")){
                         int index = getAdapterPosition();
                         Intent intent = new Intent(context, EvaluationActivity.class);
                         intent.putExtra("item", itemList.get(index));
-                        context.startActivity(intent);
+                        context.startActivity(intent.addFlags(FLAG_ACTIVITY_NEW_TASK));
                     }
                     else if(calledContext.equals("purchaseHistoryStatus1") || calledContext.equals("salesHistoryStatus1")){
                         int index = getAdapterPosition();
                         Intent intent = new Intent(context, BorrowDetailStatusIngActivity.class);
                         intent.putExtra("item", itemList.get(index));
-                        context.startActivity(intent);
+                        context.startActivity(intent.addFlags(FLAG_ACTIVITY_NEW_TASK));
                     }
                     else if(calledContext.equals("salesHistoryStatus0")){
                         int index = getAdapterPosition();
                         Intent intent = new Intent(context, BorrowDetailActivity.class);
                         intent.putExtra("item", itemList.get(index));
-                        context.startActivity(intent);
+                        context.startActivity(intent.addFlags(FLAG_ACTIVITY_NEW_TASK));
+
                     }
                 }
 
