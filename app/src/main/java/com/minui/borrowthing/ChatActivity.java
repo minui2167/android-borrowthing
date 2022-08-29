@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -35,7 +36,7 @@ public class ChatActivity extends AppCompatActivity {
     //    private String nick = "nick1";
 //    private String chatRoom = "chatRoom2";
     private EditText EditText_chat;
-    private Button Button_send;
+    private ImageView Button_send;
     private DatabaseReference myRef;
 
     ChatRoom chatRoom;

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -25,12 +26,14 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
         public TextView TextView_nickname;
         public TextView TextView_msg;
         public TextView TextView_time;
+        public ImageView imgProfile;
         public View rootView;
         public MyViewHolder(View v) {
             super(v);
             TextView_nickname = v.findViewById(R.id.TextView_nickname);
             TextView_msg = v.findViewById(R.id.TextView_msg);
             TextView_time = v.findViewById(R.id.textView_time);
+            imgProfile = v.findViewById(R.id.imgProfile);
             rootView = v;
 
         }
@@ -72,6 +75,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
             holder.TextView_msg.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
             holder.TextView_nickname.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
             holder.TextView_time.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
+            holder.imgProfile.setVisibility(View.INVISIBLE);
         }
         else {
             holder.TextView_msg.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
