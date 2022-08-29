@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -39,40 +40,65 @@ public class CategoryActivity extends AppCompatActivity {
         chipSports = findViewById(R.id.chipSports);
         chipGame = findViewById(R.id.chipGame);
         chipClothes = findViewById(R.id.chipClothes);
+
+        // 도서 클릭
         chipBook.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 chips[0] = b;
+                Intent intent = new Intent(CategoryActivity.this, BorrowByCategoryActivity.class);
+                intent.putExtra("category", 1);
+                startActivity(intent);
             }
         });
+        // 디지털 기기 클릭
         chipTv.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 chips[1] = b;
+                Intent intent = new Intent(CategoryActivity.this, BorrowByCategoryActivity.class);
+                intent.putExtra("category", 2);
+                startActivity(intent);
             }
         });
+        // 생활 가전 클릭
         chipHouse.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 chips[2] = b;
+                Intent intent = new Intent(CategoryActivity.this, BorrowByCategoryActivity.class);
+                intent.putExtra("category", 3);
+                startActivity(intent);
             }
         });
+        // 스포츠 / 레저 클릭
         chipSports.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 chips[3] = b;
+                Intent intent = new Intent(CategoryActivity.this, BorrowByCategoryActivity.class);
+                intent.putExtra("category", 4);
+                startActivity(intent);
             }
         });
+        // 취미 / 게임 클릭
         chipGame.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 chips[4] = b;
+                Intent intent = new Intent(CategoryActivity.this, BorrowByCategoryActivity.class);
+                intent.putExtra("category", 5);
+                startActivity(intent);
             }
         });
+        // 의류 클릭
         chipClothes.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 chips[5] = b;
+                Intent intent = new Intent(CategoryActivity.this, BorrowByCategoryActivity.class);
+                intent.putExtra("category", 6);
+                startActivity(intent);
             }
         });
 
