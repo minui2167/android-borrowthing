@@ -27,13 +27,13 @@
                 android:src="@drawable/user_main" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/txtNickname"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
-                android:text="아아"
+                android:text="__ 님"
                 android:textSize="28sp" />
         </LinearLayout>
 

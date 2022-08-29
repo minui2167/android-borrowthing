@@ -7,6 +7,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,6 +21,7 @@ import com.minui.borrowthing.api.UserApi;
 import com.minui.borrowthing.config.Config;
 import com.minui.borrowthing.config.NetworkClient;
 import com.minui.borrowthing.model.User;
+import com.minui.borrowthing.model.User2;
 import com.minui.borrowthing.model.UserRes;
 
 import java.io.IOException;
@@ -95,7 +97,7 @@ public class MyReviseActivity extends AppCompatActivity {
 
                 Retrofit retrofit = NetworkClient.getRetrofitClient(Config.BASE_URL);
                 UserApi userApi = retrofit.create(UserApi.class);
-                User user = new User( nickname , password ) ;
+                User2 user = new User2( nickname , password ) ;
 
                 SharedPreferences sp = getApplication().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
                 String accessToken = sp.getString("accessToken", "");
@@ -109,9 +111,15 @@ public class MyReviseActivity extends AppCompatActivity {
                             SharedPreferences sp = getApplication().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
                             SharedPreferences.Editor editor = sp.edit();
                             editor.putString("accessToken", "");
+                            editor.putString("nickName", user.getNickname());
+                            Log.i("testwww", user.getNickname());
                             editor.apply();
-                            ((MainActivity) context).loadFragment(((MainActivity) context).firstFragment);
-                            ((MainActivity) context).navigationView.setSelectedItemId(R.id.firstFragment);
+                            Toast.makeText(getApplication(), "내정보가 수정되었습니다. 다시 로그인 해주세요.", Toast.LENGTH_SHORT).show();
+
+                            finish();
+                            Intent intent = new Intent(MyReviseActivity.this, MainActivity.class);
+                            startActivity(intent);
+
                         }
 
                     }

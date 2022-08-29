@@ -51,7 +51,7 @@ public class ForthFragment extends Fragment {
     Button btnTransaction;
     Button btnLogout;
     ImageView imgUser;
-    TextView textView;
+    TextView txtNickname;
 
     // 네트워크 처리 보여주는 프로그램 다이얼로그
     ProgressDialog dialog;
@@ -94,7 +94,7 @@ public class ForthFragment extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_forth, container, false);
 
         imgUser = rootView.findViewById(R.id.imgUser);
-        textView = rootView.findViewById(R.id.textView);
+        txtNickname = rootView.findViewById(R.id.txtNickname);
         btnInformation = rootView.findViewById(R.id.btnInformation);
         btnInterestsList = rootView.findViewById(R.id.btnInterestsList);
         btnMyWrote = rootView.findViewById(R.id.btnMyWrote);
@@ -109,13 +109,12 @@ public class ForthFragment extends Fragment {
             }
         });
 
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // todo 자신 닉네임 불러오는 곳
 
-            }
-        });
+        SharedPreferences sp = getActivity().getApplication().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+        String nickName = sp.getString("nickName", "");
+        if (!nickName.equals(""))
+            txtNickname.setText(nickName + " 님");
+
 
 
 
