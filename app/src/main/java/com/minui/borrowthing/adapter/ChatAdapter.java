@@ -23,14 +23,12 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
     // you provide access to all the views for a data item in a view holder
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
-        public TextView TextView_nickname;
         public TextView TextView_msg;
         public TextView TextView_time;
         public ImageView imgProfile;
         public View rootView;
         public MyViewHolder(View v) {
             super(v);
-            TextView_nickname = v.findViewById(R.id.TextView_nickname);
             TextView_msg = v.findViewById(R.id.TextView_msg);
             TextView_time = v.findViewById(R.id.textView_time);
             imgProfile = v.findViewById(R.id.imgProfile);
@@ -67,20 +65,17 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
         // - replace the contents of the view with that element
         ChatData chat = mDataset.get(position);
 
-        holder.TextView_nickname.setText(chat.getNickname());
         holder.TextView_msg.setText(chat.getMsg());
         holder.TextView_time.setText(chat.getUpdatedAt());
 
         if(chat.getNickname().equals(this.myNickName)) {
             holder.TextView_msg.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
-            holder.TextView_nickname.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
             holder.TextView_time.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
             holder.imgProfile.setVisibility(View.INVISIBLE);
         }
         else {
             holder.TextView_msg.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
-            holder.TextView_nickname.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
-            holder.TextView_time.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
+            holder.TextView_time.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
         }
 
     }

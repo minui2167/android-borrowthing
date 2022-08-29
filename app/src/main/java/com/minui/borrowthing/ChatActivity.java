@@ -66,6 +66,8 @@ public class ChatActivity extends AppCompatActivity {
                     chat.setMsg(msg);
                     chat.setUpdatedAt(updatedAt);
                     myRef.push().setValue(chat);
+
+                    EditText_chat.setText("");
                 }
 
             }
