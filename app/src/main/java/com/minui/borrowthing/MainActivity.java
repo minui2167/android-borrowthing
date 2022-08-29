@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
         // 액션바 제목 백버튼 설정
         ac = getSupportActionBar();
-        ac.setTitle("지역명");
+        ac.setTitle("");
         ac.setHomeAsUpIndicator(R.drawable.ic_list_30);
         ac.setDisplayHomeAsUpEnabled(true);
 
@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
                 if (itemId == R.id.firstFragment) {
                     fragment = firstFragment;
                     if (region == null) {
-                        ac.setTitle("지역명");
+                        ac.setTitle("");
                     } else {
                         ac.setTitle(region);
                     }
@@ -331,7 +331,7 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 fragment = firstFragment;
                 if (region == null) {
-                    ac.setTitle("지역명");
+                    ac.setTitle("");
                 } else {
                     ac.setTitle(region);
                 }

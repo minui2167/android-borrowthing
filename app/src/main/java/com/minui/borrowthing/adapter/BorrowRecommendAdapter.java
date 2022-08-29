@@ -7,6 +7,7 @@ import com.minui.borrowthing.config.Config;
 import com.minui.borrowthing.model.item;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,15 +76,15 @@ public class BorrowRecommendAdapter extends RecyclerView.Adapter<BorrowRecommend
             txtPrice = itemView.findViewById(R.id.txtPrice);
             linearLayout = itemView.findViewById(R.id.linearLayout);
 
-//            linearLayout.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    int index = getAdapterPosition();
-//                    Intent intent = new Intent(context, BorrowDetailActivity.class);
-//                    intent.putExtra("item", itemList.get(index));
-//                    context.startActivity(intent);
-//                }
-//            });
+            linearLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int index = getAdapterPosition();
+                    Intent intent = new Intent(context, BorrowDetailActivity.class);
+                    intent.putExtra("item", itemList.get(index));
+                    context.startActivity(intent);
+                }
+            });
         }
     }
 }
