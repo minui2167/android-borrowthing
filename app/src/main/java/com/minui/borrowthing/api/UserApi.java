@@ -32,4 +32,8 @@ public interface UserApi {
 
     @GET("/users/location/distance")
     Call<AreaRes> getActivityAreaList(@Header("Authorization") String accessToken);
+
+    @PUT("/users/location/distance")
+    Call<AreaRes> setActivityMeters(@Header("Authorization") String accessToken);
+
 }

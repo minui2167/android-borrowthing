@@ -149,6 +149,8 @@ public class ForthFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // todo 내 현재 위치 설정
+                Intent intent = new Intent(getActivity(), SetAreaActivity.class);
+                startActivity(intent);
             }
         });
 
