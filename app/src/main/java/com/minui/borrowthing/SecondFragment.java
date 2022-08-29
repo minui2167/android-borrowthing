@@ -153,7 +153,6 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback{
                     googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                         @Override
                         public boolean onMarkerClick(@NonNull Marker marker) {
-                            Toast.makeText(getContext(), marker.getTitle()+"클릭했습니다", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(getActivity(), BorrowListByAreaActivity.class);
                             intent.putExtra("title", marker.getTitle());
                             intent.putExtra("tag", marker.getTag().toString());

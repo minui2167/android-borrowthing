@@ -84,4 +84,8 @@ public interface BorrowApi {
 
     @GET("/users/wishlist")
     Call<BorrowResult> getWishList(@Header("Authorization") String accessToken, @Query("offset") int offset, @Query("limit") int limit);
+
+    @GET("/goods/area")
+    Call<BorrowResult> getGoodsInActivityArea(@Header("Authorization") String accessToken, @Query("offset") int offset, @Query("limit") int limit, @Query("sidoId") int sidoId, @Query("siggId") int siggId, @Query("emdId") int emdId);
+
 }
