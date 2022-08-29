@@ -23,6 +23,12 @@ public class item implements Serializable {
     private List<tag> tag;
     private int isWish;
     private int isAuthor;
+    private String emdName;
+    private double latitude;
+    private double longitude;
+    private int emdId;
+    private int siggAreaId;
+    private int sidoAreaId;
 
     public int getIsAuthor() {
         return isAuthor;
@@ -174,5 +180,53 @@ public class item implements Serializable {
 
     public void setTag(List<com.minui.borrowthing.model.tag> tag) {
         this.tag = tag;
+    }
+
+    public String getEmdName() {
+        return emdName;
+    }
+
+    public void setEmdName(String emdName) {
+        this.emdName = emdName;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public int getEmdId() {
+        return emdId;
+    }
+
+    public void setEmdId(int emdId) {
+        this.emdId = emdId;
+    }
+
+    public int getSiggAreaId() {
+        return siggAreaId;
+    }
+
+    public void setSiggAreaId(int siggAreaId) {
+        this.siggAreaId = siggAreaId;
+    }
+
+    public int getSidoAreaId() {
+        return sidoAreaId;
+    }
+
+    public void setSidoAreaId(int sidoAreaId) {
+        this.sidoAreaId = sidoAreaId;
     }
 }

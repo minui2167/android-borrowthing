@@ -50,6 +50,20 @@
                 android:text="가격" />
 
             <TextView
+                android:id="@+id/txtEmdName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="동" />
+
+            <TextView
+                android:id="@+id/txtNickname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="닉네임" />
+
+            <TextView
                 android:id="@+id/txtTag"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
