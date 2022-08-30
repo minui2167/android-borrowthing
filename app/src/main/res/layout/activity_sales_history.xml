@@ -22,25 +22,25 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btnMyPosting"
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginBottom="15dp"
-                android:layout_weight="0.3"
-                android:text="거래 중"
-                app:cornerRadius="20dp" />
-
-            <Button
                 android:id="@+id/btnMyComment"
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="3dp"
                 android:layout_marginBottom="15dp"
+                android:layout_weight="0.3"
+                android:text="거래 대기"
+                app:cornerRadius="20dp" />
+
+            <Button
+                android:id="@+id/btnMyPosting"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="15dp"
                 android:layout_weight="1"
-                android:text="거래 완료"
+                android:text="거래 중"
                 app:cornerRadius="20dp" />
 
             <Button
@@ -52,7 +52,7 @@
                 android:layout_marginRight="15dp"
                 android:layout_marginBottom="15dp"
                 android:layout_weight="1"
-                android:text="상품평 남기기"
+                android:text="거래 완료"
                 app:cornerRadius="20dp" />
         </LinearLayout>
 
