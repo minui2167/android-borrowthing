@@ -1,7 +1,5 @@
 package com.minui.borrowthing;
 
-import static com.minui.borrowthing.MainActivity.context;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,7 +18,6 @@ import com.minui.borrowthing.config.Config;
 import com.minui.borrowthing.config.NetworkClient;
 import com.minui.borrowthing.model.Community;
 import com.minui.borrowthing.model.CommunityResult;
-import com.minui.borrowthing.model.UserRes;
 
 import java.util.ArrayList;
 
@@ -60,8 +57,8 @@ public class MyCommunityListActivity extends AppCompatActivity {
         ac.setTitle("내가 작성한 커뮤니티 글");
         ac.setDisplayHomeAsUpEnabled(true);
 
-        btnMyPosting = findViewById(R.id.btnMyPosting);
-        btnMyLikes = findViewById(R.id.btnMyLikes);
+        btnMyPosting = findViewById(R.id.btnIng);
+        btnMyLikes = findViewById(R.id.btnEnd);
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
