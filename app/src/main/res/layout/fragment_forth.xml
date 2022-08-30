@@ -40,46 +40,33 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btnInterestsList"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:backgroundTint="#FFFFFF"
+                android:drawableLeft="@drawable/heart"
+                android:text="관심 목록"
+                android:textColor="#000000"
+                android:textSize="24sp" />
 
             <Button
                 android:id="@+id/btnTransaction"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
-                android:backgroundTint="#e7e7e7"
-                android:drawableTop="@drawable/list"
+                android:backgroundTint="#FFFFFF"
+                android:drawableLeft="@drawable/list"
                 android:text="거래 내역"
                 android:textColor="#000000"
-                android:textSize="24sp"
-                app:cornerRadius="30dp" />
-
-            <Button
-                android:id="@+id/btnInterestsList"
-                android:layout_width="wrap_content"
-                android:layout_height="110dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="20dp"
-                android:autoText="false"
-                android:backgroundTint="#e7e7e7"
-                android:drawableTop="@drawable/heart_red"
-                android:elegantTextHeight="false"
-                android:gravity="bottom"
-                android:text="관심 목록"
-                android:textColor="#000000"
-                android:textSize="24sp"
-                app:cornerRadius="30dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+                android:textSize="24sp" />
 
             <Button
                 android:id="@+id/btnMyWrote"
@@ -87,21 +74,13 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginBottom="10dp"
                 android:backgroundTint="#FFFFFF"
                 android:drawableLeft="@drawable/edit_list"
                 android:text="나의 커뮤니티"
                 android:textColor="#000000"
                 android:textSize="24sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
 
             <Button
                 android:id="@+id/btnMyLocation"
@@ -109,19 +88,13 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginBottom="10dp"
                 android:backgroundTint="#FFFFFF"
                 android:drawableLeft="@drawable/gps"
                 android:text="내 위치 설정"
                 android:textColor="#000000"
                 android:textSize="24sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
 
             <Button
                 android:id="@+id/btnInformation"
@@ -129,11 +102,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginBottom="10dp"
                 android:backgroundTint="#FFFFFF"
                 android:drawableLeft="@drawable/user"
-                android:text="내정보"
+                android:text="내 정보 수정"
                 android:textColor="#000000"
                 android:textSize="24sp" />
 
@@ -150,7 +123,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="10dp"
                 android:backgroundTint="#FFFFFF"
