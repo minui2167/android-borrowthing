@@ -11,12 +11,17 @@
         android:id="@+id/btnCertification"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="10dp"
         android:text="내 동네 인증하기" />
 
     <Button
         android:id="@+id/btnSetting"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:text="활동범위 설정하기" />
 
 </LinearLayout>
