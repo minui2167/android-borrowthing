@@ -31,6 +31,9 @@ public interface UserApi {
     @POST("/users/location")
     Call<UserRes> setLocation(@Header("Authorization") String accessToken, @Body MyLocation myLocation);
 
+    @GET("/users/location")
+    Call<AreaRes> getMyLocation(@Header("Authorization") String accessToken);
+
     @GET("/users/location/distance")
     Call<AreaRes> getActivityAreaList(@Header("Authorization") String accessToken);
 

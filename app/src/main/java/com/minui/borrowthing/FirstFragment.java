@@ -20,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.minui.borrowthing.adapter.BorrowAdapter;
@@ -27,8 +28,12 @@ import com.minui.borrowthing.adapter.BorrowRecommendAdapter;
 import com.minui.borrowthing.adapter.CommunityAdapter;
 import com.minui.borrowthing.api.BorrowApi;
 import com.minui.borrowthing.api.CommunityApi;
+import com.minui.borrowthing.api.UserApi;
 import com.minui.borrowthing.config.Config;
 import com.minui.borrowthing.config.NetworkClient;
+import com.minui.borrowthing.model.Area;
+import com.minui.borrowthing.model.AreaInfo;
+import com.minui.borrowthing.model.AreaRes;
 import com.minui.borrowthing.model.BorrowResult;
 import com.minui.borrowthing.model.CommunityResult;
 import com.minui.borrowthing.model.UserRes;
@@ -68,8 +73,10 @@ public class FirstFragment extends Fragment {
     ArrayList<item> itemList = new ArrayList<>();
     RecyclerView recyclerViewRecommend;
     BorrowRecommendAdapter adapterRecommend;
+
     ArrayList<item> itemRecommendList = new ArrayList<>();
 
+    ArrayList<AreaInfo> areaList = new ArrayList<>();
     // 페이징에 필요한 변수
     int offset = 0;
     int limit = 20;
@@ -86,6 +93,7 @@ public class FirstFragment extends Fragment {
     FloatingActionButton fab;
     TextView txtNickname;
 
+    boolean isMyArea = false;
 
     public FirstFragment() {
         // Required empty public constructor
@@ -159,6 +167,12 @@ public class FirstFragment extends Fragment {
                     ((MainActivity) context).login();
                     return;
                 }
+//                // 우리동네 불러오기 API 결과의 items 가 null 이면 활동범위를 설정하라는 토스트 메시지 출력
+//                if(!getMyLocation()){
+//                    Toast.makeText(getActivity(), "동네 인증 후 게시글 등록 가능합니다.", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+
                 Intent intent = new Intent(getContext(), BorrowWriteActivity.class);
                 startActivity(intent);
             }
@@ -175,6 +189,35 @@ public class FirstFragment extends Fragment {
         int ratingCount = sp.getInt("ratingCount", 0);
         if (ratingCount > 2)
             getRecommendData();
+    }
+
+    public boolean getMyLocation() {
+        Retrofit retrofit = NetworkClient.getRetrofitClient(Config.BASE_URL);
+        UserApi userApi = retrofit.create(UserApi.class);
+        SharedPreferences sp = getActivity().getApplication().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+        String accessToken = sp.getString("accessToken", "");
+        Call<AreaRes> call = userApi.getMyLocation("Bearer " + accessToken);
+        call.enqueue(new Callback<AreaRes>() {
+            @Override
+            public void onResponse(Call<AreaRes> call, Response<AreaRes> response) {
+                if(response.isSuccessful()) {
+                    AreaRes areaRes = response.body();
+                    areaList.addAll(areaRes.getItems());
+                    if(areaList.isEmpty()){
+                        isMyArea = false;
+                    } else{
+                        isMyArea = true;
+                    }
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AreaRes> call, Throwable t) {
+
+            }
+        });
+        return isMyArea;
     }
 
     private void getRecommendData() {
