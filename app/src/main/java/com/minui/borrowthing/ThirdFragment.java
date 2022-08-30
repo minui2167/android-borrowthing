@@ -221,7 +221,7 @@ public class ThirdFragment extends Fragment {
                 communityList.addAll(communityResult.getItems());
                 offset = offset + count;
 
-                adapter = new CommunityAdapter(getContext(), communityList);
+                adapter = new CommunityAdapter(getContext(), communityList, "thirdFragment");
                 recyclerView.setAdapter(adapter);
             }
 

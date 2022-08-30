@@ -29,10 +29,12 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
 
     Context context;
     List<Community> communityList;
+    String calledContext;
 
-    public CommunityAdapter(Context context, List<Community> communityList) {
+    public CommunityAdapter(Context context, List<Community> communityList, String calledContext) {
         this.context = context;
         this.communityList = communityList;
+        this.calledContext = calledContext;
     }
 
     @NonNull
@@ -102,7 +104,8 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
                 @Override
                 public void onClick(View view) {
                     int index = getAdapterPosition();
-                    ((ThirdFragment) ((MainActivity) context).thirdFragment).setLike(index);
+                    if (calledContext.equals("thirdFragment"))
+                        ((ThirdFragment) ((MainActivity) context).thirdFragment).setLike(index);
                 }
             });
         }

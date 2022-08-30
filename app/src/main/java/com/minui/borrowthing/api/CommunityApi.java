@@ -60,4 +60,7 @@ public interface CommunityApi {
 
     @DELETE("/community/{postingId}")
     Call<UserRes> deleteCommunity(@Header("Authorization") String accessToken, @Path("postingId") int postingId);
+
+    @GET("/users/community")
+    Call<CommunityResult> getMyCommunityList(@Query("offset") int offset, @Query("limit") int limit, @Header("Authorization") String accessToken);
 }

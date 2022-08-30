@@ -141,6 +141,8 @@ public class ForthFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // todo 내가 쓴 글 목록 불러오기
+                Intent intent = new Intent(getContext(), MyCommunityListActivity.class);
+                startActivity(intent);
             }
         });
 
