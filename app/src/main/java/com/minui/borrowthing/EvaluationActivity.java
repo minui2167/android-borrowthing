@@ -127,6 +127,10 @@ public class EvaluationActivity extends AppCompatActivity {
 
                             if(borrowResult.getResult().toString().equals("success")) {
                                 Toast.makeText(getApplication(), "평점 등록이 완료됐습니다.", Toast.LENGTH_SHORT).show();
+                                SharedPreferences.Editor editor = sp.edit();
+                                int ratingCount = sp.getInt("ratingCount", 0);
+                                editor.putInt("ratingCount", ratingCount+1);
+                                editor.apply();
                                 finish();
                             }
 
