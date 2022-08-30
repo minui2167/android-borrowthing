@@ -39,14 +39,8 @@
         <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/drawable/ic_trash.xml" value="0.209" />
         <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/drawable/ic_write.xml" value="0.209" />
         <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/drawable/shadow.xml" value="0.153" />
-        <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/activity_borrow_by_category.xml" value="0.3342391304347826" />
         <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/activity_borrow_detail.xml" value="0.33" />
-<<<<<<< Updated upstream
-        <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/activity_borrow_detail_status_ing.xml" value="0.3342391304347826" />
-        <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/activity_borrow_list_by_area.xml" value="0.3342391304347826" />
-=======
         <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/activity_borrow_detail_status_ing.xml" value="0.33" />
->>>>>>> Stashed changes
         <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/activity_borrow_write.xml" value="0.33" />
         <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/activity_category.xml" value="0.33" />
         <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/activity_community_detail.xml" value="0.33" />
@@ -68,20 +62,14 @@
         <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/borrow_end_row.xml" value="0.2921195652173913" />
         <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/borrow_ing_row.xml" value="0.33" />
         <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/borrow_not_rating_row.xml" value="0.2921195652173913" />
-<<<<<<< Updated upstream
-        <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/borrow_row.xml" value="0.5" />
-        <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/chat_room_row.xml" value="0.3342391304347826" />
-        <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/chat_row.xml" value="0.3342391304347826" />
-=======
         <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/borrow_row.xml" value="0.33" />
->>>>>>> Stashed changes
         <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/comment_row.xml" value="0.33" />
         <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/community_low.xml" value="0.33" />
         <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/community_row.xml" value="0.33" />
         <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/fragment_chat.xml" value="0.4070642733063115" />
         <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/fragment_first.xml" value="0.25" />
         <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/fragment_forth.xml" value="0.22056159420289856" />
-        <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/fragment_search.xml" value="0.2554347826086957" />
+        <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/fragment_search.xml" value="0.33" />
         <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/fragment_second.xml" value="0.25" />
         <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/fragment_third.xml" value="0.2554347826086957" />
         <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/layout/recommend_row.xml" value="0.17045454545454544" />
@@ -89,7 +77,7 @@
         <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/menu/bottom_menu.xml" value="0.33" />
         <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/menu/community.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/menu/community_comment.xml" value="0.3651041666666667" />
-        <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/menu/community_detail.xml" value="0.67" />
+        <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/menu/community_detail.xml" value="0.33" />
         <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/menu/main.xml" value="0.33" />
         <entry key="..\:/Users/-/Documents/GitHub/android-borrowthing/app/src/main/res/xml/bg_chip_state_list.xml" value="0.2554347826086957" />
         <entry key="..\:/Users/USER/Documents/GitHub/android-borrowthing/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.3245" />
