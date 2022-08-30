@@ -88,4 +88,10 @@ public interface BorrowApi {
     @GET("/goods/area")
     Call<BorrowResult> getGoodsInActivityArea(@Header("Authorization") String accessToken, @Query("offset") int offset, @Query("limit") int limit, @Query("sidoId") int sidoId, @Query("siggId") int siggId, @Query("emdId") int emdId);
 
+    @GET("/goods/search")
+    Call<BorrowResult> getSearchedGoods(@Query("offset") int offset, @Query("limit") int limit, @Query("keyword") String keyword, @Query("category") int category);
+
+    @GET("/goods/search/login")
+    Call<BorrowResult> getSearchedGoods(@Header("Authorization") String accessToken, @Query("offset") int offset, @Query("limit") int limit, @Query("keyword") String keyword, @Query("category") int category);
+
 }

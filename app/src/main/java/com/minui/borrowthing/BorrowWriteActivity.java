@@ -26,7 +26,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -100,7 +99,7 @@ public class BorrowWriteActivity extends AppCompatActivity {
         ac.setHomeAsUpIndicator(R.drawable.ic_back_30);
         ac.setDisplayHomeAsUpEnabled(true);
 
-        txtTitle = findViewById(R.id.txtTitle);
+        txtTitle = findViewById(R.id.txtKeyword);
         txtCategory = findViewById(R.id.txtCategory);
         imgBorrow = findViewById(R.id.imgBorrow);
         fabLeft = findViewById(R.id.fabLeft);

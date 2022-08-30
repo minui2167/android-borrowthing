@@ -68,7 +68,7 @@ public class ChatRoomAdapter extends RecyclerView.Adapter<ChatRoomAdapter.ViewHo
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             cardView = itemView.findViewById(R.id.cardView);
-            txtTitle = itemView.findViewById(R.id.txtTitle);
+            txtTitle = itemView.findViewById(R.id.txtKeyword);
             txtNick = itemView.findViewById(R.id.txtNick);
 
             cardView.setOnClickListener(new View.OnClickListener() {

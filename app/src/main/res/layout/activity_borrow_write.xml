@@ -30,7 +30,7 @@
             tools:ignore="MissingConstraints">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txtTitle"
+                android:id="@+id/txtKeyword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="top"

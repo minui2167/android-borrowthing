@@ -7,7 +7,6 @@ import com.minui.borrowthing.config.Config;
 import com.minui.borrowthing.model.item;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,7 +71,7 @@ public class BorrowRecommendAdapter extends RecyclerView.Adapter<BorrowRecommend
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imgRecommend = itemView.findViewById(R.id.imgRecommend);
-            txtTitle = itemView.findViewById(R.id.txtTitle);
+            txtTitle = itemView.findViewById(R.id.txtKeyword);
             txtPrice = itemView.findViewById(R.id.txtPrice);
             linearLayout = itemView.findViewById(R.id.linearLayout);
 

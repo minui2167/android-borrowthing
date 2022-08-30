@@ -13,7 +13,6 @@ import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -64,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
         // ui
         textInputLayoutId = findViewById(R.id.textInputLayoutId);
         textInputLayoutPassword = findViewById(R.id.textInputLayoutPassword);
-        userId = findViewById(R.id.txtTitle);
+        userId = findViewById(R.id.txtKeyword);
         userPassword = findViewById(R.id.userPassword);
         btnLogin = findViewById(R.id.btnLogin);
         btnRegister = findViewById(R.id.btnRegister);

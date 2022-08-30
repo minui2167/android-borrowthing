@@ -1,26 +1,37 @@
 package com.minui.borrowthing;
 
+import static android.content.Context.LOCATION_SERVICE;
 import static android.content.Context.MODE_PRIVATE;
 
 import static com.minui.borrowthing.MainActivity.context;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.minui.borrowthing.api.UserApi;
 import com.minui.borrowthing.config.Config;
+import com.minui.borrowthing.config.LocationApi;
 import com.minui.borrowthing.config.NetworkClient;
+import com.minui.borrowthing.model.MyLocation;
+import com.minui.borrowthing.model.Result;
 import com.minui.borrowthing.model.UserRes;
 
 import retrofit2.Call;
@@ -52,6 +63,16 @@ public class ForthFragment extends Fragment {
     Button btnLogout;
     ImageView imgUser;
     TextView txtNickname;
+
+    LocationManager locationManager;
+
+    double latitude;
+    double longitude;
+
+    Result result = new Result(); // 지역받기
+    String region; // 지역명
+
+    MyLocation myLocation;
 
     // 네트워크 처리 보여주는 프로그램 다이얼로그
     ProgressDialog dialog;
@@ -150,8 +171,52 @@ public class ForthFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // todo 내 현재 위치 설정
-                Intent intent = new Intent(getActivity(), SetAreaActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(getActivity(), SetAreaActivity.class);
+//                startActivity(intent);
+                locationManager = (LocationManager) getActivity().getSystemService(LOCATION_SERVICE);
+
+                if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    // TODO: Consider calling
+                    //    ActivityCompat#requestPermissions
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the documentation
+                    // for ActivityCompat#requestPermissions for more details.
+                    return;
+                }
+                Location lastKnowLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                if(lastKnowLocation != null){
+                    latitude = lastKnowLocation.getLatitude();
+                    longitude = lastKnowLocation.getLongitude();
+//                    Log.i("testtt" , "latitude : " + latitude + " logitude : " + longitude );
+                }
+
+                Retrofit retrofit = NetworkClient.getRetrofitClient(Config.NAVER_URL);
+                LocationApi api = retrofit.create(LocationApi.class);
+
+                Call<Result> call = api.getLocation(longitude + "," + latitude, "admcode", "json", BuildConfig.NAVER_ID, BuildConfig.NAVER_PASSWORD);
+                call.enqueue(new Callback<Result>() {
+                    @Override
+                    public void onResponse(Call<Result> call, Response<Result> response) {
+                        if (response.isSuccessful()) {
+                            try {
+                                dismissProgress();
+                            } catch (Exception e) {
+
+                            }
+                            Result result = response.body();
+                            myLocation = new MyLocation(result.getResults()[0].getRegion().getArea1().getName(), result.getResults()[0].getRegion().getArea2().getName(),result.getResults()[0].getRegion().getArea3().getName());
+                            setMyLocation();
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Result> call, Throwable t) {
+
+                    }
+                });
             }
         });
 
@@ -213,5 +278,31 @@ public class ForthFragment extends Fragment {
 
     void dismissProgress() {
         dialog.dismiss();
+    }
+
+    public void setMyLocation() {
+        if (myLocation == null) {
+            return;
+        }
+        showProgress("동네 설정 중입니다.");
+        Retrofit retrofit = NetworkClient.getRetrofitClient(Config.BASE_URL);
+        UserApi userApi = retrofit.create(UserApi.class);
+        SharedPreferences sp = getActivity().getApplication().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+        String accessToken = sp.getString("accessToken", "");
+        Call<UserRes> call = userApi.setLocation("Bearer " + accessToken, myLocation);
+        call.enqueue(new Callback<UserRes>() {
+            @Override
+            public void onResponse(Call<UserRes> call, Response<UserRes> response) {
+                dismissProgress();
+                if(response.isSuccessful()) {
+                    Toast.makeText(getActivity().getApplication(), "동네 설정이 완료 되었습니다.", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserRes> call, Throwable t) {
+                dismissProgress();
+            }
+        });
     }
 }

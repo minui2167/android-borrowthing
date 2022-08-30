@@ -55,7 +55,7 @@ public class RegisterActivity extends AppCompatActivity {
         ac.setHomeAsUpIndicator(R.drawable.ic_back_30);
         ac.setDisplayHomeAsUpEnabled(true);
 
-        userId = findViewById(R.id.txtTitle);
+        userId = findViewById(R.id.txtKeyword);
         userPassword = findViewById(R.id.userPassword);
         userName = findViewById(R.id.userName);
         userPhone = findViewById(R.id.userPhone);
