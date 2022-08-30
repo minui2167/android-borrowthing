@@ -22,7 +22,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btnIng"
+                android:id="@+id/btnMyPosting"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
@@ -31,7 +31,7 @@
                 app:cornerRadius="20dp" />
 
             <Button
-                android:id="@+id/btnWait"
+                android:id="@+id/btnMyComment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
@@ -40,7 +40,7 @@
                 app:cornerRadius="20dp" />
 
             <Button
-                android:id="@+id/btnEnd"
+                android:id="@+id/btnMyLikes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"

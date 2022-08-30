@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import com.minui.borrowthing.adapter.CommunityAdapter;
 import com.minui.borrowthing.api.CommunityApi;
@@ -37,10 +39,16 @@ public class MyCommunityListActivity extends AppCompatActivity {
     // 네트워크 처리 보여주는 프로그램 다이얼로그
     ProgressDialog dialog;
 
+    Button btnMyPosting;
+    Button btnMyLikes;
     // 페이징에 필요한 변수
     int offset = 0;
     int limit = 10;
     int count = 0;
+
+
+    String calledContext = "";
+    boolean isgetNetworkData = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +59,9 @@ public class MyCommunityListActivity extends AppCompatActivity {
         ActionBar ac = getSupportActionBar();
         ac.setTitle("내가 작성한 커뮤니티 글");
         ac.setDisplayHomeAsUpEnabled(true);
+
+        btnMyPosting = findViewById(R.id.btnMyPosting);
+        btnMyLikes = findViewById(R.id.btnMyLikes);
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
@@ -73,12 +84,30 @@ public class MyCommunityListActivity extends AppCompatActivity {
                 }
             }
         });
+
+        btnMyPosting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                calledContext = "myPosting";
+                getNetworkData();
+            }
+        });
+
+
+        btnMyLikes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                calledContext = "myLikes";
+                getNetworkData();
+            }
+        });
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        getNetworkData();
+        if(isgetNetworkData)
+            getNetworkData();
     }
 
     private void getNetworkData() {
@@ -95,21 +124,25 @@ public class MyCommunityListActivity extends AppCompatActivity {
         CommunityApi communityApi = retrofit.create(CommunityApi.class);
 
         Call<CommunityResult> call;
-
-        call = communityApi.getMyCommunityList(offset, limit, "Bearer " + accessToken);
-
+        if(calledContext.equals("myPosting"))
+            call = communityApi.getMyCommunityList(offset, limit, "Bearer " + accessToken);
+        else
+            call = communityApi.getMyLikesList(offset, limit, "Bearer " + accessToken);
 
         call.enqueue(new Callback<CommunityResult>() {
             @Override
             public void onResponse(Call<CommunityResult> call, Response<CommunityResult> response) {
-                dismissProgress();
-                CommunityResult communityResult = response.body();
-                count = communityResult.getCount();
-                communityList.addAll(communityResult.getItems());
-                offset = offset + count;
+                if(response.isSuccessful()){
+                    dismissProgress();
+                    isgetNetworkData = true;
+                    CommunityResult communityResult = response.body();
+                    count = communityResult.getCount();
+                    communityList.addAll(communityResult.getItems());
+                    offset = offset + count;
 
-                adapter = new CommunityAdapter(MyCommunityListActivity.this, communityList, "myCommunityListActivity");
-                recyclerView.setAdapter(adapter);
+                    adapter = new CommunityAdapter(MyCommunityListActivity.this, communityList, calledContext);
+                    recyclerView.setAdapter(adapter);
+                }
             }
 
             @Override
@@ -128,18 +161,24 @@ public class MyCommunityListActivity extends AppCompatActivity {
 
         Call<CommunityResult> call;
 
-        call = communityApi.getMyCommunityList(offset, limit, "Bearer " + accessToken);
+        if(calledContext.equals("myPosting"))
+            call = communityApi.getMyCommunityList(offset, limit, "Bearer " + accessToken);
+        else
+            call = communityApi.getMyLikesList(offset, limit, "Bearer " + accessToken);
 
         call.enqueue(new Callback<CommunityResult>() {
             @Override
             public void onResponse(Call<CommunityResult> call, Response<CommunityResult> response) {
-                dismissProgress();
-                CommunityResult communityResult = response.body();
-                count = communityResult.getCount();
-                communityList.addAll(communityResult.getItems());
-                offset = offset + count;
+                if(response.isSuccessful()){
+                    dismissProgress();
+                    CommunityResult communityResult = response.body();
+                    count = communityResult.getCount();
+                    communityList.addAll(communityResult.getItems());
+                    offset = offset + count;
 
-                adapter.notifyDataSetChanged();
+                    adapter.notifyDataSetChanged();
+                }
+
             }
 
             @Override

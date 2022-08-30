@@ -51,9 +51,9 @@ public class SalesHistoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sales_history);
-        btnWait = findViewById(R.id.btnWait);
-        btnIng = findViewById(R.id.btnIng);
-        btnEnd = findViewById(R.id.btnEnd);
+        btnWait = findViewById(R.id.btnMyComment);
+        btnIng = findViewById(R.id.btnMyPosting);
+        btnEnd = findViewById(R.id.btnMyLikes);
         recyclerView = findViewById(R.id.recyclerView);
 
         btnWait.setOnClickListener(new View.OnClickListener() {

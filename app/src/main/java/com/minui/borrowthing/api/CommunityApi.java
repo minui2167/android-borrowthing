@@ -63,4 +63,7 @@ public interface CommunityApi {
 
     @GET("/users/community")
     Call<CommunityResult> getMyCommunityList(@Query("offset") int offset, @Query("limit") int limit, @Header("Authorization") String accessToken);
+
+    @GET("/users/likes")
+    Call<CommunityResult> getMyLikesList(@Query("offset") int offset, @Query("limit") int limit, @Header("Authorization") String accessToken);
 }
