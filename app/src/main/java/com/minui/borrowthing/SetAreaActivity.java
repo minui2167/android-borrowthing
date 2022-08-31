@@ -45,7 +45,6 @@ public class SetAreaActivity extends AppCompatActivity {
     // 네트워크 처리 보여주는 프로그램 다이얼로그
     ProgressDialog dialog;
 
-    Result result = new Result(); // 지역받기
     String region; // 지역명
 
     MyLocation myLocation;

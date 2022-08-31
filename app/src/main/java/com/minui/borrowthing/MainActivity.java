@@ -21,6 +21,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -29,12 +30,15 @@ import com.minui.borrowthing.config.Config;
 import com.minui.borrowthing.config.LocationApi;
 import com.minui.borrowthing.config.NetworkClient;
 import com.minui.borrowthing.handler.BackKeyHandler;
+import com.minui.borrowthing.model.AreaInfo;
+import com.minui.borrowthing.model.AreaRes;
 import com.minui.borrowthing.model.MyLocation;
 import com.minui.borrowthing.model.Result;
 import com.minui.borrowthing.model.UserRes;
 import com.minui.borrowthing.model.UsersLike;
 import com.minui.borrowthing.model.UsersLikeItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -73,6 +77,10 @@ public class MainActivity extends AppCompatActivity {
     Double latitude; // 경도
     String nickname;
     MyLocation myLocation;
+
+    // getMyLocation() 을 위한 변수
+    ArrayList<AreaInfo> areaList = new ArrayList<>();
+    boolean isMyArea = false;
 
     // 위치
     LocationManager locationManager;
@@ -119,10 +127,17 @@ public class MainActivity extends AppCompatActivity {
 
                 if (itemId == R.id.firstFragment) {
                     fragment = firstFragment;
-                    if (region == null) {
+                    getMyLocation();
+                    if(isMyArea){
+                        Log.i("test", areaList.size()+"");
+                        try {
+                            ac.setTitle(areaList.get(0).getEmd());
+                        } catch (Exception e){
+                            ac.setTitle("");
+                        }
+
+                    } else{
                         ac.setTitle("");
-                    } else {
-                        ac.setTitle(region);
                     }
                     hidden = false;
                     ac.setHomeAsUpIndicator(R.drawable.ic_list_30);
@@ -132,13 +147,24 @@ public class MainActivity extends AppCompatActivity {
                         asyncDialog.show();
                         return false;
                     }
-                    fragment = secondFragment;
-                    ac.setTitle("지도");
-                    hidden = true;
-                    ac.setHomeAsUpIndicator(R.drawable.ic_back_30);
-                    category = false;
+                    if(isLogin() && getMyLocation()) {
+                        fragment = secondFragment;
+                        ac.setTitle("지도");
+                        hidden = true;
+                        ac.setHomeAsUpIndicator(R.drawable.ic_back_30);
+                        category = false;
+                    } else if(isLogin()==true && getMyLocation() == false){
+                        Toast.makeText(getApplication(), "동네 설정 후 이용 가능합니다.", Toast.LENGTH_SHORT).show();
+                        return false;
+                    } else if(isLogin() == false){
+                        login();
+                        return false;
+                    }
 
-                } else if (itemId == R.id.thirdFragment) {
+
+                }
+
+                 else if (itemId == R.id.thirdFragment) {
                     fragment = thirdFragment;
                     ac.setTitle("커뮤니티");
                     hidden = true;
@@ -188,7 +214,12 @@ public class MainActivity extends AppCompatActivity {
 //                            setMyLocation();
 
                             if (navigationView.getSelectedItemId() == R.id.firstFragment) {
-                                ac.setTitle(result.getResults()[0].getRegion().getArea3().getName());
+//                                ac.setTitle(result.getResults()[0].getRegion().getArea3().getName());
+                                try {
+                                    ac.setTitle(areaList.get(0).getEmd());
+                                }catch (Exception e){
+                                    ac.setTitle("");
+                                }
                             }
                             if (!asyncDialog.isShowing()) {
                                 return;
@@ -334,10 +365,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             } else {
                 fragment = firstFragment;
-                if (region == null) {
+                if(getMyLocation()){
+                    try {
+                        ac.setTitle(areaList.get(0).getEmd());
+                    } catch (Exception e){
+                        ac.setTitle("");
+                    }
+
+                } else{
                     ac.setTitle("");
-                } else {
-                    ac.setTitle(region);
                 }
                 hidden = false;
                 ac.setHomeAsUpIndicator(R.drawable.ic_list_30);
@@ -386,5 +422,34 @@ public class MainActivity extends AppCompatActivity {
         backKeyHandler.onBackPressed("버튼을 한번 더 누르면 종료됩니다.", 3);
     }
 
+    public boolean getMyLocation() {
+        areaList.clear();
+        Retrofit retrofit = NetworkClient.getRetrofitClient(Config.BASE_URL);
+        UserApi userApi = retrofit.create(UserApi.class);
+        SharedPreferences sp = getApplication().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+        String accessToken = sp.getString("accessToken", "");
+        Call<AreaRes> call = userApi.getMyLocation("Bearer " + accessToken);
+        call.enqueue(new Callback<AreaRes>() {
+            @Override
+            public void onResponse(Call<AreaRes> call, Response<AreaRes> response) {
+                if(response.isSuccessful()) {
+                    AreaRes areaRes = response.body();
+                    areaList.addAll(areaRes.getItems());
+                    if(areaList.isEmpty()){
+                        isMyArea = false;
+                    } else{
+                        isMyArea = true;
+                    }
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AreaRes> call, Throwable t) {
+
+            }
+        });
+        return isMyArea;
+    }
 
 }

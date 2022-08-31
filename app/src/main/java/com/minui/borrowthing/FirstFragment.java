@@ -192,6 +192,7 @@ public class FirstFragment extends Fragment {
     }
 
     public boolean getMyLocation() {
+        areaList.clear();
         Retrofit retrofit = NetworkClient.getRetrofitClient(Config.BASE_URL);
         UserApi userApi = retrofit.create(UserApi.class);
         SharedPreferences sp = getActivity().getApplication().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
