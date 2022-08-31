@@ -28,6 +28,7 @@ import com.minui.borrowthing.api.UserApi;
 import com.minui.borrowthing.config.Config;
 import com.minui.borrowthing.config.LocationApi;
 import com.minui.borrowthing.config.NetworkClient;
+import com.minui.borrowthing.handler.BackKeyHandler;
 import com.minui.borrowthing.model.MyLocation;
 import com.minui.borrowthing.model.Result;
 import com.minui.borrowthing.model.UserRes;
@@ -55,6 +56,9 @@ public class MainActivity extends AppCompatActivity {
 
     // ui
     Menu menu;
+
+    //백버튼 핸들러
+    private BackKeyHandler backKeyHandler = new BackKeyHandler(this);
 
     // 변수
     public static Context context; // 액티비티 접근
@@ -371,4 +375,16 @@ public class MainActivity extends AppCompatActivity {
     void dismissProgress() {
         dialog.dismiss();
     }
+
+    @Override
+    public void onBackPressed() {
+        /* 다음 4가지 형태 중 하나 선택해서 사용 */
+
+        //backKeyHandler.onBackPressed();
+        //backKeyHandler.onBackPressed("\'뒤로\' 버튼을 두 번 누르면 종료됩니다.\n입력한 내용이 지워집니다.");
+        //backKeyHandler.onBackPressed(5);
+        backKeyHandler.onBackPressed("버튼을 한번 더 누르면 종료됩니다.", 3);
+    }
+
+
 }
