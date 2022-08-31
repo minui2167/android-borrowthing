@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -62,11 +63,16 @@ public class ChatActivity extends AppCompatActivity {
         Button_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String msg = EditText_chat.getText().toString(); //msg
+                String msg = EditText_chat.getText().toString().trim(); //msg
 
                 Calendar calendar = Calendar.getInstance();
                 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 String updatedAt = formatter.format(calendar.getTime()).toString();
+
+                if (msg.isEmpty()){
+                    Toast.makeText(getApplication(), "메세지를 입력하세요.", Toast.LENGTH_SHORT ).show();
+                    return;
+                }
 
                 if(msg != null) {
                     ChatData chat = new ChatData();
@@ -79,6 +85,7 @@ public class ChatActivity extends AppCompatActivity {
 
                     EditText_chat.setText("");
                 }
+
 
             }
         });
@@ -116,7 +123,7 @@ public class ChatActivity extends AppCompatActivity {
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
+                mAdapter.notifyDataSetChanged();
             }
 
             @Override
