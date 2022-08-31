@@ -302,7 +302,7 @@ public class MainActivity extends AppCompatActivity {
                   loadFragment(fragment);
                   hidden = true;
                   ac.setHomeAsUpIndicator(R.drawable.ic_back_30);
-                  ac.setTitle("채팅");
+                  ac.setTitle("채팅방 목록");
                   category = false;
               } else {
                   login();
