@@ -114,7 +114,7 @@ public class BorrowDetailStatusIngActivity extends AppCompatActivity {
         txtContent.setFocusable(false);
         txtContent.setText(item.getContent());
 
-        txtDetail.setText("가격: " + item.getPrice() + "  기간: " + item.getRentalPeriod().replace(",", " ~ "));
+        txtDetail.setText("가격: " + item.getPrice() + "원\n기간: " + item.getRentalPeriod().replace(",", " ~ "));
         if (item.getIsAuthor() == 1)
             btnCompleted.setVisibility(View.GONE);
         // 거래완료하기
