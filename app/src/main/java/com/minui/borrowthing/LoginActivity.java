@@ -110,7 +110,7 @@ public class LoginActivity extends AppCompatActivity {
                             editor.putString("nickName", userRes.getNickname());
                             editor.putInt("ratingCount", userRes.getRatingCount());
                             editor.apply();
-                            ((MainActivity) context).setMyLocation();
+//                            ((MainActivity) context).setMyLocation();
                             finish();
                         } else {
                             try {

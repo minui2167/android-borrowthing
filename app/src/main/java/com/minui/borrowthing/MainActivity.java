@@ -181,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                             result = response.body();
                             myLocation = new MyLocation(result.getResults()[0].getRegion().getArea1().getName(), result.getResults()[0].getRegion().getArea2().getName(),result.getResults()[0].getRegion().getArea3().getName());
-                            setMyLocation();
+//                            setMyLocation();
 
                             if (navigationView.getSelectedItemId() == R.id.firstFragment) {
                                 ac.setTitle(result.getResults()[0].getRegion().getArea3().getName());

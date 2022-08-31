@@ -167,11 +167,11 @@ public class FirstFragment extends Fragment {
                     ((MainActivity) context).login();
                     return;
                 }
-//                // 우리동네 불러오기 API 결과의 items 가 null 이면 활동범위를 설정하라는 토스트 메시지 출력
-//                if(!getMyLocation()){
-//                    Toast.makeText(getActivity(), "동네 인증 후 게시글 등록 가능합니다.", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
+                // 우리동네 불러오기 API 결과의 items 가 null 이면 활동범위를 설정하라는 토스트 메시지 출력
+                if(!getMyLocation()){
+                    Toast.makeText(getActivity(), "동네 인증 후 게시글 등록 가능합니다.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 Intent intent = new Intent(getContext(), BorrowWriteActivity.class);
                 startActivity(intent);
