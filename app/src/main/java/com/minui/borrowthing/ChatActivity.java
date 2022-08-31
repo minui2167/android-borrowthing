@@ -135,6 +135,14 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
-        mRecyclerView.scrollToPosition(mAdapter.getItemCount() - 1);
+    }
+    @Override
+    public  boolean onSupportNavigateUp(){
+        // 1. finish() 이용
+//        finish();
+
+        // 2. 기계의 백버튼 눌렀을 때 호출되는 콜백 함수를 이용
+        onBackPressed();
+        return true;
     }
 }

@@ -78,6 +78,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
             holder.TextView_msg.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
             holder.TextView_time.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
             holder.imgProfile.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
+            holder.imgProfile.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
             holder.imgProfile.setVisibility(View.VISIBLE);
         }
 
