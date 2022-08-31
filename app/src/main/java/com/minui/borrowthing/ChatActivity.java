@@ -112,12 +112,11 @@ public class ChatActivity extends AppCompatActivity {
                 ChatData chat = dataSnapshot.getValue(ChatData.class);
                 ((ChatAdapter) mAdapter).addChat(chat);
                 mRecyclerView.scrollToPosition(chatList.size() - 1);
-                mAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                mAdapter.notifyDataSetChanged();
+
             }
 
             @Override
@@ -127,7 +126,7 @@ public class ChatActivity extends AppCompatActivity {
 
             @Override
             public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                mAdapter.notifyDataSetChanged();
+
             }
 
             @Override
