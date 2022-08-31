@@ -216,6 +216,7 @@ public class CommunityDetailActivity extends AppCompatActivity {
                         dismissProgress();
                         if (response.isSuccessful()) {
                             getNetworkData();
+                            txtComment.setText("");
                         }
                     }
 

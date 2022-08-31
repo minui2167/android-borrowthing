@@ -230,6 +230,7 @@ public class BorrowDetailActivity extends AppCompatActivity {
                         dismissProgress();
                         if (response.isSuccessful()) {
                             getNetworkData();
+                            btnRegister.setText("");
                         }
                     }
 
