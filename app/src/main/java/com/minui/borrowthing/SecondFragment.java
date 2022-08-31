@@ -164,6 +164,7 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback{
                 }
                 else {
                     Toast.makeText(getContext(), "활동범위 내 동네가 없습니다.", Toast.LENGTH_SHORT).show();
+                    return;
                 }
             }
         }, 2000);  // 2000은 2초를 의미합니다.
