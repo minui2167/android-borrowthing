@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     Fragment secondFragment;
     public Fragment thirdFragment;
     Fragment forthFragment;
-    Fragment searchFragment;
+    public Fragment searchFragment;
     Fragment chatFragment;
     Fragment fragment;
 

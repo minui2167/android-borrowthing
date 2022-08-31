@@ -16,12 +16,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.LazyHeaders;
+import com.minui.borrowthing.BorrowByCategoryActivity;
 import com.minui.borrowthing.BorrowDetailActivity;
 import com.minui.borrowthing.BorrowDetailStatusIngActivity;
 import com.minui.borrowthing.EvaluationActivity;
 import com.minui.borrowthing.FirstFragment;
 import com.minui.borrowthing.MainActivity;
 import com.minui.borrowthing.R;
+import com.minui.borrowthing.SearchFragment;
 import com.minui.borrowthing.config.Config;
 import com.minui.borrowthing.model.item;
 
@@ -122,7 +124,7 @@ public class BorrowAdapter extends RecyclerView.Adapter<BorrowAdapter.ViewHolder
             linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(calledContext.equals("firstFragment")) {
+                    if(calledContext.equals("firstFragment") || calledContext.equals("borrowByCategory") || calledContext.equals("searchFragment")) {
                         int index = getAdapterPosition();
                         Intent intent = new Intent(context, BorrowDetailActivity.class);
                         intent.putExtra("item", itemList.get(index));
@@ -157,6 +159,11 @@ public class BorrowAdapter extends RecyclerView.Adapter<BorrowAdapter.ViewHolder
                     int index = getAdapterPosition();
                     if(calledContext.equals("firstFragment"))
                         ((FirstFragment) ((MainActivity) context).firstFragment).setConcerned(index);
+                    else if(calledContext.equals("borrowByCategory"))
+                        ((BorrowByCategoryActivity)context).setConcerned(index);
+                    else if(calledContext.equals("searchFragment"))
+                        ((SearchFragment) ((MainActivity) context).searchFragment).setConcerned(index);
+
                 }
             });
 
