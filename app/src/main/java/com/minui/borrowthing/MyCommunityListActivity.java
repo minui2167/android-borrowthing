@@ -54,7 +54,7 @@ public class MyCommunityListActivity extends AppCompatActivity {
 
         // 액션바 제목 백버튼 설정
         ActionBar ac = getSupportActionBar();
-        ac.setTitle("내가 작성한 커뮤니티 글");
+        ac.setTitle("나의 커뮤니티");
         ac.setDisplayHomeAsUpEnabled(true);
 
         btnMyPosting = findViewById(R.id.btnIng);

@@ -1,6 +1,7 @@
 package com.minui.borrowthing;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -55,6 +56,11 @@ public class PurchaseHistoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_purchase_history);
+
+        // 액션바 제목 백버튼 설정
+        ActionBar ac = getSupportActionBar();
+        ac.setTitle("구매 내역");
+        ac.setDisplayHomeAsUpEnabled(true);
 
         btnIng = findViewById(R.id.btnIng);
         btnEnd = findViewById(R.id.btnWait);
@@ -217,6 +223,16 @@ public class PurchaseHistoryActivity extends AppCompatActivity {
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         dialog.setMessage(message);
         dialog.show();
+    }
+
+    @Override
+    public  boolean onSupportNavigateUp(){
+        // 1. finish() 이용
+//        finish();
+
+        // 2. 기계의 백버튼 눌렀을 때 호출되는 콜백 함수를 이용
+        onBackPressed();
+        return true;
     }
 
 
