@@ -1,5 +1,6 @@
 package com.minui.borrowthing;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
@@ -48,6 +49,12 @@ public class EvaluationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_evaluation);
+
+        // 액션바 제목 백버튼 설정
+        ActionBar ac = getSupportActionBar();
+        ac.setTitle("상품평");
+        ac.setDisplayHomeAsUpEnabled(true);
+
         imgBorrow = findViewById(R.id.imgBorrow);
         fabLeft = findViewById(R.id.fabLeft);
         fabRight = findViewById(R.id.fabRight);
@@ -164,5 +171,15 @@ public class EvaluationActivity extends AppCompatActivity {
 
     void dismissProgress() {
         dialog.dismiss();
+    }
+
+    @Override
+    public  boolean onSupportNavigateUp(){
+        // 1. finish() 이용
+//        finish();
+
+        // 2. 기계의 백버튼 눌렀을 때 호출되는 콜백 함수를 이용
+        onBackPressed();
+        return true;
     }
 }
