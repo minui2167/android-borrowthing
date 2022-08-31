@@ -22,6 +22,7 @@ public class ChatRoomAdapter extends RecyclerView.Adapter<ChatRoomAdapter.ViewHo
 
     Context context;
     List<ChatRoom> chatRoomList;
+    String opponentNickname;
     public ChatRoomAdapter(Context context, List<ChatRoom> chatRoomList) {
         this.context = context;
         this.chatRoomList = chatRoomList;
@@ -44,8 +45,8 @@ public class ChatRoomAdapter extends RecyclerView.Adapter<ChatRoomAdapter.ViewHo
         Log.i("sellerNickname", chatRoom.getSellerNickname());
         Log.i("buyerNickname", chatRoom.getBuyerNickname());
         if(chatRoom.getBuyerId() == chatRoom.getMyId()){
-            Log.i("gg", "done");
             holder.txtNick.setText(chatRoom.getSellerNickname());
+
         } else {
             holder.txtNick.setText(chatRoom.getBuyerNickname());
         }
@@ -77,8 +78,8 @@ public class ChatRoomAdapter extends RecyclerView.Adapter<ChatRoomAdapter.ViewHo
                     ChatRoom chatRoom = chatRoomList.get(getAdapterPosition());
 
                     Intent intent = new Intent(context, ChatActivity.class);
-
                     intent.putExtra("chatRoom", chatRoom);
+                    intent.putExtra("opponentNickname", txtNick.getText());
 
                     context.startActivity(intent);
                 }

@@ -1,5 +1,6 @@
 package com.minui.borrowthing;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
@@ -56,6 +57,11 @@ public class BorrowDetailStatusIngActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_borrow_detail_status_ing);
 
+        // 액션바 제목 백버튼 설정
+        ActionBar ac = getSupportActionBar();
+        ac.setTitle("거래 중");
+        ac.setDisplayHomeAsUpEnabled(true);
+
         imgBorrow = findViewById(R.id.imgBorrow);
         fabLeft = findViewById(R.id.fabLeft);
         fabRight = findViewById(R.id.fabRight);
@@ -108,7 +114,7 @@ public class BorrowDetailStatusIngActivity extends AppCompatActivity {
         txtContent.setFocusable(false);
         txtContent.setText(item.getContent());
 
-        txtDetail.setText("가격: " + item.getPrice() + "  기간: " + item.getRentalPeriod().replace(",", " ~ "));
+        txtDetail.setText("가격: " + item.getPrice() + "원\n기간: " + item.getRentalPeriod().replace(",", " ~ "));
         if (item.getIsAuthor() == 1)
             btnCompleted.setVisibility(View.GONE);
         // 거래완료하기
@@ -208,5 +214,15 @@ public class BorrowDetailStatusIngActivity extends AppCompatActivity {
 
     void dismissProgress() {
         dialog.dismiss();
+    }
+
+    @Override
+    public  boolean onSupportNavigateUp(){
+        // 1. finish() 이용
+//        finish();
+
+        // 2. 기계의 백버튼 눌렀을 때 호출되는 콜백 함수를 이용
+        onBackPressed();
+        return true;
     }
 }

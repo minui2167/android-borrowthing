@@ -1,7 +1,10 @@
 package com.minui.borrowthing;
 
+import static com.minui.borrowthing.MainActivity.context;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,8 +21,13 @@ import com.minui.borrowthing.api.BorrowApi;
 import com.minui.borrowthing.config.Config;
 import com.minui.borrowthing.config.NetworkClient;
 import com.minui.borrowthing.model.BorrowResult;
+import com.minui.borrowthing.model.UserRes;
 import com.minui.borrowthing.model.item;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -127,7 +135,7 @@ public class BorrowByCategoryActivity extends AppCompatActivity {
                     itemList.addAll(borrowResult.getItems());
                     offset = offset + count;
 
-                    adapter = new BorrowAdapter(BorrowByCategoryActivity.this, itemList, "firstFragment");
+                    adapter = new BorrowAdapter(BorrowByCategoryActivity.this, itemList, "borrowByCategory");
                     recyclerView.setAdapter(adapter);
                 }
             }
@@ -193,4 +201,66 @@ public class BorrowByCategoryActivity extends AppCompatActivity {
         onBackPressed();
         return true;
     }
+
+    public void setConcerned(int index) {
+        if (!((MainActivity) context).isLogin()) {
+            ((MainActivity) context).login();
+            return;
+        }
+        showProgress("관심상품 등록중...");
+        Retrofit retrofit = NetworkClient.getRetrofitClient(Config.BASE_URL);
+        BorrowApi borrowApi = retrofit.create(BorrowApi.class);
+        SharedPreferences sp = getApplication().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+        String accessToken = sp.getString("accessToken", "");
+
+        if (itemList.get(index).getIsWish() == 0) {
+            Call<UserRes> call = borrowApi.setConcerned("Bearer " + accessToken, itemList.get(index).getId());
+            call.enqueue(new Callback<UserRes>() {
+                @Override
+                public void onResponse(Call<UserRes> call, Response<UserRes> response) {
+                    dismissProgress();
+                    if (response.isSuccessful()) {
+                        itemList.get(index).setIsWish(1);
+                        adapter.notifyDataSetChanged();
+                    } else {
+                        try {
+                            JSONObject jsonobject = new JSONObject( response.errorBody().string());
+                            showDialog(jsonobject.getString("error"));
+                        } catch (IOException | JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<UserRes> call, Throwable t) {
+                    dismissProgress();
+                }
+            });
+        } else {
+            Call<UserRes> call = borrowApi.setConcernedCancel("Bearer " + accessToken, itemList.get(index).getId());
+            call.enqueue(new Callback<UserRes>() {
+                @Override
+                public void onResponse(Call<UserRes> call, Response<UserRes> response) {
+                    dismissProgress();
+                    if (response.isSuccessful()) {
+                        itemList.get(index).setIsWish(0);
+                        adapter.notifyDataSetChanged();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<UserRes> call, Throwable t) {
+                    dismissProgress();
+                }
+            });
+        }
+    }
+    private void showDialog(String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(BorrowByCategoryActivity.this);
+        builder.setTitle(message);
+        builder.setPositiveButton("확인", null);
+        builder.show();
+    }
+
 }
