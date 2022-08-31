@@ -2,6 +2,7 @@ package com.minui.borrowthing;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -45,10 +46,19 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
+
+
         Button_send = findViewById(R.id.Button_send);
         EditText_chat = findViewById(R.id.EditText_chat);
 
         chatRoom = (ChatRoom) getIntent().getSerializableExtra("chatRoom");
+        String opponentNickname = getIntent().getStringExtra("opponentNickname");
+
+        // 액션바 제목 백버튼 설정
+        ActionBar ac = getSupportActionBar();
+        ac.setTitle(opponentNickname);
+        ac.setDisplayHomeAsUpEnabled(true);
+
         Button_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
