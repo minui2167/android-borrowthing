@@ -71,11 +71,14 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
         if(chat.getNickname().equals(this.myNickName)) {
             holder.TextView_msg.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
             holder.TextView_time.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
-            holder.imgProfile.setVisibility(View.INVISIBLE);
+            holder.imgProfile.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
+            holder.imgProfile.setVisibility(View.GONE);
         }
         else {
             holder.TextView_msg.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
             holder.TextView_time.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
+            holder.imgProfile.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
+            holder.imgProfile.setVisibility(View.VISIBLE);
         }
 
     }

@@ -95,6 +95,8 @@ public class ChatActivity extends AppCompatActivity {
 
         mRecyclerView.setAdapter(mAdapter);
 
+
+
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         myRef = database.getReference().child("chat").child(chatRoom.getId()+"");
@@ -109,11 +111,13 @@ public class ChatActivity extends AppCompatActivity {
                 Log.d("CHATCHAT", dataSnapshot.getValue().toString());
                 ChatData chat = dataSnapshot.getValue(ChatData.class);
                 ((ChatAdapter) mAdapter).addChat(chat);
+                mRecyclerView.scrollToPosition(chatList.size() - 1);
+                mAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
+                mAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -123,7 +127,7 @@ public class ChatActivity extends AppCompatActivity {
 
             @Override
             public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
+                mAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -131,5 +135,7 @@ public class ChatActivity extends AppCompatActivity {
 
             }
         });
+
+        mRecyclerView.scrollToPosition(mAdapter.getItemCount() - 1);
     }
 }
