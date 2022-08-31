@@ -52,7 +52,7 @@ public class BorrowRecommendAdapter extends RecyclerView.Adapter<BorrowRecommend
             holder.imgRecommend.setImageResource(R.drawable.nolmage);
         }
        holder.txtTitle.setText(item.getTitle());
-       holder.txtPrice.setText(item.getPrice()+"");
+       holder.txtPrice.setText(item.getPrice()+"원");
     }
 
 

@@ -153,8 +153,8 @@ public class BorrowDetailActivity extends AppCompatActivity {
         } else {
             imgHeart.setImageResource(R.drawable.heart_red);
         }
-
-        txtDetail.setText("가격: " + item.getPrice() + "  기간: " + item.getRentalPeriod());
+        String period = item.getRentalPeriod().replace(",", "~");
+        txtDetail.setText("가격: " + item.getPrice()+ "원"+ "\n기간: " + period);
 
         imgHeart.setOnClickListener(new View.OnClickListener() {
             @Override
