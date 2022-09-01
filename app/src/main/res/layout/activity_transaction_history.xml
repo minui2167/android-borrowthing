@@ -64,7 +64,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="12dp"
             android:gravity="center"
-            android:text="만족하는 거래를 해보자."
+            android:text="만족하는 대여를 해보자."
             android:textColor="#000000" />
     </LinearLayout>
 
