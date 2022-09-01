@@ -110,10 +110,21 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback{
         // Inflate the layout for this fragment
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_second, container, false);
 
-
+        getNetworkData();
         googlemap = (MapView) rootView.findViewById(R.id.mapView);
-        googlemap.onCreate(savedInstanceState);
-        googlemap.onResume();
+
+
+        // 2초간 멈추게 하고싶다면
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                // 로고 띄우기
+                googlemap.onCreate(savedInstanceState);
+                googlemap.onResume();
+            }
+
+        }, 500);  // 2000은 2초를 의미합니다.
+
         googlemap.getMapAsync(this);
 
 
@@ -122,56 +133,51 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback{
 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
-        getNetworkData();
-        // 2초간 멈추게 하고싶다면
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                LatLng myLocation = new LatLng(((MainActivity) context).latitude, ((MainActivity) context).longitude);
-                Marker myMarker;
-                myMarker = googleMap.addMarker(new MarkerOptions().position(myLocation));
-                myMarker.setTag(0);
-                if(areaList.size() > 0){
-                    List<Marker> markerList = new ArrayList<>();
 
-                    markerList.add(myMarker);
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 18));
-                    int i = 1;
-                    for(AreaInfo areaInfo : areaList){
-                        double lat = areaInfo.getLatitude();
-                        double lng = areaInfo.getLongitude();
-                        LatLng location = new LatLng(lat, lng);
-                        String name = areaInfo.getName();
-                        Marker marker = googleMap.addMarker(new MarkerOptions()
-                                .position(location)
-                                .title(name));
-                        marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
-                        marker.setTag(areaInfo.getSidoAreaId() + "," +areaInfo.getSiggAreaId()+ ","+ areaInfo.getId());
-                        markerList.add(marker);
-                        i++;
-                    }
-                    googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-                        @Override
-                        public boolean onMarkerClick(@NonNull Marker marker) {
-                            Intent intent = new Intent(getActivity(), BorrowListByAreaActivity.class);
-                            if(marker.getTag().equals(0)){
-                                Toast.makeText(getActivity(), "현재 나의 위치입니다.", Toast.LENGTH_SHORT).show();
-                                return false;
-                            }
-                            intent.putExtra("title", marker.getTitle());
-                            intent.putExtra("tag", marker.getTag().toString());
-                            startActivity(intent);
-                            return false;
+        LatLng myLocation = new LatLng(((MainActivity) context).latitude, ((MainActivity) context).longitude);
+        Marker myMarker;
+        myMarker = googleMap.addMarker(new MarkerOptions().position(myLocation));
+        myMarker.setTag(0);
+        if(areaList.size() > 0){
+            List<Marker> markerList = new ArrayList<>();
 
-                        }
-                    });
-                }
-                else {
-                    Toast.makeText(getContext(), "활동범위 내 동네가 없습니다.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+            markerList.add(myMarker);
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 18));
+            int i = 1;
+            for(AreaInfo areaInfo : areaList){
+                double lat = areaInfo.getLatitude();
+                double lng = areaInfo.getLongitude();
+                LatLng location = new LatLng(lat, lng);
+                String name = areaInfo.getName();
+                Marker marker = googleMap.addMarker(new MarkerOptions()
+                        .position(location)
+                        .title(name));
+                marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+                marker.setTag(areaInfo.getSidoAreaId() + "," +areaInfo.getSiggAreaId()+ ","+ areaInfo.getId());
+                markerList.add(marker);
+                i++;
             }
-        }, 800);  // 2000은 2초를 의미합니다.
+            googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                @Override
+                public boolean onMarkerClick(@NonNull Marker marker) {
+                    Intent intent = new Intent(getActivity(), BorrowListByAreaActivity.class);
+                    if(marker.getTag().equals(0)){
+                        Toast.makeText(getActivity(), "현재 나의 위치입니다.", Toast.LENGTH_SHORT).show();
+                        return false;
+                    }
+                    intent.putExtra("title", marker.getTitle());
+                    intent.putExtra("tag", marker.getTag().toString());
+                    startActivity(intent);
+                    return false;
+
+                }
+            });
+        }
+        else {
+            Toast.makeText(getContext(), "활동범위 내 동네가 없습니다.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
 
 
 
