@@ -189,7 +189,7 @@ public class ForthFragment extends Fragment {
                 if(lastKnowLocation != null){
                     latitude = lastKnowLocation.getLatitude();
                     longitude = lastKnowLocation.getLongitude();
-//                    Log.i("testtt" , "latitude : " + latitude + " logitude : " + longitude );
+                    Log.i("testtt" , "latitude : " + latitude + " logitude : " + longitude );
                 }
 
                 Retrofit retrofit = NetworkClient.getRetrofitClient(Config.NAVER_URL);
@@ -207,6 +207,7 @@ public class ForthFragment extends Fragment {
                             }
                             Result result = response.body();
                             myLocation = new MyLocation(result.getResults()[0].getRegion().getArea1().getName(), result.getResults()[0].getRegion().getArea2().getName(),result.getResults()[0].getRegion().getArea3().getName());
+                            Log.i("testtt", myLocation.getEmdName());
                             setMyLocation();
 
                         }

@@ -18,11 +18,18 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.minui.borrowthing.api.UserApi;
@@ -128,20 +135,27 @@ public class MainActivity extends AppCompatActivity {
                 if (itemId == R.id.firstFragment) {
                     fragment = firstFragment;
                     getMyLocation();
-                    if(isMyArea){
-                        Log.i("test", areaList.size()+"");
-                        try {
-                            ac.setTitle(areaList.get(0).getEmd());
-                        } catch (Exception e){
-                            ac.setTitle("");
-                        }
+                    // 2초간 멈추게 하고싶다면
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        public void run() {
+                            if(isMyArea){
+                                Log.i("test", areaList.size()+"");
+                                try {
+                                    ac.setTitle(areaList.get(0).getEmd());
+                                } catch (Exception e){
+                                    ac.setTitle("");
+                                }
 
-                    } else{
-                        ac.setTitle("");
-                    }
-                    hidden = false;
-                    ac.setHomeAsUpIndicator(R.drawable.ic_list_30);
-                    category = true;
+                            } else{
+                                ac.setTitle("");
+                            }
+                            hidden = false;
+                            ac.setHomeAsUpIndicator(R.drawable.ic_list_30);
+                            category = true;
+                        }
+                    }, 500);  // 2000은 2초를 의미합니다.
+
                 } else if (itemId == R.id.secondFragment) {
                     if(longitude == null) {
                         asyncDialog.show();
