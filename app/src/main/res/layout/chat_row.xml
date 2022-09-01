@@ -25,6 +25,7 @@
                 android:id="@+id/imgProfile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:visibility="visible"
                 card_view:srcCompat="@drawable/user" />
 
@@ -35,9 +36,11 @@
 
                 <TextView
                     android:id="@+id/txtMsg"
-                    android:layout_width="70dp"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/font"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
                     android:textColor="#000000"
                     android:textSize="16sp" />
 
