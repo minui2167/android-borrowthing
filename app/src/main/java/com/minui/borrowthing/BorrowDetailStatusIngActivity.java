@@ -151,7 +151,7 @@ public class BorrowDetailStatusIngActivity extends AppCompatActivity {
                 });
             }
         });
-
+        // 채팅버튼
         btnChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
