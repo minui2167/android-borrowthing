@@ -171,7 +171,7 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback{
                     return;
                 }
             }
-        }, 2000);  // 2000은 2초를 의미합니다.
+        }, 800);  // 2000은 2초를 의미합니다.
 
 
 
