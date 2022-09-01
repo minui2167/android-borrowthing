@@ -5,23 +5,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".SetAreaActivity">
+    tools:context=".SetAreaActivity"
+    android:background="@drawable/set_area">
 
-    <Button
-        android:id="@+id/btnCertification"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="10dp"
-        android:text="내 동네 인증하기" />
+        android:layout_marginTop="500dp"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/btnSetting"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:text="활동범위 설정하기" />
+        <Button
+            android:id="@+id/btnSetting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:text="활동범위 설정하기" />
+
+        <Button
+            android:id="@+id/btnCertification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="10dp"
+            android:text="내 동네 인증하기" />
+    </LinearLayout>
 
 </LinearLayout>
