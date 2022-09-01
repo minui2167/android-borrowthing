@@ -21,6 +21,8 @@
                 android:id="@+id/txtNickname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="3dp"
                 android:text="TextView"
                 android:visibility="gone" />
 
@@ -28,6 +30,7 @@
                 android:id="@+id/recyclerViewRecommend"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="3dp"
                 android:orientation="horizontal">
 
             </androidx.recyclerview.widget.RecyclerView>
@@ -35,7 +38,8 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
 
             </androidx.recyclerview.widget.RecyclerView>
 
