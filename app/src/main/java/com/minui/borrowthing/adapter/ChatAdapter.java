@@ -1,6 +1,7 @@
 package com.minui.borrowthing.adapter;
 
 import android.content.Context;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.minui.borrowthing.R;
@@ -23,15 +25,17 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
     // you provide access to all the views for a data item in a view holder
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
-        public TextView TextView_msg;
-        public TextView TextView_time;
+        public TextView txtMsg;
+        public TextView txtTime;
         public ImageView imgProfile;
+        public CardView cardView;
         public View rootView;
         public MyViewHolder(View v) {
             super(v);
-            TextView_msg = v.findViewById(R.id.TextView_msg);
-            TextView_time = v.findViewById(R.id.textView_time);
+            txtMsg = v.findViewById(R.id.txtMsg);
+            txtTime = v.findViewById(R.id.txtTime);
             imgProfile = v.findViewById(R.id.imgProfile);
+            cardView = v.findViewById(R.id.cardView);
             rootView = v;
 
         }
@@ -65,20 +69,21 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
         // - replace the contents of the view with that element
         ChatData chat = mDataset.get(position);
 
-        holder.TextView_msg.setText(chat.getMsg());
-        holder.TextView_time.setText(chat.getUpdatedAt());
+        holder.txtMsg.setText(chat.getMsg());
+        holder.txtTime.setText(chat.getUpdatedAt());
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT);
 
+        //채팅 친 사람의 닉네임이 나의 닉네임이면 오른쪽 정렬
         if(chat.getNickname().equals(this.myNickName)) {
-            holder.TextView_msg.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
-            holder.TextView_time.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
-            holder.imgProfile.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
+            params.weight = 1.0f;
+            params.gravity = Gravity.RIGHT;
+            holder.cardView.setLayoutParams(params);
             holder.imgProfile.setVisibility(View.GONE);
         }
         else {
-            holder.TextView_msg.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
-            holder.TextView_time.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
-            holder.imgProfile.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
-            holder.imgProfile.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
+            params.weight = 1.0f;
+            params.gravity = Gravity.LEFT;
+            holder.cardView.setLayoutParams(params);
             holder.imgProfile.setVisibility(View.VISIBLE);
         }
 
