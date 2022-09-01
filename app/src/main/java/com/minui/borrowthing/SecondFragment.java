@@ -154,6 +154,10 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback{
                         @Override
                         public boolean onMarkerClick(@NonNull Marker marker) {
                             Intent intent = new Intent(getActivity(), BorrowListByAreaActivity.class);
+                            if(marker.getTag().equals(0)){
+                                Toast.makeText(getActivity(), "현재 나의 위치입니다.", Toast.LENGTH_SHORT).show();
+                                return false;
+                            }
                             intent.putExtra("title", marker.getTitle());
                             intent.putExtra("tag", marker.getTag().toString());
                             startActivity(intent);

@@ -139,22 +139,25 @@ public class MainActivity extends AppCompatActivity {
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         public void run() {
-                            if(isMyArea){
-                                Log.i("test", areaList.size()+"");
-                                try {
-                                    ac.setTitle(areaList.get(0).getEmd());
-                                } catch (Exception e){
-                                    ac.setTitle("");
-                                }
 
-                            } else{
-                                ac.setTitle("");
-                            }
-                            hidden = false;
-                            ac.setHomeAsUpIndicator(R.drawable.ic_list_30);
-                            category = true;
+
                         }
                     }, 500);  // 2000은 2초를 의미합니다.
+
+                    if(isMyArea){
+                        Log.i("test", areaList.size()+"");
+                        try {
+                            ac.setTitle(areaList.get(0).getEmd());
+                        } catch (Exception e){
+                            ac.setTitle("");
+                        }
+
+                    } else{
+                        ac.setTitle("");
+                    }
+                    hidden = false;
+                    ac.setHomeAsUpIndicator(R.drawable.ic_list_30);
+                    category = true;
 
                 } else if (itemId == R.id.secondFragment) {
                     if(longitude == null) {
