@@ -110,20 +110,41 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback{
         // Inflate the layout for this fragment
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_second, container, false);
 
-        getNetworkData();
         googlemap = (MapView) rootView.findViewById(R.id.mapView);
 
+        areaList.clear();
 
-        // 2초간 멈추게 하고싶다면
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                // 로고 띄우기
-                googlemap.onCreate(savedInstanceState);
-                googlemap.onResume();
+        showProgress("활동 범위내 동네 가져오는중...");
+        SharedPreferences sp = getActivity().getApplication().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+        String accessToken = sp.getString("accessToken", "");
+        Retrofit retrofit = NetworkClient.getRetrofitClient(Config.BASE_URL);
+        UserApi userApi = retrofit.create(UserApi.class);
+
+        Call<AreaRes> call;
+
+        call = userApi.getActivityAreaList("Bearer " + accessToken);
+
+
+        call.enqueue(new Callback<AreaRes>() {
+            @Override
+            public void onResponse(Call<AreaRes> call, Response<AreaRes> response) {
+                dismissProgress();
+                if (response.isSuccessful()){
+                    AreaRes areaRes = response.body();
+                    count = areaRes.getCount();
+                    areaList.addAll(areaRes.getItems());
+
+                    googlemap.onCreate(savedInstanceState);
+                    googlemap.onResume();
+                }
+
             }
 
-        }, 500);  // 2000은 2초를 의미합니다.
+            @Override
+            public void onFailure(Call<AreaRes> call, Throwable t) {
+                dismissProgress();
+            }
+        });
 
         googlemap.getMapAsync(this);
 
@@ -183,46 +204,7 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback{
 
 
     }
-//    @Override
-//    public boolean onMarkerClick(@NonNull Marker marker) {
-//
-//
-//        return false;
-//    }
 
-    private void getNetworkData() {
-        areaList.clear();
-
-        showProgress("활동 범위내 동네 가져오는중...");
-        SharedPreferences sp = getActivity().getApplication().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
-        String accessToken = sp.getString("accessToken", "");
-        Retrofit retrofit = NetworkClient.getRetrofitClient(Config.BASE_URL);
-        UserApi userApi = retrofit.create(UserApi.class);
-
-        Call<AreaRes> call;
-
-        call = userApi.getActivityAreaList("Bearer " + accessToken);
-
-
-        call.enqueue(new Callback<AreaRes>() {
-            @Override
-            public void onResponse(Call<AreaRes> call, Response<AreaRes> response) {
-                dismissProgress();
-                if (response.isSuccessful()){
-                    AreaRes areaRes = response.body();
-                    count = areaRes.getCount();
-                    areaList.addAll(areaRes.getItems());
-                    Log.i("test", ""+count);
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<AreaRes> call, Throwable t) {
-                dismissProgress();
-            }
-        });
-    }
 
     void showProgress(String message) {
         dialog = new ProgressDialog(getContext());
