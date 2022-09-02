@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -73,6 +74,8 @@ public class FirstFragment extends Fragment {
     ArrayList<item> itemList = new ArrayList<>();
     RecyclerView recyclerViewRecommend;
     BorrowRecommendAdapter adapterRecommend;
+
+    ActionBar ac; // 액션바
 
     ArrayList<item> itemRecommendList = new ArrayList<>();
 
@@ -191,6 +194,7 @@ public class FirstFragment extends Fragment {
             getRecommendData();
     }
 
+
     public boolean getMyLocation() {
         areaList.clear();
         Retrofit retrofit = NetworkClient.getRetrofitClient(Config.BASE_URL);
@@ -206,8 +210,10 @@ public class FirstFragment extends Fragment {
                     areaList.addAll(areaRes.getItems());
                     if(areaList.isEmpty()){
                         isMyArea = false;
+                        ac.setTitle("");
                     } else{
                         isMyArea = true;
+                        ac.setTitle(areaList.get(0).getEmd());
                     }
 
                 }

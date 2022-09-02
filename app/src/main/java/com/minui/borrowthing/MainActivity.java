@@ -135,26 +135,7 @@ public class MainActivity extends AppCompatActivity {
                 if (itemId == R.id.firstFragment) {
                     fragment = firstFragment;
                     getMyLocation();
-                    // 2초간 멈추게 하고싶다면
-                    Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        public void run() {
 
-
-                        }
-                    }, 500);  // 2000은 2초를 의미합니다.
-
-                    if(isMyArea){
-                        Log.i("test", areaList.size()+"");
-                        try {
-                            ac.setTitle(areaList.get(0).getEmd());
-                        } catch (Exception e){
-                            ac.setTitle("");
-                        }
-
-                    } else{
-                        ac.setTitle("");
-                    }
                     hidden = false;
                     ac.setHomeAsUpIndicator(R.drawable.ic_list_30);
                     category = true;
@@ -260,6 +241,12 @@ public class MainActivity extends AppCompatActivity {
         }
 
         navigationView.setSelectedItemId(R.id.firstFragment);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.i("onResume", "Done");
     }
 
     public void setMyLocation() {
@@ -382,16 +369,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             } else {
                 fragment = firstFragment;
-                if(getMyLocation()){
-                    try {
-                        ac.setTitle(areaList.get(0).getEmd());
-                    } catch (Exception e){
-                        ac.setTitle("");
-                    }
-
-                } else{
-                    ac.setTitle("");
-                }
+                getMyLocation();
                 hidden = false;
                 ac.setHomeAsUpIndicator(R.drawable.ic_list_30);
                 category = true;
@@ -454,8 +432,10 @@ public class MainActivity extends AppCompatActivity {
                     areaList.addAll(areaRes.getItems());
                     if(areaList.isEmpty()){
                         isMyArea = false;
+                        ac.setTitle("");
                     } else{
                         isMyArea = true;
+                        ac.setTitle(areaList.get(0).getEmd());
                     }
 
                 }
