@@ -87,6 +87,7 @@ public class SetAreaActivity extends AppCompatActivity {
                 LocationApi api = retrofit.create(LocationApi.class);
 
                 Call<Result> call = api.getLocation(longitude + "," + latitude, "admcode", "json", BuildConfig.NAVER_ID, BuildConfig.NAVER_PASSWORD);
+
                 call.enqueue(new Callback<Result>() {
                     @Override
                     public void onResponse(Call<Result> call, Response<Result> response) {
@@ -99,6 +100,7 @@ public class SetAreaActivity extends AppCompatActivity {
                             Result result = response.body();
                             myLocation = new MyLocation(result.getResults()[0].getRegion().getArea1().getName(), result.getResults()[0].getRegion().getArea2().getName(),result.getResults()[0].getRegion().getArea3().getName());
                             setMyLocation();
+//                            Log.i("test", myLocation.getEmdName());
 
                         }
                     }

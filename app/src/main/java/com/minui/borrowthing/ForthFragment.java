@@ -207,7 +207,7 @@ public class ForthFragment extends Fragment {
                             }
                             Result result = response.body();
                             myLocation = new MyLocation(result.getResults()[0].getRegion().getArea1().getName(), result.getResults()[0].getRegion().getArea2().getName(),result.getResults()[0].getRegion().getArea3().getName());
-                            Log.i("testtt", myLocation.getEmdName());
+                            Log.i("testtt", myLocation.getSidoName()+","+myLocation.getSiggName() + ", " +myLocation.getEmdName());
                             setMyLocation();
 
                         }
@@ -295,9 +295,13 @@ public class ForthFragment extends Fragment {
             @Override
             public void onResponse(Call<UserRes> call, Response<UserRes> response) {
                 dismissProgress();
+                Log.i("test", response.code()+"");
                 if(response.isSuccessful()) {
                     Toast.makeText(getActivity().getApplication(), "동네 설정이 완료 되었습니다.", Toast.LENGTH_SHORT).show();
+                } else if(response.code() == 400){
+                    Toast.makeText(getActivity().getApplication(), "지원하는 동네가 아닙니다.", Toast.LENGTH_SHORT).show();
                 }
+
             }
 
             @Override
