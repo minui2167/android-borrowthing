@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -42,7 +43,7 @@ public class BorrowDetailStatusIngActivity extends AppCompatActivity {
     RatingBar ratingBar;
     Button btnCompleted;
     TextView txtDetail;
-    Button btnChat;
+    ImageView btnChat;
     int index = 0;
     boolean isClicked = false;
     com.minui.borrowthing.model.item item;

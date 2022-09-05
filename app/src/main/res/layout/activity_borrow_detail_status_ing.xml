@@ -66,13 +66,15 @@
                 android:text="TextView"
                 android:textStyle="bold" />
 
-            <Button
+            <ImageView
                 android:id="@+id/btnChat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
+                android:layout_marginRight="25dp"
                 android:layout_weight="1"
-                android:text="채팅" />
+                android:background="@drawable/round"
+                android:padding="3dp"
+                app:srcCompat="@drawable/chat_white1" />
 
         </LinearLayout>
 
@@ -83,7 +85,8 @@
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:layout_weight="1"
-            android:text="거래 완료 하기" />
+            android:text="거래 완료"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
