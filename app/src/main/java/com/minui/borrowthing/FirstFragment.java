@@ -12,6 +12,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -136,6 +137,8 @@ public class FirstFragment extends Fragment {
         // Inflate the layout for this fragment
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_first, container, false);
 
+        ac = ((AppCompatActivity)getActivity()).getSupportActionBar();
+
         fab = rootView.findViewById(R.id.fab);
         txtNickname = rootView.findViewById(R.id.txtNickname);
         recyclerView = rootView.findViewById(R.id.recyclerView);
@@ -174,15 +177,10 @@ public class FirstFragment extends Fragment {
 
                 // 우리동네 불러오기 API 결과의 items 가 null 이면 활동범위를 설정하라는 토스트 메시지 출력
                 contextStatus = 1;
-//                getMyLocation();
                 if(!getMyLocation()){
-
-//                    Toast.makeText(getActivity(), "동네 인증 후 게시글 등록 가능합니다.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-//                Intent intent = new Intent(getContext(), BorrowWriteActivity.class);
-//                startActivity(intent);
             }
         });
         return rootView;
@@ -219,7 +217,7 @@ public class FirstFragment extends Fragment {
                         if(contextStatus == 1){
                             Toast.makeText(getActivity(), "동네 인증 후 게시글 등록 가능합니다.", Toast.LENGTH_SHORT).show();
                         }
-//                        ac.setTitle("");
+                        ac.setTitle("");
                     } else{
                         isMyArea = true;
                         Log.i("teste", areaList.get(0).getEmd());
@@ -227,6 +225,7 @@ public class FirstFragment extends Fragment {
                             Intent intent = new Intent(getContext(), BorrowWriteActivity.class);
                             startActivity(intent);
                         }
+                        ac.setTitle(areaList.get(0).getEmd());
 
                     }
 
