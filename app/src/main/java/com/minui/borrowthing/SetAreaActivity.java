@@ -2,11 +2,13 @@ package com.minui.borrowthing;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -23,6 +25,8 @@ import com.minui.borrowthing.api.UserApi;
 import com.minui.borrowthing.config.Config;
 import com.minui.borrowthing.config.LocationApi;
 import com.minui.borrowthing.config.NetworkClient;
+import com.minui.borrowthing.model.AreaInfo;
+import com.minui.borrowthing.model.AreaRes;
 import com.minui.borrowthing.model.MyLocation;
 import com.minui.borrowthing.model.Result;
 import com.minui.borrowthing.model.UserRes;
@@ -48,6 +52,9 @@ public class SetAreaActivity extends AppCompatActivity {
     String region; // 지역명
 
     MyLocation myLocation;
+
+    AreaInfo areaInfo;
+    int activityMeters = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,8 +85,10 @@ public class SetAreaActivity extends AppCompatActivity {
         if(lastKnowLocation != null){
             latitude = lastKnowLocation.getLatitude();
             longitude = lastKnowLocation.getLongitude();
-            Log.i("testtt" , "latitude : " + latitude + " logitude : " + longitude );
+//            Log.i("testtt" , "latitude : " + latitude + " logitude : " + longitude );
         }
+
+        // 동네 인증 버튼 클릭
         btnCertification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -110,6 +119,75 @@ public class SetAreaActivity extends AppCompatActivity {
 
                     }
                 });
+            }
+        });
+
+        // 활동 범위 설정하기
+        btnSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(SetAreaActivity.this);
+                alertDialog.setTitle("AlertDialog");
+                alertDialog.setPositiveButton("선택", new DialogInterface.OnClickListener() {
+                    // 긍정 버튼을 눌렀을 때의 함수
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        showProgress("활동 범위 설정 중 입니다..");
+                        Retrofit retrofit = NetworkClient.getRetrofitClient(Config.BASE_URL);
+                        UserApi userApi = retrofit.create(UserApi.class);
+                        SharedPreferences sp = getApplication().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+                        String accessToken = sp.getString("accessToken", "");
+                        Call<AreaRes> call = userApi.setActivityMeters("Bearer " + accessToken, new AreaInfo(activityMeters));
+                        call.enqueue(new Callback<AreaRes>() {
+                            @Override
+                            public void onResponse(Call<AreaRes> call, Response<AreaRes> response) {
+                                dismissProgress();
+                                Log.i("test", response.code()+"");
+                                if(response.isSuccessful()) {
+                                    Toast.makeText(getApplication(), "활동 범위가 " + activityMeters/1000 + "KM로 설정되었습니다.", Toast.LENGTH_SHORT).show();
+                                } else if(response.code() == 400){
+                                    Toast.makeText(getApplication(), "동네 설정을 먼저 해주세요.", Toast.LENGTH_SHORT).show();
+                                }
+
+                            }
+
+                            @Override
+                            public void onFailure(Call<AreaRes> call, Throwable t) {
+                                dismissProgress();
+                            }
+                        });
+
+                    }
+                });
+                // 부정버튼을 눌렀을때
+                // 리스너 메소드는 필요 없으니 null로 설정
+                alertDialog.setNegativeButton("취소", null);
+                String[] items = {"5 KM","10 KM","15 KM"};
+                int checkedItem = 1;
+
+                alertDialog.setSingleChoiceItems(items, checkedItem, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0:
+                                activityMeters = 5000;
+                                break;
+                            case 1:
+                                activityMeters = 10000;
+                                break;
+                            case 2:
+                                activityMeters = 15000;
+                                break;
+
+                        }
+                    }
+                });
+                AlertDialog alert = alertDialog.create();
+                alert.setCanceledOnTouchOutside(false);
+
+                alert.show();
+
             }
         });
     }
@@ -146,9 +224,13 @@ public class SetAreaActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<UserRes> call, Response<UserRes> response) {
                 dismissProgress();
+                Log.i("test", response.code()+"");
                 if(response.isSuccessful()) {
                     Toast.makeText(getApplication(), "동네 설정이 완료 되었습니다.", Toast.LENGTH_SHORT).show();
+                } else if(response.code() == 400){
+                    Toast.makeText(getApplication(), "지원하는 동네가 아닙니다.", Toast.LENGTH_SHORT).show();
                 }
+
             }
 
             @Override

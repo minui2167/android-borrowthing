@@ -26,6 +26,10 @@ public class AreaInfo {
     private String sigg;
     private String emd;
 
+    public AreaInfo(int activityMeters) {
+        this.activityMeters = activityMeters;
+    }
+
     public int getId() {
         return id;
     }

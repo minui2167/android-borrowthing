@@ -170,54 +170,10 @@ public class ForthFragment extends Fragment {
         btnMyLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // todo 내 현재 위치 설정
-//                Intent intent = new Intent(getActivity(), SetAreaActivity.class);
-//                startActivity(intent);
-                locationManager = (LocationManager) getActivity().getSystemService(LOCATION_SERVICE);
+                // 내 현재 위치 설정
+                Intent intent = new Intent(getActivity(), SetAreaActivity.class);
+                startActivity(intent);
 
-                if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    // TODO: Consider calling
-                    //    ActivityCompat#requestPermissions
-                    // here to request the missing permissions, and then overriding
-                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                    //                                          int[] grantResults)
-                    // to handle the case where the user grants the permission. See the documentation
-                    // for ActivityCompat#requestPermissions for more details.
-                    return;
-                }
-                Location lastKnowLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                if(lastKnowLocation != null){
-                    latitude = lastKnowLocation.getLatitude();
-                    longitude = lastKnowLocation.getLongitude();
-                    Log.i("testtt" , "latitude : " + latitude + " logitude : " + longitude );
-                }
-
-                Retrofit retrofit = NetworkClient.getRetrofitClient(Config.NAVER_URL);
-                LocationApi api = retrofit.create(LocationApi.class);
-
-                Call<Result> call = api.getLocation(longitude + "," + latitude, "admcode", "json", BuildConfig.NAVER_ID, BuildConfig.NAVER_PASSWORD);
-                call.enqueue(new Callback<Result>() {
-                    @Override
-                    public void onResponse(Call<Result> call, Response<Result> response) {
-                        if (response.isSuccessful()) {
-                            try {
-                                dismissProgress();
-                            } catch (Exception e) {
-
-                            }
-                            Result result = response.body();
-                            myLocation = new MyLocation(result.getResults()[0].getRegion().getArea1().getName(), result.getResults()[0].getRegion().getArea2().getName(),result.getResults()[0].getRegion().getArea3().getName());
-                            Log.i("testtt", myLocation.getSidoName()+","+myLocation.getSiggName() + ", " +myLocation.getEmdName());
-                            setMyLocation();
-
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<Result> call, Throwable t) {
-
-                    }
-                });
             }
         });
 

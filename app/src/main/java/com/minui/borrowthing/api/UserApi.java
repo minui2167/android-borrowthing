@@ -1,6 +1,7 @@
 package com.minui.borrowthing.api;
 
 import com.minui.borrowthing.model.Area;
+import com.minui.borrowthing.model.AreaInfo;
 import com.minui.borrowthing.model.AreaRes;
 import com.minui.borrowthing.model.MyLocation;
 import com.minui.borrowthing.model.User2;
@@ -38,6 +39,8 @@ public interface UserApi {
     Call<AreaRes> getActivityAreaList(@Header("Authorization") String accessToken);
 
     @PUT("/users/location/distance")
-    Call<AreaRes> setActivityMeters(@Header("Authorization") String accessToken);
+    Call<AreaRes> setActivityMeters(@Header("Authorization") String accessToken, @Body AreaInfo areaInfo);
+
+
 
 }
