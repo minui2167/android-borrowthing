@@ -40,6 +40,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
             android:orientation="vertical">
 
             <Button
@@ -49,11 +50,12 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="20dp"
-                android:backgroundTint="#FFFFFF"
+                android:backgroundTint="#FAF7F7"
                 android:drawableLeft="@drawable/heart"
                 android:text="관심 목록"
-                android:textColor="#000000"
-                android:textSize="24sp" />
+                android:textColor="#FFC107"
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/btnTransaction"
@@ -62,11 +64,10 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
-                android:backgroundTint="#FFFFFF"
                 android:drawableLeft="@drawable/list"
                 android:text="거래 내역"
-                android:textColor="#000000"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/btnMyWrote"
@@ -76,11 +77,12 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
-                android:backgroundTint="#FFFFFF"
+                android:backgroundTint="#FAF7F7"
                 android:drawableLeft="@drawable/edit_list"
                 android:text="나의 커뮤니티"
-                android:textColor="#000000"
-                android:textSize="24sp" />
+                android:textColor="#FFC107"
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/btnMyLocation"
@@ -90,11 +92,10 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
-                android:backgroundTint="#FFFFFF"
                 android:drawableLeft="@drawable/gps"
                 android:text="내 위치 설정"
-                android:textColor="#000000"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/btnInformation"
@@ -104,11 +105,12 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
-                android:backgroundTint="#FFFFFF"
+                android:backgroundTint="#FAF7F7"
                 android:drawableLeft="@drawable/user"
                 android:text="내 정보 수정"
-                android:textColor="#000000"
-                android:textSize="24sp" />
+                android:textColor="#FFC107"
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -123,12 +125,13 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="10dp"
-                android:backgroundTint="#FFFFFF"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
                 android:text="로그아웃"
-                android:textColor="#000000"
+                android:textStyle="bold"
                 android:textSize="24sp" />
 
         </LinearLayout>
