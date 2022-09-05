@@ -58,6 +58,8 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="50dp"
             android:layout_marginRight="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             android:text="수정하기" />
 
     </LinearLayout>
