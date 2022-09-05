@@ -97,6 +97,7 @@ public class FirstFragment extends Fragment {
     TextView txtNickname;
 
     boolean isMyArea = false;
+    int contextStatus = 0;
 
     public FirstFragment() {
         // Required empty public constructor
@@ -170,14 +171,18 @@ public class FirstFragment extends Fragment {
                     ((MainActivity) context).login();
                     return;
                 }
+
                 // 우리동네 불러오기 API 결과의 items 가 null 이면 활동범위를 설정하라는 토스트 메시지 출력
+                contextStatus = 1;
+//                getMyLocation();
                 if(!getMyLocation()){
-                    Toast.makeText(getActivity(), "동네 인증 후 게시글 등록 가능합니다.", Toast.LENGTH_SHORT).show();
+
+//                    Toast.makeText(getActivity(), "동네 인증 후 게시글 등록 가능합니다.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                Intent intent = new Intent(getContext(), BorrowWriteActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(getContext(), BorrowWriteActivity.class);
+//                startActivity(intent);
             }
         });
         return rootView;
@@ -208,12 +213,21 @@ public class FirstFragment extends Fragment {
                 if(response.isSuccessful()) {
                     AreaRes areaRes = response.body();
                     areaList.addAll(areaRes.getItems());
+//                    Log.i("test", areaList.get(0).getEmd());
                     if(areaList.isEmpty()){
                         isMyArea = false;
-                        ac.setTitle("");
+                        if(contextStatus == 1){
+                            Toast.makeText(getActivity(), "동네 인증 후 게시글 등록 가능합니다.", Toast.LENGTH_SHORT).show();
+                        }
+//                        ac.setTitle("");
                     } else{
                         isMyArea = true;
-                        ac.setTitle(areaList.get(0).getEmd());
+                        Log.i("teste", areaList.get(0).getEmd());
+                        if (contextStatus == 1){
+                            Intent intent = new Intent(getContext(), BorrowWriteActivity.class);
+                            startActivity(intent);
+                        }
+
                     }
 
                 }
