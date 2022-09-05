@@ -247,8 +247,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         Log.i("onResume", "Done");
-        ac.setTitle("");
-        getMyLocation();
+//        ac.setTitle("");
+//        getMyLocation();
     }
 
     public void setMyLocation() {
