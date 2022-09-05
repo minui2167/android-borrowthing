@@ -23,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.minui.borrowthing.adapter.ChatAdapter;
 import com.minui.borrowthing.model.ChatData;
 import com.minui.borrowthing.model.ChatRoom;
+import com.minui.borrowthing.model.item;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -41,6 +42,8 @@ public class ChatActivity extends AppCompatActivity {
     private ImageView Button_send;
     private DatabaseReference myRef;
 
+    item item;
+
     ChatRoom chatRoom;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,12 +55,23 @@ public class ChatActivity extends AppCompatActivity {
         Button_send = findViewById(R.id.Button_send);
         EditText_chat = findViewById(R.id.EditText_chat);
 
+        String type = "";
+        item = (item) getIntent().getSerializableExtra("item");
         chatRoom = (ChatRoom) getIntent().getSerializableExtra("chatRoom");
+        type = getIntent().getStringExtra("type");
         String opponentNickname = getIntent().getStringExtra("opponentNickname");
 
         // 액션바 제목 백버튼 설정
         ActionBar ac = getSupportActionBar();
-        ac.setTitle(opponentNickname);
+        if(type.equals("seller")){
+            // 내가 판매자 일 때
+            ac.setTitle(chatRoom.getBuyerNickname());
+        } else if(type.equals("buyer")){
+            // 내가 구매자 일 때
+            ac.setTitle(item.getNickname());
+        } else {
+            ac.setTitle(opponentNickname);
+        }
         ac.setDisplayHomeAsUpEnabled(true);
 
         Button_send.setOnClickListener(new View.OnClickListener() {

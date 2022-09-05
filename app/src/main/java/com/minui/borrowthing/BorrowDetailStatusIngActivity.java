@@ -178,7 +178,8 @@ public class BorrowDetailStatusIngActivity extends AppCompatActivity {
                             Log.i("test", chatRoomRes.getResult()+"");
                             ChatRoom chatRoom = chatRoomRes.getItems().get(0);
                             Intent intent = new Intent(BorrowDetailStatusIngActivity.this, ChatActivity.class);
-
+                            intent.putExtra("type", type);
+                            intent.putExtra("item", item);
                             intent.putExtra("chatRoom", chatRoom);
 
                             startActivity(intent);

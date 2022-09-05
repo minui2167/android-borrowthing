@@ -78,6 +78,7 @@ public class ChatRoomAdapter extends RecyclerView.Adapter<ChatRoomAdapter.ViewHo
                     ChatRoom chatRoom = chatRoomList.get(getAdapterPosition());
 
                     Intent intent = new Intent(context, ChatActivity.class);
+                    intent.putExtra("type", "");
                     intent.putExtra("chatRoom", chatRoom);
                     intent.putExtra("opponentNickname", txtNick.getText());
 
