@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -38,8 +37,8 @@ public class ChatActivity extends AppCompatActivity {
     private List<ChatData> chatList;
     //    private String nick = "nick1";
 //    private String chatRoom = "chatRoom2";
-    private EditText EditText_chat;
-    private ImageView Button_send;
+    private EditText editChat;
+    private ImageView btnSend;
     private DatabaseReference myRef;
 
     item item;
@@ -52,8 +51,8 @@ public class ChatActivity extends AppCompatActivity {
 
 
 
-        Button_send = findViewById(R.id.Button_send);
-        EditText_chat = findViewById(R.id.EditText_chat);
+        btnSend = findViewById(R.id.btnSend);
+        editChat = findViewById(R.id.editChat);
 
         String type = "";
         item = (item) getIntent().getSerializableExtra("item");
@@ -74,10 +73,10 @@ public class ChatActivity extends AppCompatActivity {
         }
         ac.setDisplayHomeAsUpEnabled(true);
 
-        Button_send.setOnClickListener(new View.OnClickListener() {
+        btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String msg = EditText_chat.getText().toString().trim(); //msg
+                String msg = editChat.getText().toString().trim(); //msg
 
                 Calendar calendar = Calendar.getInstance();
                 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -97,7 +96,7 @@ public class ChatActivity extends AppCompatActivity {
                     chat.setUpdatedAt(updatedAt);
                     myRef.push().setValue(chat);
 
-                    EditText_chat.setText("");
+                    editChat.setText("");
                 }
 
 
@@ -106,7 +105,7 @@ public class ChatActivity extends AppCompatActivity {
 
 
 
-        mRecyclerView = findViewById(R.id.my_recycler_view);
+        mRecyclerView = findViewById(R.id.recyclerView);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
