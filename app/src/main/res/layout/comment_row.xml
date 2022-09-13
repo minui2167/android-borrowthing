@@ -14,9 +14,10 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="24dp"
+            android:layout_width="0dp"
             android:layout_height="24dp"
             android:layout_marginRight="5dp"
+            android:layout_weight="0.5"
             app:srcCompat="@drawable/user_main" />
 
         <TextView
@@ -24,10 +25,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="1"
+            android:layout_weight="1.2"
             android:ellipsize="end"
             android:maxLines="2"
-            android:singleLine="true"
+            android:singleLine="false"
             android:text="TextView" />
 
         <TextView
@@ -36,25 +37,25 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
-            android:layout_weight="5"
+            android:layout_weight="3"
             android:ellipsize="end"
             android:maxLines="2"
-            android:singleLine="true"
+            android:singleLine="false"
             android:text="TextViewttttt" />
 
         <ImageView
             android:id="@+id/btnRevise"
-            android:layout_width="24dp"
+            android:layout_width="0dp"
             android:layout_height="24dp"
             android:layout_marginRight="5dp"
-            android:layout_weight="1"
+            android:layout_weight="0.5"
             app:srcCompat="@drawable/ic_write" />
 
         <ImageView
             android:id="@+id/btnTrash"
-            android:layout_width="24dp"
+            android:layout_width="0dp"
             android:layout_height="24dp"
-            android:layout_weight="1"
+            android:layout_weight="0.5"
             app:srcCompat="@drawable/ic_trash" />
     </LinearLayout>
 </LinearLayout>
