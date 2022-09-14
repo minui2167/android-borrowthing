@@ -54,7 +54,7 @@ public class SetAreaActivity extends AppCompatActivity {
     MyLocation myLocation;
 
     AreaInfo areaInfo;
-    int activityMeters = 0;
+    int activityMeters = 10000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,7 +128,7 @@ public class SetAreaActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(SetAreaActivity.this);
-                alertDialog.setTitle("AlertDialog");
+                alertDialog.setTitle("활동 범위 설정하기");
                 alertDialog.setPositiveButton("선택", new DialogInterface.OnClickListener() {
                     // 긍정 버튼을 눌렀을 때의 함수
                     @Override
