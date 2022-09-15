@@ -2,6 +2,6 @@
 
 주민간 물건을 빌려주고 받을 수 있는 앱
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/jooyUa64oLA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+![ezgif com-gif-maker](https://user-images.githubusercontent.com/105832345/190526398-34ba8897-f064-43e2-b61f-a6b95ec5a43b.gif)
 
 # stack
