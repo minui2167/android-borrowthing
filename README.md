@@ -16,7 +16,7 @@
 ![firebase](https://img.shields.io/badge/firebase-FFCA28.svg?style=for-the-badge&logo=firebase&logoColor=white)
 
 # 링크
-화면 계획서 https://ovenapp.io/view/u1ZkZfTq7v0azjJtlz4rzd1S4PFJ5naq/
+화면 기획서 https://ovenapp.io/view/u1ZkZfTq7v0azjJtlz4rzd1S4PFJ5naq/
 
 백엔드 https://github.com/minui2167/borrowthing-api
 
