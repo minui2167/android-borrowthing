@@ -25,5 +25,5 @@
 * RecyclerView로 동적목록 만들기
 * retrofit으로 restful api 호출
 * firebase로 채팅 구현
-
+* postman과 retrofit 각각으로 restful api unit test
 
