@@ -9,15 +9,21 @@
   <img src = "https://user-images.githubusercontent.com/105832345/190528456-96c8c630-8985-460a-b1e7-64269aa18d38.png" width="30%" height="30%"> 
 </div>
 
+# 링크
+화면 기획서 https://ovenapp.io/view/u1ZkZfTq7v0azjJtlz4rzd1S4PFJ5naq/
+
+백엔드 https://github.com/minui2167/borrowthing-api
+
+프로젝트 기술서 https://docs.google.com/presentation/d/15yKXrdb2PNRY0wdAfW44BdoLkQrm7dOV364fXK7g31s/edit#slide=id.g15ad89239a6_0_411
+
 # stack
 ![java](https://img.shields.io/badge/java-3670A0?style=for-the-badge&logo=java&logoColor=ffdd54)
 ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
 ![android](https://img.shields.io/badge/android-3DDC84.svg?style=for-the-badge&logo=android&logoColor=white)
 ![firebase](https://img.shields.io/badge/firebase-FFCA28.svg?style=for-the-badge&logo=firebase&logoColor=white)
 
-# 링크
-화면 기획서 https://ovenapp.io/view/u1ZkZfTq7v0azjJtlz4rzd1S4PFJ5naq/
+* RecyclerView로 동적목록 만들기
+* retrofit으로 restful api 호출
+* firebase로 채팅 구현
 
-백엔드 https://github.com/minui2167/borrowthing-api
 
-프로젝트 기술서
